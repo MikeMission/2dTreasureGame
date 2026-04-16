@@ -1,0 +1,13 @@
+{
+    "java.project.sourcePaths": [
+        "src",
+        "res"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "c:\\Users\\cheez\\OneDrive\\Documents\\JavaProjects\\2dTreasureGameThingYT\\2dTreasureGame\\lib\\junit-platform-console-standalone-1.13.0-M3.jar"
+    ],
+    "java.project.explorer.showNonJavaResources": true,
+    "java.dependency.packagePresentation": "hierarchical",
+    "CodeGPT.apiKey": "Anthropic"
+}
