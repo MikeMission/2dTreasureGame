@@ -166,7 +166,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
 
         // DEBUG
         long drawStart = 0;
-        if (keyH.checkDrawTime == true) {
+        if (keyH.showDebugText == true) {
             drawStart = System.nanoTime();
         }
 
@@ -227,17 +227,25 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         }
 
 
-        // System.out.println("Player worldX: " + player.worldX / tileSize+ ", worldY: " + player.worldY / tileSize);
         // DEBUG
-        if (keyH.checkDrawTime == true) {
+        if (keyH.showDebugText == true) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
-            g2.setColor(Color.WHITE);
-            g2.drawString("Draw Time: " + passed, 10, 400);
-            System.out.println("Draw Time: " + passed);
+            int x = 10;
+            int y = 400;
+            int lineHeight = 20;
 
-            g2.drawString("Invincible: " + player.invincibleCounter, 10, 450);
-            System.out.println("Invincible: " + player.invincibleCounter);
+            g2.setColor(Color.WHITE);
+
+            g2.drawString("WorldX: " + player.worldX, x,y); y += lineHeight;
+            g2.drawString("WorldY: " + player.worldY, x,y); y += lineHeight;
+            g2.drawString("Col: " + player.worldX + player.solidArea.x/tileSize, x,y); y += lineHeight;
+            g2.drawString("Row: " + player.worldY + player.solidArea.y/tileSize, x,y); y += lineHeight;
+            g2.drawString("Draw Time: " + passed, x,y); y += lineHeight;
+            g2.drawString("Invincible: " + player.invincibleCounter, x,y); y += lineHeight;
+
+
+  
         }
 
 

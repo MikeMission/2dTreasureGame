@@ -6,7 +6,7 @@ public class KeyHandler implements KeyListener{
     GamePannel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
     // DEBUG
-    boolean checkDrawTime = false;
+    boolean showDebugText = false;
 
     @Override
     public void keyTyped(java.awt.event.KeyEvent e) {
@@ -133,13 +133,19 @@ public class KeyHandler implements KeyListener{
 
         // DEBUG
         else if (code == java.awt.event.KeyEvent.VK_T) {
-            if (checkDrawTime == false) {
-                checkDrawTime = true;
+            if (showDebugText == false) {
+                showDebugText = true;
             }
-            else if (checkDrawTime == true) {
-                checkDrawTime = false;
+            else if (showDebugText == true) {
+                showDebugText = false;
             }
         }
+
+        else if (code == java.awt.event.KeyEvent.VK_R) {
+            gp.tileM.loadMap("/res/map/map02.txt"); // refresh map
+            System.out.println("map refreshed");
+        }
+        
     }
 
     public void pauseState (int code) {
