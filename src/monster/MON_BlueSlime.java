@@ -16,6 +16,8 @@ public class MON_BlueSlime extends Entity {
         speed = 1;
         maxLife = 20;
         life = maxLife;
+        attack = 5;
+        defense = 0;
  
         solidArea.x = 3;
         solidArea.y = 18;

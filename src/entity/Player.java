@@ -61,7 +61,6 @@ public class Player extends Entity {
         attack = getAttack();
         defense = getDefense();
 
-
     }
 
     public int getAttack() {
@@ -320,7 +319,12 @@ public class Player extends Entity {
             if (gp.monster[index].invincible == false) {
                 
                 gp.playSE(5);
-                gp.monster[index].life -= 1;
+
+                int damage = attack - gp.monster[index].defense;
+                if(damage < 0) {damage = 0;}
+
+
+                gp.monster[index].life -= damage;
                 gp.monster[index].invincible = true;
                 gp.monster[index].damageReaction();
             
@@ -336,9 +340,13 @@ public class Player extends Entity {
             // damage player
             
             if (invincible == false) {
-                life -= 1;
-                invincible = true;
                 gp.playSE(6);
+                
+                int damage = gp.monster[index].attack - defense;
+                if(damage < 0) {damage = 0;}
+
+                life -= damage;
+                invincible = true;
             }
 
         }

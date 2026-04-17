@@ -74,10 +74,15 @@ public class UI {
             drawDialogueScreen();
         }
 
+        // CHARACTER STATE
+        if (gp.gameState == gp.characterState) {
+            drawCharacterScreen();
+        }
+        
+
     }
 
     public void drawPlayerLife() {
-
 
         int x = gp.tileSize / 2;
         int y = gp.tileSize / 2;
@@ -105,7 +110,6 @@ public class UI {
             i++;
         }
     }
-
 
     public void drawTitleScreen() {
 
@@ -264,6 +268,67 @@ public class UI {
         }
     }
 
+    public void drawCharacterScreen() {
+        // CREATE A FRAME 
+        final int frameX = gp.tileSize;
+        final int frameY = gp.tileSize;
+        final int frameWidth = gp.tileSize * 5;
+        final int frameHeight = gp.tileSize * 10;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        // TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+
+        int textX = frameX + 20;
+        int textY = frameY + gp.tileSize;
+        final int lineHeight = 35;
+
+        // NAMES 
+        String[] names = {"Level", "Life", "Strength", "Attack", "Defense","Agility", "EXP", "Next Level","Coin","Weapon", "Shield"};
+
+        for (int i = 0; i < names.length; i++) {
+            if (names[i] == "Weapon") {
+                textY += 15;
+            } else if (names[i] == "Shield") {
+                textY += 20;
+            }
+            g2.drawString(names[i], textX, textY);
+            textY += lineHeight;
+        }
+
+        // VALUES 
+        int tailX = (frameX + frameWidth) - 30;
+        textY = frameY + gp.tileSize;
+        String[] values = {
+            String.valueOf(gp.player.level),
+            String.valueOf(gp.player.life + "/" + gp.player.maxLife),
+            String.valueOf(gp.player.strength),
+            String.valueOf(gp.player.attack),
+            String.valueOf(gp.player.defense),
+            String.valueOf(gp.player.agility),
+            String.valueOf(gp.player.exp),
+            String.valueOf(gp.player.nextLevelExp),
+            String.valueOf(gp.player.coin),
+            gp.player.currentWeapon.name,
+            gp.player.currentShield.name
+        };
+        
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] == String.valueOf(gp.player.coin)) {
+                g2.drawString(values[i], getXforAlignToRightText(values[i], tailX), textY);
+            } else if (values[i] == gp.player.currentWeapon.name) {
+                g2.drawImage(gp.player.currentWeapon.down1, tailX - gp.tileSize, textY - 15, null);
+            } else if (values[i] == gp.player.currentShield.name) {
+                g2.drawImage(gp.player.currentShield.down1, tailX - gp.tileSize, textY, null);
+            } else {
+                g2.drawString(values[i], getXforAlignToRightText(values[i], tailX), textY);
+            }
+            textY += lineHeight;
+        }
+
+    }
+
     public void drawSubWindow(int x, int y, int width, int height) {
         java.awt.Color c = new java.awt.Color(0, 0, 0, 210);
         g2.setColor(c);
@@ -280,8 +345,10 @@ public class UI {
         int x = gp.screenWidth / 2 - length / 2;
         return x;
     }
-  
 
-
-
+    public int getXforAlignToRightText(String text, int tailX) {
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = tailX - length;
+        return x;
+    }
 }

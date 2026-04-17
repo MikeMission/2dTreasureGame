@@ -22,118 +22,140 @@ public class KeyHandler implements KeyListener{
         
         int code = e.getKeyCode();
         // TITLE STATE
-
         if (gp.gameState == gp.tileState) {
-            if (gp.ui.titleScreenState == 0) {
-                if (code == java.awt.event.KeyEvent.VK_W) {
-                    gp.ui.commandNum--;
-                    if (gp.ui.commandNum < 0) {
-                        gp.ui.commandNum = 2;
-                    }
-                }
-                if (code == java.awt.event.KeyEvent.VK_S) {
-                    gp.ui.commandNum++;
-                    if (gp.ui.commandNum > 2) {
-                        gp.ui.commandNum = 0;
-                    }
-                }
-                if (code == java.awt.event.KeyEvent.VK_ENTER) {
-                    if (gp.ui.commandNum == 0) {
-                        gp.ui.titleScreenState = 1;
-                    }
-                    if (gp.ui.commandNum == 1) {
-                        // help
-                    }
-                    if (gp.ui.commandNum == 2) {
-                        System.exit(0);
-                    }
-                }
-            
-            } 
-            else if (gp.ui.titleScreenState == 1) {
-                if (code == java.awt.event.KeyEvent.VK_W) {
-                    gp.ui.commandNum--;
-                    if (gp.ui.commandNum < 0) {
-                        gp.ui.commandNum = 3;
-                    }
-                }
-                if (code == java.awt.event.KeyEvent.VK_S) {
-                    gp.ui.commandNum++;
-                    if (gp.ui.commandNum > 3) {
-                        gp.ui.commandNum = 0;
-                    }
-                }
-                if (code == java.awt.event.KeyEvent.VK_ENTER) {
-                    if (gp.ui.commandNum == 0) {
-                        gp.gameState = gp.playState;
-                        gp.playMusic(0);
-                    }
-                    if (gp.ui.commandNum == 1) {
-                        gp.gameState = gp.playState;
-                        gp.playMusic(0);
-                    }
-                    if (gp.ui.commandNum == 2) {
-                        gp.gameState = gp.playState;
-                        gp.playMusic(0);
-                    }
-                    if (gp.ui.commandNum == 3) {
-                        gp.ui.titleScreenState = 0;
-                    }
-                }
-            
-            }
+            titleState(code);
         }
-
-        // PLAY STATE
+        //PLAY STATE 
         else if (gp.gameState == gp.playState) {
-
-            // PLAYER CONTROLS
-            
-            if (code == java.awt.event.KeyEvent.VK_W) {
-                upPressed = true;
-            }
-            else if (code == java.awt.event.KeyEvent.VK_S) {
-                downPressed = true;
-            }
-            else if (code == java.awt.event.KeyEvent.VK_A) {
-                leftPressed = true;
-            }
-            else if (code == java.awt.event.KeyEvent.VK_D) {
-                rightPressed = true;
-            }
-            // PAUSE
-            if (code == java.awt.event.KeyEvent.VK_ESCAPE) {
-                gp.gameState = gp.pauseState;
-            }
-            if (code == java.awt.event.KeyEvent.VK_ENTER) {
-                enterPressed = true;
-            }
-   
-            // DEBUG
-            else if (code == java.awt.event.KeyEvent.VK_T) {
-                if (checkDrawTime == false) {
-                    checkDrawTime = true;
-                }
-                else if (checkDrawTime == true) {
-                    checkDrawTime = false;
-                }
-            }
+            playState(code);
         }
 
         // PAUSE STATE
         else if (gp.gameState == gp.pauseState) {
-            if (code == java.awt.event.KeyEvent.VK_ESCAPE) {
-                gp.gameState = gp.playState;
-                // add cd to prevent player from moving immediately after unpausing
-                
-            }
+            pauseState(code);
         }
 
         // DIALOGUE STATE
         else if (gp.gameState == gp.dialogueState) {
-            if (code == java.awt.event.KeyEvent.VK_ENTER) {
-                gp.gameState = gp.playState;
+            dialogueState(code);
+        }
+
+        // CHARACTER STATE
+        else if (gp.gameState == gp.characterState) {
+            characterState(code);
+        }
+    }
+    public void titleState (int code) {
+        if (gp.ui.titleScreenState == 0) {
+            if (code == java.awt.event.KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 2;
+                }
             }
+            if (code == java.awt.event.KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 2) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+            if (code == java.awt.event.KeyEvent.VK_ENTER) {
+                if (gp.ui.commandNum == 0) {
+                    gp.ui.titleScreenState = 1;
+                }
+                if (gp.ui.commandNum == 1) {
+                    // help
+                }
+                if (gp.ui.commandNum == 2) {
+                    System.exit(0);
+                }
+            }
+        
+        } 
+        else if (gp.ui.titleScreenState == 1) {
+            if (code == java.awt.event.KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 3;
+                }
+            }
+            if (code == java.awt.event.KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 3) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+            if (code == java.awt.event.KeyEvent.VK_ENTER) {
+                if (gp.ui.commandNum == 0) {
+                    gp.gameState = gp.playState;
+                    gp.playMusic(0);
+                }
+                if (gp.ui.commandNum == 1) {
+                    gp.gameState = gp.playState;
+                    gp.playMusic(0);
+                }
+                if (gp.ui.commandNum == 2) {
+                    gp.gameState = gp.playState;
+                    gp.playMusic(0);
+                }
+                if (gp.ui.commandNum == 3) {
+                    gp.ui.titleScreenState = 0;
+                }
+            }
+        }
+    }
+
+    public void playState (int code) {
+        // PLAYER CONTROLS
+        
+        if (code == java.awt.event.KeyEvent.VK_W) {
+            upPressed = true;
+        }
+        else if (code == java.awt.event.KeyEvent.VK_S) {
+            downPressed = true;
+        }
+        else if (code == java.awt.event.KeyEvent.VK_A) {
+            leftPressed = true;
+        }
+        else if (code == java.awt.event.KeyEvent.VK_D) {
+            rightPressed = true;
+        }
+        // PAUSE
+        if (code == java.awt.event.KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.pauseState;
+        }
+        if (code == java.awt.event.KeyEvent.VK_C) {
+            gp.gameState = gp.characterState;
+        }
+        if (code == java.awt.event.KeyEvent.VK_ENTER) {
+            enterPressed = true;
+        }
+
+        // DEBUG
+        else if (code == java.awt.event.KeyEvent.VK_T) {
+            if (checkDrawTime == false) {
+                checkDrawTime = true;
+            }
+            else if (checkDrawTime == true) {
+                checkDrawTime = false;
+            }
+        }
+    }
+
+    public void pauseState (int code) {
+        if (code == java.awt.event.KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.playState;
+        }
+    }
+    public void dialogueState (int code) {
+        if (code == java.awt.event.KeyEvent.VK_ENTER) {
+            gp.gameState = gp.playState;
+        }
+    }
+
+    public void characterState (int code) {
+        if (code == java.awt.event.KeyEvent.VK_C) {
+                gp.gameState = gp.playState;
         }
     }
 
