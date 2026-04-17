@@ -60,6 +60,7 @@ public class Player extends Entity {
         currentShield = new OBJ_Shield_Wood(gp);
         attack = getAttack();
         defense = getDefense();
+        name = "comp grad"; // prob change this to actual player
 
     }
 
@@ -323,16 +324,39 @@ public class Player extends Entity {
                 int damage = attack - gp.monster[index].defense;
                 if(damage < 0) {damage = 0;}
 
-
                 gp.monster[index].life -= damage;
+                gp.ui.addMessage(damage + " damage");
                 gp.monster[index].invincible = true;
                 gp.monster[index].damageReaction();
             
                 if (gp.monster[index].life <= 0) {
                     gp.monster[index].dying = true;
+                    exp += gp.monster[index].exp;
+                    gp.ui.addMessage(gp.monster[index].name + " was slain by " + name);
+                    gp.ui.addMessage("+" + gp.monster[index].exp + " exp");
+                    checkLevelUp();
+
                 }
             }
         }
+    }
+    public void checkLevelUp(){
+
+        if (exp >= nextLevelExp) {
+            int prevLevel = level;
+            level ++;
+            nextLevelExp = nextLevelExp*3;
+            maxLife += 2;
+            strength ++;
+            agility ++;
+            attack = getAttack();
+            defense = getDefense();
+
+            gp.playSE(4);
+            gp.gameState = gp.dialogueState;
+            gp.ui.currentDialogue = "Leveled up " + prevLevel + " -> " + level;
+        }
+
     }
 
     public void contactMonster(int index) {

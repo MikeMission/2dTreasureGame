@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -20,8 +21,10 @@ public class UI {
     BufferedImage keyImage;
     BufferedImage heart_full, heart_half, heart_empty;
     public boolean messageOn = false;
-    public String message = "";
-    int messageCounter = 0;
+    // public String message = "";
+    // int messageCounter = 0;
+    ArrayList<String> message = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
     public boolean gameFinished = false;
     public String currentDialogue = "";
     public int commandNum = 0;
@@ -43,9 +46,10 @@ public class UI {
 
     }
 
-    public void showMessage(String text) {
-        message = text;
-        messageOn = true;
+    public void addMessage(String text) {
+        message.add(text);
+        messageCounter.add(0);
+
     }
 
     public void draw(java.awt.Graphics2D g2) {
@@ -60,7 +64,8 @@ public class UI {
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             drawPlayerLife();
-            drawPlayScreen();
+            drawMessage();
+            // drawPlayScreen();
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
@@ -109,6 +114,34 @@ public class UI {
             }
             i++;
         }
+    }
+
+    public void drawMessage(){
+        
+        int messageX = gp.tileSize;
+        int messageY = gp.tileSize * 4;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 18F));
+
+        for(int i = 0; i < message.size(); i++) {
+
+            if (message.get(i) != null) {
+                
+                g2.setColor(Color.black);
+                g2.drawString(message.get(i), messageX, messageY+2);
+                g2.setColor(Color.white);
+                g2.drawString(message.get(i), messageX, messageY);
+
+                int counter = messageCounter.get(i) + 1; // messagecounter ++
+                messageCounter.set(i, counter); // set the counter to the arr
+                messageY += 25;
+
+                if (messageCounter.get(i) > 180) {
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
+        }
+
     }
 
     public void drawTitleScreen() {
@@ -227,20 +260,6 @@ public class UI {
         }
     }
 
-    public void drawPlayScreen() {
-
-        // MESSAGE
-        if (messageOn == true) {
-            g2.drawString(message, gp.tileSize/2, gp.tileSize * 5);
-            messageCounter++;
-            if (messageCounter > 120) {
-                messageCounter = 0;
-                messageOn = false;
-            }
-        }
-
-    }
-
     public void drawPauseScreen() {
         g2.setFont(arial_80B);
         String text = "PAUSED";
@@ -272,7 +291,7 @@ public class UI {
         // CREATE A FRAME 
         final int frameX = gp.tileSize;
         final int frameY = gp.tileSize;
-        final int frameWidth = gp.tileSize * 5;
+        final int frameWidth = gp.tileSize * 8;
         final int frameHeight = gp.tileSize * 10;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
@@ -285,7 +304,7 @@ public class UI {
         final int lineHeight = 35;
 
         // NAMES 
-        String[] names = {"Level", "Life", "Strength", "Attack", "Defense","Agility", "EXP", "Next Level","Coin","Weapon", "Shield"};
+        String[] names = {"Level", "Life", "Strength", "Attack", "Defense","Agility", "EXP", "EXP to Next Level","Coin","Weapon", "Shield"};
 
         for (int i = 0; i < names.length; i++) {
             if (names[i] == "Weapon") {
