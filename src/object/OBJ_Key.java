@@ -10,6 +10,7 @@ public class OBJ_Key extends Entity {
 
         name = "Key";
         down1 = setup("/res/objects/key.png", gp.tileSize, gp.tileSize);
+        description = "[" + name + "]\nA key innit brav.";
 
     }
     

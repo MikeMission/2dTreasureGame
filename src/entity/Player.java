@@ -4,7 +4,10 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 import object.OBJ_Sword_Normal;
+import object.OBJ_Key;
 import object.OBJ_Shield_Wood;
 
 import main.GamePannel;
@@ -20,6 +23,8 @@ public class Player extends Entity {
     public final int screenY;
     public boolean attackCanceled = false;
     int standCounter = 0;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
 
     public Player(GamePannel gp, KeyHandler keyH) {
         super(gp);
@@ -39,6 +44,7 @@ public class Player extends Entity {
         setDefualtValues();
         getPlayerImage();
         getPlayerAttackImage();
+        setItems();
     }
 
     public void setDefualtValues() {
@@ -62,6 +68,13 @@ public class Player extends Entity {
         defense = getDefense();
         name = "comp grad"; // prob change this to actual player
 
+    }
+
+    public void setItems() {
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new OBJ_Key(gp));
+        inventory.add(new OBJ_Key(gp));
     }
 
     public int getAttack() {
@@ -98,7 +111,6 @@ public class Player extends Entity {
         attackRight1 = setup("/res/player/plr_attack_right1.png", gp.tileSize*2, gp.tileSize);
         attackRight2 = setup("/res/player/plr_attack_right2.png", gp.tileSize*2, gp.tileSize);
     }
-
 
     public void update() {
         
@@ -340,6 +352,7 @@ public class Player extends Entity {
             }
         }
     }
+
     public void checkLevelUp(){
 
         if (exp >= nextLevelExp) {

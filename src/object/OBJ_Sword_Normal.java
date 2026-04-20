@@ -10,6 +10,6 @@ public class OBJ_Sword_Normal extends Entity{
         name = "Normal Sword";
         down1 = setup("/res/objects/swordNormal.png", gp.tileSize, gp.tileSize);
         attackValue = 1;
-
+        description = "[" + name + "]\nA temp sword.\nAttack +1";
     }
 }

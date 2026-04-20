@@ -29,6 +29,8 @@ public class UI {
     public String currentDialogue = "";
     public int commandNum = 0;
     public int titleScreenState = 0;
+    public int slotCol = 0;
+    public int slotRow = 0;
 
 
 
@@ -82,6 +84,7 @@ public class UI {
         // CHARACTER STATE
         if (gp.gameState == gp.characterState) {
             drawCharacterScreen();
+            drawInventory();
         }
         
 
@@ -291,20 +294,20 @@ public class UI {
         // CREATE A FRAME 
         final int frameX = gp.tileSize;
         final int frameY = gp.tileSize;
-        final int frameWidth = gp.tileSize * 8;
+        final int frameWidth = gp.tileSize * 5;
         final int frameHeight = gp.tileSize * 10;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         // TEXT
         g2.setColor(Color.white);
-        g2.setFont(g2.getFont().deriveFont(32F));
+        g2.setFont(g2.getFont().deriveFont(24F));
 
         int textX = frameX + 20;
         int textY = frameY + gp.tileSize;
         final int lineHeight = 35;
 
         // NAMES 
-        String[] names = {"Level", "Life", "Strength", "Attack", "Defense","Agility", "EXP", "EXP to Next Level","Coin","Weapon", "Shield"};
+        String[] names = {"Level", "Life", "Strength", "Attack", "Defense","Agility", "EXP", "Next Lvl","Coin","Weapon", "Shield"};
 
         for (int i = 0; i < names.length; i++) {
             if (names[i] == "Weapon") {
@@ -327,7 +330,7 @@ public class UI {
             String.valueOf(gp.player.defense),
             String.valueOf(gp.player.agility),
             String.valueOf(gp.player.exp),
-            String.valueOf(gp.player.nextLevelExp),
+            String.valueOf(gp.player.nextLevelExp + "EXP"),
             String.valueOf(gp.player.coin),
             gp.player.currentWeapon.name,
             gp.player.currentShield.name
@@ -348,6 +351,73 @@ public class UI {
 
     }
 
+    public void drawInventory() {
+        // frame
+        int frameX = gp.tileSize * 9;
+        int frameY = gp.tileSize;
+        int frameWidth = gp.tileSize * 6;
+        int frameHeight = gp.tileSize * 5;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        // slot
+        final int  slotXStart = frameX + 20;
+        final int slotYStart = frameY + 20;
+        int slotX = slotXStart;
+        int slotY = slotYStart;
+        int slotSize = gp.tileSize + 3;
+
+        // draw player items
+        for (int i = 0; i < gp.player.inventory.size(); i++) {
+        
+            g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
+            
+            slotX += slotSize;
+
+            if (i == 4 || i == 9 || i == 14) {
+                slotX = slotXStart;
+                slotY += slotSize;
+            }
+        }
+
+        // cursor
+        int cursorX = slotXStart + (slotSize * slotCol);
+        int cursorY = slotYStart + (slotSize * slotRow);
+        int cursorWidth = gp.tileSize;
+        int cursorHeight = gp.tileSize;
+
+        // draw cursor
+        g2.setColor(Color.white);
+        g2.setStroke(new java.awt.BasicStroke(3));
+        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+        // description window
+        int dFrameX = frameX;
+        int dFrameY = frameY + frameHeight;
+        int dFrameWidth = frameWidth;
+        int dFrameHeight = gp.tileSize * 3;
+        drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+
+        // description text
+        g2.setFont(g2.getFont().deriveFont(24F));
+
+        int itemIndex = getItemIndexOnSlot();
+        
+        if (itemIndex < gp.player.inventory.size()) {
+            String description = gp.player.inventory.get(itemIndex).description;
+            int textX = dFrameX + 20;
+            int textY = dFrameY + 40;
+
+            for (String line : description.split("\n")) {
+                g2.drawString(line, textX, textY);
+                textY += 30;
+            }
+        }
+
+    }
+
+    public int getItemIndexOnSlot() {
+        return slotCol + (slotRow * 5);
+    }
     public void drawSubWindow(int x, int y, int width, int height) {
         java.awt.Color c = new java.awt.Color(0, 0, 0, 210);
         g2.setColor(c);
