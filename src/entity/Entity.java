@@ -46,7 +46,6 @@ public class Entity {
 
 
     // attributes
-    public int type; // 0 = player, 1 = npc, 2 = monster
     public String direction = "down";
     public int speed;
     public String name;
@@ -68,6 +67,16 @@ public class Entity {
     public int defenseValue;
     public String description = "";
 
+    // type
+    public int type; // 0 = player, 1 = npc, 2 = monster, 3 = item
+    public final int type_player = 0;
+    public final int type_npc = 1;
+    public final int type_monster = 2;
+    public final int type_sword = 3;
+    public final int type_axe = 4;
+    public final int type_shield = 5;
+    public final int type_consumable = 6;
+    public final int type_gradScroll = 7;
 
     public Entity(GamePannel gp) {
         this.gp = gp;
@@ -103,6 +112,10 @@ public class Entity {
                 direction = "left";
                 break;
         }
+    }
+
+    public void use(Entity entity) {
+        //to be overridden
     }
 
     public void update() {
@@ -162,7 +175,6 @@ public class Entity {
         }
 
     }
-
 
     public void draw (Graphics2D g2) {
         BufferedImage image = null;
@@ -258,7 +270,6 @@ public class Entity {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
 
-    
     public BufferedImage setup(String imagePath, int width, int height) {
         //load a single image
         UtitlityTool uTool = new UtitlityTool();

@@ -8,7 +8,39 @@ public class AssetSetter {
         this.gp = gp;
     }
 
-    public void setObject() {} 
+    public void setObject() {
+        int i = 0;
+        gp.obj[i] = new object.OBJ_Key(gp);
+        gp.obj[i].worldX = gp.tileSize * 27;
+        gp.obj[i].worldY = gp.tileSize * 18;
+        i++;
+        gp.obj[i] = new object.OBJ_Key(gp);
+        gp.obj[i].worldX = gp.tileSize * 27;
+        gp.obj[i].worldY = gp.tileSize * 19;
+        i++;
+        gp.obj[i] = new object.OBJ_Key(gp);
+        gp.obj[i].worldX = gp.tileSize * 27;
+        gp.obj[i].worldY = gp.tileSize * 20;
+        i++;
+        gp.obj[i] = new object.OBJ_Axe(gp);
+        gp.obj[i].worldX = gp.tileSize * 26;
+        gp.obj[i].worldY = gp.tileSize * 19;
+        i++;
+        gp.obj[i] = new object.OBJ_Shield_Wood_Circle(gp);
+        gp.obj[i].worldX = gp.tileSize * 26;
+        gp.obj[i].worldY = gp.tileSize * 20;
+        i++;
+        gp.obj[i] = new object.OBJ_GradScroll(gp);
+        gp.obj[i].worldX = gp.tileSize * 26;
+        gp.obj[i].worldY = gp.tileSize * 18;
+        i++;
+        gp.obj[i] = new object.OBJ_HealthPotion(gp);
+        gp.obj[i].worldX = gp.tileSize * 25;
+        gp.obj[i].worldY = gp.tileSize * 19;
+        
+        
+
+    } 
 
     public void setNPC() {
         gp.npc[0] = new entity.NPC_CapKid(gp);
@@ -32,7 +64,7 @@ public class AssetSetter {
         i++;
         gp.monster[i] = new monster.MON_BlueSlime(gp);
         gp.monster[i].worldX = gp.tileSize * 11;
-        gp.monster[i].worldY = gp.tileSize * 22;
+        gp.monster[i].worldY = gp.tileSize * 23;
         i++;
         gp.monster[i] = new monster.MON_BlueSlime(gp);
         gp.monster[i].worldX = gp.tileSize * 10;

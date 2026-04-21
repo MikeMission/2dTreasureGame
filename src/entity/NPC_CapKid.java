@@ -19,6 +19,7 @@ public class NPC_CapKid extends Entity {
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        type = type_npc;
 
 
         getImage();

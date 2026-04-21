@@ -37,8 +37,8 @@ public class Player extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
-        attackArea.width = 36;
-        attackArea.height = 36;
+        // attackArea.width = 36;
+        // attackArea.height = 36;
 
 
         setDefualtValues();
@@ -78,6 +78,7 @@ public class Player extends Entity {
     }
 
     public int getAttack() {
+        attackArea = currentWeapon.attackArea;
         return strength * currentWeapon.attackValue;
     }
 
@@ -102,14 +103,31 @@ public class Player extends Entity {
     }
 
     public void getPlayerAttackImage() {
+
+        if (currentWeapon.type == type_sword) {
+            attackUp2 = setup("/res/player/plr_sword_up2.png", gp.tileSize, gp.tileSize*2);
+            attackDown2 = setup("/res/player/plr_sword_down2.png", gp.tileSize, gp.tileSize*2);
+            attackLeft2 = setup("/res/player/plr_sword_left2.png", gp.tileSize*2, gp.tileSize);
+            attackRight2 = setup("/res/player/plr_sword_right2.png", gp.tileSize*2, gp.tileSize);
+        }
+        else if (currentWeapon.type == type_axe) {
+            attackUp2 = setup("/res/player/plr_axe_up2.png", gp.tileSize, gp.tileSize*2);
+            attackDown2 = setup("/res/player/plr_axe_down2.png", gp.tileSize, gp.tileSize*2);
+            attackLeft2 = setup("/res/player/plr_axe_left2.png", gp.tileSize*2, gp.tileSize);
+            attackRight2 = setup("/res/player/plr_axe_right2.png", gp.tileSize*2, gp.tileSize);
+        } else if (currentWeapon.type == type_gradScroll) {
+            // default attack image with scroll..
+            attackUp2 = setup("/res/player/plr_attack_up2.png", gp.tileSize, gp.tileSize*2);
+            attackDown2 = setup("/res/player/plr_attack_down2.png", gp.tileSize, gp.tileSize*2);
+            attackLeft2 = setup("/res/player/plr_attack_left2.png", gp.tileSize*2, gp.tileSize);
+            attackRight2 = setup("/res/player/plr_attack_right2.png", gp.tileSize*2, gp.tileSize);
+        }
+
+        // default attack images (unarmed)
         attackUp1 = setup("/res/player/plr_attack_up1.png", gp.tileSize, gp.tileSize*2);
-        attackUp2 = setup("/res/player/plr_attack_up2.png", gp.tileSize, gp.tileSize*2);
         attackDown1 = setup("/res/player/plr_attack_down1.png", gp.tileSize, gp.tileSize*2);
-        attackDown2 = setup("/res/player/plr_attack_down2.png", gp.tileSize, gp.tileSize*2);
         attackLeft1 = setup("/res/player/plr_attack_left1.png", gp.tileSize*2, gp.tileSize);
-        attackLeft2 = setup("/res/player/plr_attack_left2.png", gp.tileSize*2, gp.tileSize);
         attackRight1 = setup("/res/player/plr_attack_right1.png", gp.tileSize*2, gp.tileSize);
-        attackRight2 = setup("/res/player/plr_attack_right2.png", gp.tileSize*2, gp.tileSize);
     }
 
     public void update() {
@@ -310,7 +328,22 @@ public class Player extends Entity {
     }
 
     public void pickUpObject(int index) {
-        if (index != 999) {}
+        if (index != 999) {
+
+            String text;
+
+            if (inventory.size() < maxInventorySize) {
+                inventory.add(gp.obj[index]);
+                gp.playSE(1);
+                text = "You picked up " + inventory.get(inventory.size()-1).name + "!";
+            }
+            else {
+                text = "You cannot carry any more items!";
+            }
+            gp.ui.addMessage(text);
+            gp.obj[index] = null;
+
+        }
     }
 
     public void interactNPC(int index) {
@@ -372,6 +405,35 @@ public class Player extends Entity {
 
     }
 
+    public void selectItem() {
+        int itemIndex = gp.ui.getItemIndexOnSlot();
+
+        if (itemIndex < inventory.size()) {
+
+            Entity selectedItem = inventory.get(itemIndex);
+
+            if (selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_gradScroll) {
+                currentWeapon = selectedItem;
+                attack = getAttack();
+                gp.playSE(9);
+                gp.ui.addMessage("Equipped " + currentWeapon.name);
+                getPlayerAttackImage();
+            }
+            else if (selectedItem.type == type_shield) {
+                currentShield = selectedItem;
+                defense = getDefense();
+                gp.playSE(9);
+                gp.ui.addMessage("Equipped " + currentShield.name);
+                getPlayerAttackImage();
+            }
+            else if (selectedItem.type == type_consumable) {
+                selectedItem.use(this);
+                inventory.remove(itemIndex);
+            }
+        }
+
+    }
+
     public void contactMonster(int index) {
         if (index != 999) {
             // damage player
@@ -388,4 +450,5 @@ public class Player extends Entity {
 
         }
     }
+
 }
