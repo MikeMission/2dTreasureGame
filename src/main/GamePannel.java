@@ -47,7 +47,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public Entity obj[] = new Entity[10];
     public Entity npc[] = new Entity[10];
     public Entity monster [] = new Entity[10];
-
+    public ArrayList<Entity> projectileList = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
 
     // GAME STATE 
@@ -144,10 +144,18 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                 if (monster[i] != null) {
                     if (monster[i].alive == true && monster[i].dying == false) {
                         monster[i].update();
-                    } else if (monster[i].dying == true) {
-                        monster[i].update();
-                    } else {
+                    } else if (monster[i].alive == false) {
                         monster[i] = null;
+                    }
+                }
+            }
+            for (int i = 0; i < projectileList.size(); i++) {
+                if (projectileList.get(i) != null) {
+                    if (projectileList.get(i).alive == true) {
+                        projectileList.get(i).update();
+                    }
+                    else if (projectileList.get(i).alive == false) {
+                        projectileList.remove(i);
                     }
                 }
             }
@@ -201,6 +209,12 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             for (int i = 0; i < monster.length; i++) {
                 if (monster[i] != null) {
                     entityList.add(monster[i]);
+                }
+            }
+
+            for (int i = 0; i < projectileList.size(); i++) {
+                if (projectileList.get(i) != null) {
+                    entityList.add(projectileList.get(i));
                 }
             }
 

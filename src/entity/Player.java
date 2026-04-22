@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import object.OBJ_Sword_Normal;
+import object.OBJ_fireball;
 import object.OBJ_Key;
 import object.OBJ_Shield_Wood;
 
@@ -64,6 +65,7 @@ public class Player extends Entity {
         coin = 0;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
+        projectile = new OBJ_fireball(gp);
         attack = getAttack();
         defense = getDefense();
         name = "comp grad"; // prob change this to actual player
@@ -213,6 +215,13 @@ public class Player extends Entity {
             }
         }
 
+        if (gp.keyH.shotKeyPressed == true && projectile.alive == false && shotAvailableCounter >= 30) {
+            projectile.set(worldX, worldY, direction, true, this);
+            gp.projectileList.add(projectile);
+            gp.playSE(10);
+            shotAvailableCounter = 0;
+        }
+
         // INVINCIBILITY
         if (invincible == true) {
             invincibleCounter++;
@@ -220,6 +229,10 @@ public class Player extends Entity {
                 invincible = false;
                 invincibleCounter = 0;
             }
+        }
+
+        if (shotAvailableCounter < 30) {
+            shotAvailableCounter++;
         }
     }
 
@@ -312,7 +325,7 @@ public class Player extends Entity {
 
             // Check monster collision with the updated solidArea
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex);
+            damageMonster(monsterIndex, attack);
 
             // After checking collision, restore original worldX, worldY, and solidArea
             worldX = currentWorldX;
@@ -360,7 +373,7 @@ public class Player extends Entity {
 
     }
 
-    public void damageMonster(int index) {
+    public void damageMonster(int index, int attack) {
         if (index != 999) {
             if (gp.monster[index].invincible == false) {
                 
@@ -437,10 +450,8 @@ public class Player extends Entity {
     public void contactMonster(int index) {
         if (index != 999) {
             // damage player
-            
-            if (invincible == false) {
+            if (invincible == false && gp.monster[index].dying == false) {
                 gp.playSE(6);
-                
                 int damage = gp.monster[index].attack - defense;
                 if(damage < 0) {damage = 0;}
 
