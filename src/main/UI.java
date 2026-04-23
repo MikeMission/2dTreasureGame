@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import object.OBJ_Heart;
 import object.OBJ_Key;
+import object.OBJ_ManaCrystal;
 import entity.Entity;
 
 public class UI {
@@ -19,7 +20,7 @@ public class UI {
     Font arial_40;
     Font arial_80B = new Font("Arial", Font.BOLD, 80);
     BufferedImage keyImage;
-    BufferedImage heart_full, heart_half, heart_empty;
+    BufferedImage heart_full, heart_half, heart_empty, crystal_full, crystal_empty;
     public boolean messageOn = false;
     // public String message = "";
     // int messageCounter = 0;
@@ -46,6 +47,9 @@ public class UI {
         heart_half = heart.image2;
         heart_empty = heart.image3;
 
+        Entity crystal = new OBJ_ManaCrystal(gp);
+        crystal_full = crystal.image;
+        crystal_empty = crystal.image2;
     }
 
     public void addMessage(String text) {
@@ -116,6 +120,33 @@ public class UI {
                 x += gp.tileSize;
             }
             i++;
+        }
+
+        drawPlayerMana(); // might have to do stuff based on player class here, like only draw mana for mage or something
+    }
+
+    public void drawPlayerMana() {
+
+        int x = gp.tileSize/2;
+        int y = gp.tileSize+gp.tileSize/2;
+        int i = 0;
+        // DRAW MAX MANA
+        while (i < gp.player.maxMana) {
+            g2.drawImage(crystal_empty, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+
+        // RESET
+        x = gp.tileSize / 2;
+        y = gp.tileSize+gp.tileSize/2;
+        i = 0;
+
+        // DRAW CURRENT MANA
+        while (i < gp.player.mana) {
+            g2.drawImage(crystal_full, x, y, null);
+            i++;
+            x += gp.tileSize;
         }
     }
 
@@ -304,16 +335,16 @@ public class UI {
 
         int textX = frameX + 20;
         int textY = frameY + gp.tileSize;
-        final int lineHeight = 35;
+        final int lineHeight = 25;
 
         // NAMES 
-        String[] names = {"Level", "Life", "Strength", "Attack", "Defense","Agility", "EXP", "Next Lvl","Coin","Weapon", "Shield"};
+        String[] names = {"Level", "Life", "Mana", "Strength", "Attack", "Defense","Agility", "EXP", "Next Lvl","Coin","Weapon", "Shield"};
 
         for (int i = 0; i < names.length; i++) {
             if (names[i] == "Weapon") {
                 textY += 15;
             } else if (names[i] == "Shield") {
-                textY += 20;
+                textY += 25;
             }
             g2.drawString(names[i], textX, textY);
             textY += lineHeight;
@@ -325,6 +356,7 @@ public class UI {
         String[] values = {
             String.valueOf(gp.player.level),
             String.valueOf(gp.player.life + "/" + gp.player.maxLife),
+            String.valueOf(gp.player.mana + "/" + gp.player.maxMana),
             String.valueOf(gp.player.strength),
             String.valueOf(gp.player.attack),
             String.valueOf(gp.player.defense),
@@ -342,7 +374,7 @@ public class UI {
             } else if (values[i] == gp.player.currentWeapon.name) {
                 g2.drawImage(gp.player.currentWeapon.down1, tailX - gp.tileSize, textY - 15, null);
             } else if (values[i] == gp.player.currentShield.name) {
-                g2.drawImage(gp.player.currentShield.down1, tailX - gp.tileSize, textY, null);
+                g2.drawImage(gp.player.currentShield.down1, tailX - gp.tileSize, textY + 15, null);
             } else {
                 g2.drawString(values[i], getXforAlignToRightText(values[i], tailX), textY);
             }
@@ -430,6 +462,7 @@ public class UI {
     public int getItemIndexOnSlot() {
         return slotCol + (slotRow * 5);
     }
+
     public void drawSubWindow(int x, int y, int width, int height) {
         java.awt.Color c = new java.awt.Color(0, 0, 0, 210);
         g2.setColor(c);

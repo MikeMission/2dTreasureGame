@@ -100,9 +100,11 @@ public class EventHandler {
     public void healingPool(int gameState) {
         if (gp.keyH.enterPressed == true) { 
             gp.gameState = gameState;
-            gp.ui.currentDialogue = "You drink the water.\nYour life is restored.";
+            gp.ui.currentDialogue = "You rest a while\nYour life and mana have been restored.";
             gp.player.attackCanceled = true;
             gp.player.life = gp.player.maxLife;
+            gp.player.mana = gp.player.maxMana;
+            gp.player.ammo = 10;
             gp.aSetter.setMonster();
         }
     }

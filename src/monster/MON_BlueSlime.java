@@ -1,7 +1,10 @@
 package monster;
 
+import java.util.Random;
+
 import entity.Entity;
 import main.GamePannel;
+import object.OBJ_MudBall;
 
 public class MON_BlueSlime extends Entity {
 
@@ -20,6 +23,7 @@ public class MON_BlueSlime extends Entity {
         attack = 5;
         defense = 0;
         exp = 2;
+        projectile = new OBJ_MudBall(gp);
  
         solidArea.x = 3;
         solidArea.y = 18;
@@ -63,6 +67,14 @@ public class MON_BlueSlime extends Entity {
             }
 
             actionLockCounter = 0;
+
+        }
+        int i = new Random().nextInt(100) + 1;
+        if (i > 99 && projectile.alive == false && shotAvailableCounter >= 30) {
+            projectile.set(worldX, worldY, direction, true, this);
+            gp.projectileList.add(projectile);
+            shotAvailableCounter = 0;
+            
         }
     }
 

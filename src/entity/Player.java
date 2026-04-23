@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import object.OBJ_Sword_Normal;
 import object.OBJ_fireball;
 import object.OBJ_Key;
+import object.OBJ_MudBall;
 import object.OBJ_Shield_Wood;
 
 import main.GamePannel;
@@ -58,6 +59,9 @@ public class Player extends Entity {
         level = 1;
         maxLife = 6;
         life = maxLife;
+        maxMana = 4;
+        mana = maxMana;
+        ammo = 10;
         strength = 1;
         agility = 1;
         exp = 0;
@@ -65,6 +69,7 @@ public class Player extends Entity {
         coin = 0;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
+        // projectile = new OBJ_MudBall(gp);
         projectile = new OBJ_fireball(gp);
         attack = getAttack();
         defense = getDefense();
@@ -215,8 +220,10 @@ public class Player extends Entity {
             }
         }
 
-        if (gp.keyH.shotKeyPressed == true && projectile.alive == false && shotAvailableCounter >= 30) {
+        if (gp.keyH.shotKeyPressed == true && projectile.alive == false
+             && shotAvailableCounter >= 30 && projectile.haveResource(this)) {
             projectile.set(worldX, worldY, direction, true, this);
+            projectile.subtractResource(this);
             gp.projectileList.add(projectile);
             gp.playSE(10);
             shotAvailableCounter = 0;
