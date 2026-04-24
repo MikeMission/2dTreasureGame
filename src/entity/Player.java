@@ -241,6 +241,12 @@ public class Player extends Entity {
         if (shotAvailableCounter < 30) {
             shotAvailableCounter++;
         }
+        if (life > maxLife) {
+            life = maxLife;
+        }
+        if (mana > maxMana) {
+            mana = maxMana;
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -350,19 +356,28 @@ public class Player extends Entity {
     public void pickUpObject(int index) {
         if (index != 999) {
 
-            String text;
+            // PICKUP ONLY ITEMS (like coins)
 
-            if (inventory.size() < maxInventorySize) {
-                inventory.add(gp.obj[index]);
-                gp.playSE(1);
-                text = "You picked up " + inventory.get(inventory.size()-1).name + "!";
+            if (gp.obj[index].type == type_pickupOnly) {
+                gp.obj[index].use(this);
+                gp.obj[index] = null;
+                return;
             }
+
+            // INVENTORY ITEMS
             else {
-                text = "You cannot carry any more items!";
+                String text;
+                if (inventory.size() < maxInventorySize) {
+                    inventory.add(gp.obj[index]);
+                    gp.playSE(1);
+                    text = "You picked up " + inventory.get(inventory.size()-1).name + "!";
+                }
+                else {
+                    text = "You cannot carry any more items!";
+                }
+                gp.ui.addMessage(text);
+                gp.obj[index] = null;
             }
-            gp.ui.addMessage(text);
-            gp.obj[index] = null;
-
         }
     }
 

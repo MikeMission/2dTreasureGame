@@ -4,6 +4,9 @@ import java.util.Random;
 
 import entity.Entity;
 import main.GamePannel;
+import object.OBJ_BronzeCoin;
+import object.OBJ_Heart;
+import object.OBJ_ManaCrystal;
 import object.OBJ_MudBall;
 
 public class MON_BlueSlime extends Entity {
@@ -81,5 +84,20 @@ public class MON_BlueSlime extends Entity {
     public void damageReaction() {
         actionLockCounter = 0;
         direction = gp.player.direction;
+    }
+
+    public void checkDrop() {
+        // roll dice
+        int i = new Random().nextInt(100) + 1;
+
+        // set the monster drop
+        if (i < 50) {
+            dropItem(new OBJ_BronzeCoin(gp));
+        } else if (i >= 50 && i < 75) {
+            dropItem(new OBJ_Heart(gp));
+        } else if (i >= 75 && i < 100) {
+            dropItem(new OBJ_ManaCrystal(gp));
+        }
+        
     }
 }

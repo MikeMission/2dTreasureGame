@@ -44,7 +44,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
 
     // ENTITY AND OBJECT
     public Player player;
-    public Entity obj[] = new Entity[10];
+    public Entity obj[] = new Entity[20];
     public Entity npc[] = new Entity[10];
     public Entity monster [] = new Entity[10];
     public ArrayList<Entity> projectileList = new ArrayList<>();
@@ -145,6 +145,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                     if (monster[i].alive == true && monster[i].dying == false) {
                         monster[i].update();
                     } else if (monster[i].alive == false) {
+                        monster[i].checkDrop();
                         monster[i] = null;
                     }
                 }

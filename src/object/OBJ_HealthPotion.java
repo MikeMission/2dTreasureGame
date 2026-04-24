@@ -23,9 +23,6 @@ public class OBJ_HealthPotion extends Entity {
         gp.gameState = gp.dialogueState;
         gp.ui.currentDialogue = "You used " + name + " -> +" + value + "HP.";
         entity.life += value;
-        if (entity.life > entity.maxLife) {
-            entity.life = entity.maxLife;
-        }
         gp.playSE(2);
     }
 
