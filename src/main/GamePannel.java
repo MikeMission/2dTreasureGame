@@ -9,6 +9,7 @@ import java.util.Comparator;
 
 import entity.Entity;
 import entity.Player;
+import interactive_tiles.InteractiveTile;
 import tile.TileManager;
 
 public class GamePannel extends javax.swing.JPanel implements Runnable {
@@ -47,6 +48,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public Entity obj[] = new Entity[20];
     public Entity npc[] = new Entity[10];
     public Entity monster [] = new Entity[10];
+    public InteractiveTile iTile[] = new InteractiveTile[50];
     public ArrayList<Entity> projectileList = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
 
@@ -77,6 +79,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setMonster();
+        aSetter.setInteractiveTile();
         System.out.println(screenWidth + " " + screenHeight);
         gameState = tileState;
     }
@@ -160,6 +163,11 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                     }
                 }
             }
+            for (int i = 0; i < iTile.length; i++) {
+                if (iTile[i] != null) {
+                    iTile[i].update();
+                }
+            }
         }
         
         if (gameState == pauseState) {
@@ -191,6 +199,13 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         else {
             // TILE
             tileM.draw(g2);
+
+            // INTERACTIVE TILES
+            for (int i = 0; i < iTile.length; i++) {
+                if (iTile[i] != null) {
+                    iTile[i].draw(g2);
+                }
+            }
 
             // ENTITY
             entityList.add(player);

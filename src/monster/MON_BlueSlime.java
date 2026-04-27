@@ -5,9 +5,12 @@ import java.util.Random;
 import entity.Entity;
 import main.GamePannel;
 import object.OBJ_BronzeCoin;
+import object.OBJ_GradScroll;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
 import object.OBJ_MudBall;
+import object.OBJ_Shield_Wood;
+import object.OBJ_Shield_Wood_Circle;
 
 public class MON_BlueSlime extends Entity {
 
@@ -95,8 +98,12 @@ public class MON_BlueSlime extends Entity {
             dropItem(new OBJ_BronzeCoin(gp));
         } else if (i >= 50 && i < 75) {
             dropItem(new OBJ_Heart(gp));
-        } else if (i >= 75 && i < 100) {
+        } else if (i >= 75 && i < 85) {
             dropItem(new OBJ_ManaCrystal(gp));
+        } else if (i >= 85 && i < 95) {
+            dropItem(new OBJ_Shield_Wood_Circle(gp));
+        } else if (i >= 95 && i <= 100) {
+            dropItem(new OBJ_GradScroll(gp));
         }
         
     }
