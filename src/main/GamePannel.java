@@ -66,7 +66,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public GamePannel() {
 
         this.setPreferredSize(new java.awt.Dimension(screenWidth, screenHeight));
-        this.setBackground(java.awt.Color.black);
+        this.setBackground(new java.awt.Color(77, 152, 187));
         this.setDoubleBuffered(true);
 
         this.addKeyListener(keyH);

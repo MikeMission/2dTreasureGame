@@ -78,7 +78,8 @@ public class AssetSetter {
     public void setInteractiveTile() {
         int i = 0;
         gp.iTile[i] = new interactive_tiles.IT_DryTree(gp, 19, 13);i++;
-        gp.iTile[i] = new interactive_tiles.IT_DryTree(gp, 20, 13);
+        gp.iTile[i] = new interactive_tiles.IT_DryTree(gp, 20, 13);i++;
+        gp.iTile[i] = new interactive_tiles.IT_Campfire(gp, 18, 21);i++;
     }
 
 }
