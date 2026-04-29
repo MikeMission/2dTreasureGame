@@ -1,5 +1,7 @@
 package object;
 
+import java.awt.Color;
+
 import entity.Entity;
 import entity.Projectile;
 import main.GamePannel;
@@ -42,5 +44,18 @@ public class OBJ_MudBall extends Projectile {
     }
     public void subtractResource(Entity user) {
         user.ammo -= useCost;
+    }
+
+    public Color getParticleColor() {
+        return new Color(65, 50, 30);
+    }
+    public int getParticleSize() {
+        return 10;
+    }
+    public int getParticleSpeed() {
+        return 1;
+    }
+    public int getParticleMaxLife() {
+        return 20;
     }
 }
