@@ -1,11 +1,18 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import javax.swing.JFrame;
 
 import entity.Entity;
 import entity.Player;
@@ -18,10 +25,16 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     final int originalTileSize = 16; //16x16 tile
     final int scale = 3;
     public final int tileSize = originalTileSize * scale; //48x48 tile
-    public final int maxScreenCol = 16;
+    public final int maxScreenCol = 20;
     public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int screenWidth = tileSize * maxScreenCol; // 960 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+
+    // full screen
+    int screenWidth2 = screenWidth;
+    int screenHeight2 = screenHeight;
+    BufferedImage tempScreen;
+    Graphics2D g2;
 
     // world settings
     public int maxWorldCol; // defualt 50
@@ -83,6 +96,22 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         aSetter.setInteractiveTile();
         System.out.println(screenWidth + " " + screenHeight);
         gameState = tileState;
+
+        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+        g2 = (Graphics2D) tempScreen.getGraphics();
+
+        setFullScreen();
+    }
+
+    public void setFullScreen() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double width = screenSize.getWidth();
+		double height = screenSize.getHeight();
+		Main.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		screenWidth2 = (int) width;
+		screenHeight2 = (int) height;
+        //offset factor to be used by mouse listener or mouse motion listener if you are using cursor in your game. Multiply your e.getX()e.getY() by this.
+		// fullScreenOffsetFactor = (float) screenWidth / (float) screenWidth2;
     }
   
 
@@ -100,7 +129,6 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
-        int drawCount = 0;
 
         while (gameThread != null) {
 
@@ -114,15 +142,15 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                 // update information 
                 update();
                 // draw screen with updated information
-                repaint(); // == paintComponent(Graphics g)
+                drawToScreen();
+                drawToTempScreen();
+
                 delta--;
-                drawCount++;
 
             }
 
             if (timer >= 1000000000) {
                 // System.out.println("FPS: " + drawCount);
-                drawCount = 0;
                 timer = 0;
             }
 
@@ -187,10 +215,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
 
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        Graphics2D g2 = (Graphics2D) g;
+    public void drawToTempScreen() {
 
         // DEBUG
         long drawStart = 0;
@@ -291,13 +316,13 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             g2.drawString("Draw Time: " + passed, x,y); y += lineHeight;
             g2.drawString("Invincible: " + player.invincibleCounter, x,y); y += lineHeight;
 
-
-  
         }
+    }
 
-
-
-        g2.dispose();
+    public void drawToScreen() {
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+        g.dispose();
     }
 
     public void playMusic(int i) {
