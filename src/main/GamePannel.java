@@ -35,6 +35,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     int screenHeight2 = screenHeight;
     BufferedImage tempScreen;
     Graphics2D g2;
+    public boolean fullScreenOn = false;
 
     // world settings
     public int maxWorldCol; // defualt 50
@@ -68,11 +69,12 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
 
     // GAME STATE 
     public int gameState;
-    public final int tileState = 0;
+    public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int characterState = 4;
+    public final int optionsState = 5;
 
 
 
@@ -95,7 +97,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         aSetter.setMonster();
         aSetter.setInteractiveTile();
         System.out.println(screenWidth + " " + screenHeight);
-        gameState = tileState;
+        gameState = titleState;
 
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
@@ -222,9 +224,10 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         if (keyH.showDebugText == true) {
             drawStart = System.nanoTime();
         }
+        
 
         // TITLE SCREEN
-        if (gameState == tileState) {
+        if (gameState == titleState) {
             ui.draw(g2);
         }
 
@@ -329,6 +332,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         music.setFile(i);
         music.play();
         music.loop();
+        
+        // STOP MUSIC
         music.stop();
     }
     public void stopMusic() {

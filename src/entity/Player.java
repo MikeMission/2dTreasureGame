@@ -200,7 +200,6 @@ public class Player extends Entity {
 
             attackCanceled = false;
             gp.keyH.enterPressed = false;
-
             
             if (!attacking) { // prevent overloading the spriteCounter when attacking
                 spriteCounter++;
@@ -395,8 +394,8 @@ public class Player extends Entity {
                 attackCanceled = true;
                 gp.gameState = gp.dialogueState;
                 gp.npc[index].speak();
-                
             }
+
         }
 
     }

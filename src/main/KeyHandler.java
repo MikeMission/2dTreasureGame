@@ -22,7 +22,7 @@ public class KeyHandler implements KeyListener{
         
         int code = e.getKeyCode();
         // TITLE STATE
-        if (gp.gameState == gp.tileState) {
+        if (gp.gameState == gp.titleState) {
             titleState(code);
         }
         //PLAY STATE 
@@ -43,6 +43,11 @@ public class KeyHandler implements KeyListener{
         // CHARACTER STATE
         else if (gp.gameState == gp.characterState) {
             characterState(code);
+        }
+        
+        // OPTIONS STATE
+        else if (gp.gameState == gp.optionsState) {
+            optionsState(code);
         }
     }
 
@@ -122,7 +127,7 @@ public class KeyHandler implements KeyListener{
             rightPressed = true;
         }
         // PAUSE
-        if (code == java.awt.event.KeyEvent.VK_ESCAPE) {
+        if (code == java.awt.event.KeyEvent.VK_P) {
             gp.gameState = gp.pauseState;
         }
         if (code == java.awt.event.KeyEvent.VK_C) {
@@ -133,6 +138,9 @@ public class KeyHandler implements KeyListener{
         }
         if (code == java.awt.event.KeyEvent.VK_F) {
             shotKeyPressed = true;
+        }
+        if (code == java.awt.event.KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.optionsState;
         }
 
         // DEBUG
@@ -152,8 +160,65 @@ public class KeyHandler implements KeyListener{
         
     }
 
-    public void pauseState (int code) {
+    public void optionsState (int code) {
         if (code == java.awt.event.KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.playState;
+        }
+        if (code == java.awt.event.KeyEvent.VK_ENTER) {
+            enterPressed = true;
+        }
+        int maxCommandNum = 0;
+        switch (gp.ui.subState) {
+            case 0: maxCommandNum = 5;break;
+            case 3: maxCommandNum = 1;break;
+
+        }
+        if (code == java.awt.event.KeyEvent.VK_W) {
+            gp.ui.commandNum--;
+            gp.playSE(8);
+            if (gp.ui.commandNum < 0) {
+                gp.ui.commandNum = maxCommandNum;
+            }
+        }
+        if (code == java.awt.event.KeyEvent.VK_S) {
+            gp.ui.commandNum++;
+            gp.playSE(8);
+            if (gp.ui.commandNum > maxCommandNum) {
+                gp.ui.commandNum = 0;
+            }
+        }
+        if (code == java.awt.event.KeyEvent.VK_A) {
+            if (gp.ui.subState == 0) {
+                if (gp.ui.commandNum == 1 && gp.music.volumeScale > 0) {
+                    gp.music.volumeScale--;
+                    gp.music.checkVolume();
+                    gp.playSE(9);
+                }
+                if (gp.ui.commandNum == 2 && gp.se.volumeScale > 0) {
+                    gp.se.volumeScale--;
+                    gp.playSE(9);
+                }
+            }
+        }
+         if (code == java.awt.event.KeyEvent.VK_D) {
+            if (gp.ui.subState == 0) {
+                if (gp.ui.commandNum == 1 && gp.music.volumeScale < 5) {
+                    gp.music.volumeScale++;
+                    gp.music.checkVolume();
+                    gp.playSE(9);
+                }
+                if (gp.ui.commandNum == 2 && gp.se.volumeScale < 5) {
+                    gp.se.volumeScale++;
+                    gp.playSE(9);
+                }
+            }
+
+        }
+
+}
+
+    public void pauseState (int code) {
+        if (code == java.awt.event.KeyEvent.VK_P) {
             gp.gameState = gp.playState;
         }
     }
