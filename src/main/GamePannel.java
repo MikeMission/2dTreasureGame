@@ -54,6 +54,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
+    Config config = new Config(this);
     Thread gameThread;
 
 
@@ -102,7 +103,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
 
-        setFullScreen();
+        if (fullScreenOn) {setFullScreen();}
     }
 
     public void setFullScreen() {
@@ -332,9 +333,6 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         music.setFile(i);
         music.play();
         music.loop();
-        
-        // STOP MUSIC
-        music.stop();
     }
     public void stopMusic() {
         music.stop();
