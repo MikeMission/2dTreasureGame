@@ -9,7 +9,6 @@ import object.OBJ_GradScroll;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
 import object.OBJ_MudBall;
-import object.OBJ_Shield_Wood;
 import object.OBJ_Shield_Wood_Circle;
 
 public class MON_BlueSlime extends Entity {

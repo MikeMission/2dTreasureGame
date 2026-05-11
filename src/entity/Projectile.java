@@ -1,7 +1,5 @@
 package entity;
 
-import java.awt.Point;
-
 import main.GamePannel;
 
 public class Projectile extends Entity {

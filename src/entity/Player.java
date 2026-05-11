@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import object.OBJ_Sword_Normal;
 import object.OBJ_fireball;
 import object.OBJ_Key;
-import object.OBJ_MudBall;
 import object.OBJ_Shield_Wood;
 
 import main.GamePannel;
@@ -77,7 +76,18 @@ public class Player extends Entity {
 
     }
 
+    public void setDefaultPositions() {
+        worldX = gp.tileSize * 20 - (gp.tileSize / 2);
+        worldY = gp.tileSize * 20 - (gp.tileSize / 2);
+        direction = "down";
+    }
+    public void restoreLifeAndMana() {
+        life = maxLife;
+        mana = maxMana;
+        invincible = false;
+    }
     public void setItems() {
+        inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         inventory.add(new OBJ_Key(gp));
@@ -248,6 +258,13 @@ public class Player extends Entity {
         }
         if (mana > maxMana) {
             mana = maxMana;
+        }
+        if (life <= 0) {
+            gp.stopMusic();
+            gp.gameState = gp.gameOverState;
+            gp.playSE(13);
+            gp.ui.commandNum = -1; // reset commandNum so ENTER DOESN'T Click again..
+
         }
     }
 
@@ -443,7 +460,6 @@ public class Player extends Entity {
             }
         }
     }
-
 
     public void checkLevelUp(){
 
