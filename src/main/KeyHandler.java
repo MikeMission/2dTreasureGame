@@ -159,7 +159,11 @@ public class KeyHandler implements KeyListener{
         }
 
         else if (code == KeyEvent.VK_R) {
-            gp.tileM.loadMap("/res/map/map02.txt"); // refresh map
+            switch (gp.currentMap) {
+                case 0:gp.tileM.loadMap("/res/map/map02.txt", 0);break; // refresh map
+                case 1:gp.tileM.loadMap("/res/map/interior0.txt", 1); 
+
+            }
             System.out.println("map refreshed");
         }
         

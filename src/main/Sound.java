@@ -4,6 +4,10 @@ import java.net.URL;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+
+// found bug: java.lang.IllegalArgumentException: Unsupported control type: Master Gain
 
 public class Sound {
 
@@ -34,8 +38,8 @@ public class Sound {
 
     public void setFile(int i) {
         try {
-            javax.sound.sampled.AudioInputStream ais = javax.sound.sampled.AudioSystem.getAudioInputStream(soundURL[i]);
-            clip = javax.sound.sampled.AudioSystem.getClip();
+            AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
+            clip = AudioSystem.getClip();
             clip.open(ais);
             fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             checkVolume();
