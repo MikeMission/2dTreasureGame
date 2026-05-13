@@ -22,6 +22,10 @@ public class TileManager {
     public TileManager(GamePannel gp) {
         this.gp = gp;
 
+        System.out.println("Looking for: /res/map/map02TileData.txt");
+        System.out.println("Actual URL: " + getClass().getResource("/res/map/map02TileData.txt"));
+        System.out.println("Classpath: " + System.getProperty("java.class.path"));
+
         InputStream is = getClass().getResourceAsStream("/res/map/map02TileData.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
@@ -41,7 +45,10 @@ public class TileManager {
 
         // Initialize tile array based on fileNames size
         tile = new Tile[fileNames.size()];
+        System.out.println(fileNames.size());
         getTileImage();
+
+        
 
         // get the maxWorldCol and maxWorldRow from map text file
         is = getClass().getResourceAsStream("/res/map/map02.txt");
@@ -66,7 +73,7 @@ public class TileManager {
     public void getTileImage() {
         for (int i = 0; i < fileNames.size(); i++) {
 
-            String imagePath = "/res/tile/" + fileNames.get(i);
+            String imagePath = String.format("/res/tile/%03d.png", i); // INSTEAD OF READING FILE NAMES I JUST READ FROM INDEX AND PADDED 0s!!!!!!!!!!
             boolean collision; 
 
             if (collisionStatus.get(i).equals("true")) {
@@ -90,7 +97,7 @@ public class TileManager {
 
         try {
             tile[index] = new Tile();
-            System.out.print(imagePath);
+            // System.out.print(imagePath);
             tile[index].image = javax.imageio.ImageIO.read(getClass().getResourceAsStream(imagePath));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
