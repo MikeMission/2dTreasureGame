@@ -15,7 +15,7 @@ public class TileManager {
     
     GamePannel gp;
     public Tile[] tile;
-    public int mapTileNum[][];
+    public int mapTileNum[][][];
     ArrayList<String> fileNames = new ArrayList<>();
     ArrayList<String> collisionStatus = new ArrayList<>();
 
@@ -52,14 +52,15 @@ public class TileManager {
 
             gp.maxWorldRow = maxTile.length;
             gp.maxWorldCol = maxTile.length;
-            mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+            mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        loadMap("/res/map/map02.txt");
+        loadMap("/res/map/map02.txt", 0);
+        loadMap("/res/map/interior0.txt",1);
     }
 
     public void getTileImage() {
@@ -89,6 +90,7 @@ public class TileManager {
 
         try {
             tile[index] = new Tile();
+            System.out.print(imagePath);
             tile[index].image = javax.imageio.ImageIO.read(getClass().getResourceAsStream(imagePath));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
@@ -100,7 +102,7 @@ public class TileManager {
 
     }
 
-    public void loadMap(String filePath) {
+    public void loadMap(String filePath, int map) {
         //load map from text file
 
         try {
@@ -120,7 +122,7 @@ public class TileManager {
 
                     int num = Integer.parseInt(numbers[col]);
 
-                    mapTileNum[col][row] = num;
+                    mapTileNum[map][col][row] = num;
                     col++;
                 }
                 if (col == gp.maxWorldCol) {
@@ -144,7 +146,7 @@ public class TileManager {
 
         while (WorldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
 
-            int tileNum = mapTileNum[WorldCol][worldRow];
+            int tileNum = mapTileNum[gp.currentMap][WorldCol][worldRow];
 
             int worldX = WorldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
