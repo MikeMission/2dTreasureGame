@@ -90,6 +90,7 @@ public class TileManager {
 
         try {
             tile[index] = new Tile();
+            System.out.print(imagePath);
             tile[index].image = javax.imageio.ImageIO.read(getClass().getResourceAsStream(imagePath));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
