@@ -65,7 +65,7 @@ public class TileManager {
     public void getTileImage() {
         for (int i = 0; i < fileNames.size(); i++) {
 
-            String imagePath = String.format("/res/tile/%03d.png", i);
+            String imagePath = "/res/tile/" + fileNames.get(i);
             boolean collision; 
 
             if (collisionStatus.get(i).equals("true")) {
