@@ -17,6 +17,7 @@ public class OBJ_HealthPotion extends Entity {
         name = "Health Potion";
         down1 = setup("/res/objects/healthPotion.png", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nRestores " + value + " HP.";
+        price = 200;
     }
 
     public void use(Entity entity) {

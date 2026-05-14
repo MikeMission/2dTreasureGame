@@ -45,10 +45,18 @@ public class AssetSetter {
 
     public void setNPC() {
         int mapNum = 0;
+        int i = 0;
 
-        gp.npc[mapNum][0] = new entity.NPC_CapKid(gp);
-        gp.npc[mapNum][0].worldX = gp.tileSize * 24;
-        gp.npc[mapNum][0].worldY = gp.tileSize * 19;
+        gp.npc[mapNum][i] = new entity.NPC_CapKid(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize * 24;
+        gp.npc[mapNum][i].worldY = gp.tileSize * 19;
+
+        i++;
+        mapNum = 1;
+        gp.npc[mapNum][i] = new entity.NPC_GreenGuy(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize * 33;
+        gp.npc[mapNum][i].worldY = gp.tileSize * 20;
+
     }
 
     public void setMonster() {

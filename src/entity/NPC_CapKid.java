@@ -29,20 +29,20 @@ public class NPC_CapKid extends Entity {
 
      public void getImage() {
 
-        up1 = setup("/res/NPC/CapKidUp1.png", gp.tileSize, gp.tileSize);
-        up2 = setup("/res/NPC/CapKidUp2.png", gp.tileSize, gp.tileSize);
-        down1 = setup("/res/NPC/CapKidDown1.png", gp.tileSize, gp.tileSize);
-        down2 = setup("/res/NPC/CapKidDown2.png", gp.tileSize, gp.tileSize);
-        left1 = setup("/res/NPC/CapKidLeft1.png", gp.tileSize, gp.tileSize);
-        left2 = setup("/res/NPC/CapKidLeft2.png", gp.tileSize, gp.tileSize);
-        right1 = setup("/res/NPC/CapKidRight1.png", gp.tileSize, gp.tileSize);
-        right2 = setup("/res/NPC/CapKidRight2.png", gp.tileSize, gp.tileSize);
+        up1 = setup("/res/NPC/capKid/CapKidUp1.png", gp.tileSize, gp.tileSize);
+        up2 = setup("/res/NPC/capKid/CapKidUp2.png", gp.tileSize, gp.tileSize);
+        down1 = setup("/res/NPC/capKid/CapKidDown1.png", gp.tileSize, gp.tileSize);
+        down2 = setup("/res/NPC/capKid/CapKidDown2.png", gp.tileSize, gp.tileSize);
+        left1 = setup("/res/NPC/capKid/CapKidLeft1.png", gp.tileSize, gp.tileSize);
+        left2 = setup("/res/NPC/capKid/CapKidLeft2.png", gp.tileSize, gp.tileSize);
+        right1 = setup("/res/NPC/capKid/CapKidRight1.png", gp.tileSize, gp.tileSize);
+        right2 = setup("/res/NPC/capKid/CapKidRight2.png", gp.tileSize, gp.tileSize);
 
     }
     public void setDialogue() {
         dialogues[0] = "So 'ooos' there then?";
-        dialogues[1] = "So you've come to this island to find\n the treasure?";
-        dialogues[2] = "I have been here for a while.\n Be careful of the monsters!";
+        dialogues[1] = "You Wotttt m8\n Sharrarap";
+        dialogues[2] = "Whats tha go'a do wi wo 'am doin 'en?\n ge' ou o' here";
     }
     public void setAction() {
         // NPC action code here

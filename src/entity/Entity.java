@@ -3,6 +3,7 @@ package entity;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -48,6 +49,8 @@ public class Entity {
 
 
     // attributes
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
     public String direction = "down";
     public int speed;
     public String name;
@@ -74,6 +77,7 @@ public class Entity {
     public int defenseValue;
     public String description = "";
     public int useCost;
+    public int price;
 
     // type
     public int type; // 0 = player, 1 = npc, 2 = monster, 3 = item
@@ -100,10 +104,7 @@ public class Entity {
     }
 
     public void speak() {
-        if (dialogues[dialogueIndex] == null) {
-            dialogueIndex = 0;
-            return;
-        }
+       
         gp.ui.currentDialogue = dialogues[dialogueIndex];
         dialogueIndex++;
 
@@ -120,6 +121,11 @@ public class Entity {
             case "right":
                 direction = "left";
                 break;
+        }
+
+        if (dialogues[dialogueIndex] == null) { // check here, since index updates PREVIOUSLY!
+            dialogueIndex = 0;
+            return;
         }
     }
 

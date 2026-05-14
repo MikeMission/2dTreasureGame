@@ -32,6 +32,9 @@ public class Sound {
         soundURL[11] = getClass().getResource("/res/sound/manaRestore.wav");
         soundURL[12] = getClass().getResource("/res/sound/cuttree.wav");
         soundURL[13] = getClass().getResource("/res/sound/youDIED.wav");
+        soundURL[14] = getClass().getResource("/res/sound/buy.wav");
+        soundURL[15] = getClass().getResource("/res/sound/sell.wav");
+
 
     }
 
