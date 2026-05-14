@@ -219,3 +219,5 @@ true
 true
 108.png
 true
+
+also, tilemanager doesn't actually read the directory, but reads map02TileData.txt for ALL file IMAGES and COLIISIONS.
