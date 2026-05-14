@@ -22,11 +22,7 @@ public class TileManager {
     public TileManager(GamePannel gp) {
         this.gp = gp;
 
-        System.out.println("Looking for: /res/map/map02TileData.txt");
-        System.out.println("Actual URL: " + getClass().getResource("/res/map/map02TileData.txt"));
-        System.out.println("Classpath: " + System.getProperty("java.class.path"));
-
-        InputStream is = getClass().getResourceAsStream("/res/map/map02TileData.txt");
+        InputStream is = getClass().getResourceAsStream("/res/map/map02TileData.txt"); // default tile values
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         String line;
@@ -40,15 +36,11 @@ public class TileManager {
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
-
         }
 
         // Initialize tile array based on fileNames size
         tile = new Tile[fileNames.size()];
-        System.out.println(fileNames.size());
         getTileImage();
-
-        
 
         // get the maxWorldCol and maxWorldRow from map text file
         is = getClass().getResourceAsStream("/res/map/map02.txt");
@@ -73,7 +65,7 @@ public class TileManager {
     public void getTileImage() {
         for (int i = 0; i < fileNames.size(); i++) {
 
-            String imagePath = String.format("/res/tile/%03d.png", i); // INSTEAD OF READING FILE NAMES I JUST READ FROM INDEX AND PADDED 0s!!!!!!!!!!
+            String imagePath = String.format("/res/tile/%03d.png", i);
             boolean collision; 
 
             if (collisionStatus.get(i).equals("true")) {
@@ -81,7 +73,6 @@ public class TileManager {
             } else {
                 collision = false;
             }
-
 
             setup(i, imagePath, collision);
         }
