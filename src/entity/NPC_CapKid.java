@@ -1,6 +1,7 @@
 package entity;
 
 
+import java.awt.Rectangle;
 import java.util.Random;
 
 
@@ -13,10 +14,11 @@ public class NPC_CapKid extends Entity {
 
         direction = "down";
         speed = 1;
+        solidArea = new Rectangle();
         solidArea.x = 8;
         solidArea.y = 16;
-        solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea.width = 30;
+        solidArea.height = 30;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         type = type_npc;
@@ -47,31 +49,47 @@ public class NPC_CapKid extends Entity {
     public void setAction() {
         // NPC action code here
 
-        actionLockCounter++;
-        if (actionLockCounter == 120) {
-            
-            Random random = new Random();
-            int i = random.nextInt(100)+1; // pick up a number from
-            if (i <= 25) {
-                direction = "up";
-            }
-            else if (i > 25 && i <= 50) {
-                direction = "down";
-            }
-            else if (i > 50 && i <= 75) {
-                direction = "left";
-            }
-            else if (i > 75 && i <= 100) {
-                direction = "right";
+        if (onPath == true) {
+
+            // int goalCol = 46;
+            // int goalRow = 5;
+
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;
+
+
+            searchPath(goalCol,goalRow);
+
+        } else {
+            actionLockCounter++;
+            if (actionLockCounter == 120) {
+                
+                Random random = new Random();
+                int i = random.nextInt(100)+1; // pick up a number from
+                if (i <= 25) {
+                    direction = "up";
+                }
+                else if (i > 25 && i <= 50) {
+                    direction = "down";
+                }
+                else if (i > 50 && i <= 75) {
+                    direction = "left";
+                }
+                else if (i > 75 && i <= 100) {
+                    direction = "right";
+                }
+
+                actionLockCounter = 0;
             }
 
-            actionLockCounter = 0;
         }
 
+        
     }
 
     public void speak() {
         super.speak();
+        onPath = true;
     }
 
 

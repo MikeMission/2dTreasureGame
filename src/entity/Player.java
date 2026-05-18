@@ -4,7 +4,6 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import object.OBJ_Sword_Normal;
 import object.OBJ_fireball;
@@ -49,8 +48,8 @@ public class Player extends Entity {
     public void setDefualtValues() {
         worldX = gp.tileSize * 20 - (gp.tileSize / 2);
         worldY = gp.tileSize * 20 - (gp.tileSize / 2);
-        speed = 4;
         direction = "down";
+        speed = 4;
 
         // PLAYER STATUS
         level = 1;
@@ -60,7 +59,8 @@ public class Player extends Entity {
         mana = maxMana;
         ammo = 10;
         strength = 1;
-        agility = 1;
+        defense = 1;
+        agility = 4; // Attack speed?? Not sure what to do w this var.
         exp = 0;
         nextLevelExp = 5;
         coin = 1000; // TEST
@@ -98,7 +98,7 @@ public class Player extends Entity {
     }
 
     public int getDefense() {
-        return agility * currentShield.defenseValue;
+        return defense * currentShield.defenseValue;
     }
 
 
@@ -467,7 +467,8 @@ public class Player extends Entity {
             nextLevelExp = nextLevelExp*3;
             maxLife += 2;
             strength ++;
-            agility ++;
+            defense++;
+            agility++;
             attack = getAttack();
             defense = getDefense();
 

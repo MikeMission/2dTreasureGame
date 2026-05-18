@@ -12,6 +12,7 @@ import java.util.Comparator;
 
 import javax.swing.JFrame;
 
+import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import interactive_tiles.InteractiveTile;
@@ -46,7 +47,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     final int FPS = 60;
 
     // SYSTEM
-    TileManager tileM = new TileManager(this); 
+    public TileManager tileM = new TileManager(this); 
     public KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
     Sound se = new Sound();
@@ -55,6 +56,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
     Config config = new Config(this);
+    public PathFinder pFinder = new PathFinder(this);
     Thread gameThread;
 
 

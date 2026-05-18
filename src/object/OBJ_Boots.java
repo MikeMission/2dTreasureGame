@@ -10,15 +10,17 @@ public class OBJ_Boots extends Entity {
         super(gp);
         this.gp = gp;
         name = "Boots";
+        type = type_consumable;
         down1 = setup("/res/objects/boots.png", gp.tileSize, gp.tileSize);
         value = 1;
         description = "[" + name + "]\nA pair of old boots.\nAgility +1";
-        price = 20;
+        price = 500;
     }
 
     public void use(Entity entity) {
-        gp.ui.addMessage("+1 Agility");
-        entity.agility += value;
+        gp.gameState = gp.dialogueState;
+        gp.ui.currentDialogue = "You used " + name + " -> +" + value + " Agility";
+        entity.speed += value;
         gp.playSE(2);
     }
     
