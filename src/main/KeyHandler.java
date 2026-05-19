@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.event.KeyListener;
-import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 
 public class KeyHandler implements KeyListener{

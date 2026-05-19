@@ -13,6 +13,7 @@ public class OBJ_GradScroll extends Entity {
         attackValue = 2;
         attackArea.width = 36;
         attackArea.height = 36;
+        knockBackPower = 7;
         description = "[" + name + "]\nA computer science\n graduate scroll.\nAttack +2";
     }
 

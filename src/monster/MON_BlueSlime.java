@@ -22,7 +22,8 @@ public class MON_BlueSlime extends Entity {
         
         type = type_monster;
         name = "Blue Slime";
-        speed = 1;
+        defaultSpeed = 1;
+        speed = defaultSpeed;
         maxLife = 5;
         life = maxLife;
         attack = 5;
@@ -84,10 +85,17 @@ public class MON_BlueSlime extends Entity {
 
             searchPath(goalCol,goalRow);
 
-            int i = new Random().nextInt(100) + 1;
+            int i = new Random().nextInt(200) + 1;
             if (i > 197 && projectile.alive == false && shotAvailableCounter >= 30) {
                 projectile.set(worldX, worldY, direction, true, this);
-                gp.projectileList.add(projectile);
+
+                for (int j = 0; j < gp.projectileList[1].length; j++) {
+                    if (gp.projectileList[gp.currentMap][j] == null) {
+                        gp.projectileList[gp.currentMap][j] = projectile;
+                        break;
+                    }
+                }
+
                 shotAvailableCounter = 0;
             }
 

@@ -8,8 +8,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.xml.stream.events.EntityReference;
-
 import object.OBJ_BronzeCoin;
 import object.OBJ_Heart;
 import object.OBJ_Key;

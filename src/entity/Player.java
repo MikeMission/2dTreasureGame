@@ -49,7 +49,8 @@ public class Player extends Entity {
         worldX = gp.tileSize * 20 - (gp.tileSize / 2);
         worldY = gp.tileSize * 20 - (gp.tileSize / 2);
         direction = "down";
-        speed = 4;
+        defaultSpeed = 4;
+        speed = defaultSpeed;
 
         // PLAYER STATUS
         level = 1;
@@ -234,7 +235,14 @@ public class Player extends Entity {
              && shotAvailableCounter >= 30 && projectile.haveResource(this)) {
             projectile.set(worldX, worldY, direction, true, this);
             projectile.subtractResource(this);
-            gp.projectileList.add(projectile);
+
+            for (int i = 0; i < gp.projectileList[1].length; i++) {
+                if (gp.projectileList[gp.currentMap][i] == null) {
+                    gp.projectileList[gp.currentMap][i] = projectile;
+                    break;
+                }
+            }
+
             gp.playSE(10);
             shotAvailableCounter = 0;
         }
@@ -355,10 +363,13 @@ public class Player extends Entity {
 
             // Check monster collision with the updated solidArea
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex, attack);
+            damageMonster(monsterIndex, attack, currentWeapon.knockBackPower, direction);
 
             int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
             damageInteractiveTile(iTileIndex);
+
+            int projectileIndex = gp.cChecker.checkEntity(this, gp.projectileList);
+            damageProjectile(projectileIndex);
 
             // After checking collision, restore original worldX, worldY, and solidArea
             worldX = currentWorldX;
@@ -415,11 +426,15 @@ public class Player extends Entity {
 
     }
 
-    public void damageMonster(int index, int attack) {
+    public void damageMonster(int index, int attack, int knockBackPower, String direction) {
         if (index != 999) {
             if (gp.monster[gp.currentMap][index].invincible == false) {
                 
                 gp.playSE(5);
+                
+                if (knockBackPower > 0) {
+                    knockBack(gp.monster[gp.currentMap][index], knockBackPower, direction);
+                }
 
                 int damage = attack - gp.monster[gp.currentMap][index].defense;
                 if(damage < 0) {damage = 0;}
@@ -438,6 +453,21 @@ public class Player extends Entity {
 
                 }
             }
+        }
+    }
+
+    public void knockBack(Entity entity, int knockBackPower, String direction) {
+        entity.direction = direction;
+        entity.speed += knockBackPower;
+        entity.knockBack = true;
+
+    }
+
+    public void damageProjectile(int index) {
+        if (index != 999) {
+            Entity projectile = gp.projectileList[gp.currentMap][index];
+            projectile.alive = false;
+            generateParticle(projectile, projectile);
         }
     }
 

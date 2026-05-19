@@ -66,7 +66,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public Entity npc[][] = new Entity[maxMap][10];
     public Entity monster [][] = new Entity[maxMap][10];
     public InteractiveTile iTile[][] = new InteractiveTile[maxMap][50];
-    public ArrayList<Entity> projectileList = new ArrayList<>();
+    // public ArrayList<Entity> projectileList = new ArrayList<>();
+    public Entity projectileList[][] = new Entity[maxMap][20];
     public ArrayList<Entity> particleList = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
 
@@ -207,13 +208,13 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                     }
                 }
             }
-            for (int i = 0; i < projectileList.size(); i++) {
-                if (projectileList.get(i) != null) {
-                    if (projectileList.get(i).alive == true) {
-                        projectileList.get(i).update();
+            for (int i = 0; i < projectileList[1].length; i++) {
+                if (projectileList[currentMap][i] != null) {
+                    if (projectileList[currentMap][i].alive == true) {
+                        projectileList[currentMap][i].update();
                     }
-                    else if (projectileList.get(i).alive == false) {
-                        projectileList.remove(i);
+                    else if (projectileList[currentMap][i].alive == false) {
+                        projectileList[currentMap][i] = null;
                     }
                 }
             }
@@ -254,9 +255,6 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             ui.draw(g2);
         }
 
-        // PAUSE SCREEN
-
-
         // OTHERS
         else {
             // TILE
@@ -290,9 +288,9 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                 }
             }
 
-            for (int i = 0; i < projectileList.size(); i++) {
-                if (projectileList.get(i) != null) {
-                    entityList.add(projectileList.get(i));
+            for (int i = 0; i < projectileList[1].length; i++) {
+                if (projectileList[currentMap][i] != null) {
+                    entityList.add(projectileList[currentMap][i]);
                 }
             }
 
