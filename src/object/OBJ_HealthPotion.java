@@ -20,11 +20,12 @@ public class OBJ_HealthPotion extends Entity {
         price = 200;
     }
 
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
         gp.gameState = gp.dialogueState;
         gp.ui.currentDialogue = "You used " + name + " -> +" + value + "HP.";
         entity.life += value;
         gp.playSE(2);
+        return true;
     }
 
 }

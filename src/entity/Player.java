@@ -388,11 +388,14 @@ public class Player extends Entity {
         if (index != 999) {
 
             // PICKUP ONLY ITEMS (like coins)
-
             if (gp.obj[gp.currentMap][index].type == type_pickupOnly) {
                 gp.obj[gp.currentMap][index].use(this);
                 gp.obj[gp.currentMap][index] = null;
                 return;
+            } else if (gp.obj[gp.currentMap][index].type == type_obstacle) {
+                if (keyH.enterPressed == true) {
+                    gp.obj[gp.currentMap][index].interact();
+                }
             }
 
             // INVENTORY ITEMS
@@ -531,8 +534,11 @@ public class Player extends Entity {
                 getPlayerAttackImage();
             }
             else if (selectedItem.type == type_consumable) {
-                selectedItem.use(this);
-                inventory.remove(itemIndex);
+                if (selectedItem.use(this) == true) {
+                    inventory.remove(itemIndex);
+                } else {
+                    gp.ui.addMessage("Cannot use that here.");
+                }
             }
         }
 

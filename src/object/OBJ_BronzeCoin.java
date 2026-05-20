@@ -15,9 +15,10 @@ public class OBJ_BronzeCoin extends Entity {
         down1 = setup("/res/objects/bronzeCoin.png", gp.tileSize, gp.tileSize);
     }
 
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
         gp.ui.addMessage("+1 Bronze Coin");
         entity.coin += value;
         gp.playSE(1);
+        return true;
     }
 }

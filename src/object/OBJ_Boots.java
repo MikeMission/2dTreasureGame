@@ -17,11 +17,12 @@ public class OBJ_Boots extends Entity {
         price = 500;
     }
 
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
         gp.gameState = gp.dialogueState;
         gp.ui.currentDialogue = "You used " + name + " -> +" + value + " Agility";
         entity.speed += value;
         gp.playSE(2);
+        return true;
     }
     
 }
