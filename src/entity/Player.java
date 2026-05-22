@@ -90,7 +90,6 @@ public class Player extends Entity {
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
     }
 
     public int getAttack() {
@@ -401,8 +400,8 @@ public class Player extends Entity {
             // INVENTORY ITEMS
             else {
                 String text;
-                if (inventory.size() < maxInventorySize) {
-                    inventory.add(gp.obj[gp.currentMap][index]);
+
+                if (canObtainItem(gp.obj[gp.currentMap][index])) {
                     gp.playSE(1);
                     text = "You picked up " + inventory.get(inventory.size()-1).name + "!";
                 }
@@ -535,7 +534,12 @@ public class Player extends Entity {
             }
             else if (selectedItem.type == type_consumable) {
                 if (selectedItem.use(this) == true) {
-                    inventory.remove(itemIndex);
+                    if (selectedItem.amount > 1) {
+                        selectedItem.amount--;
+                    }
+                    else {
+                        inventory.remove(itemIndex);
+                    }
                 } else {
                     gp.ui.addMessage("Cannot use that here.");
                 }
@@ -559,4 +563,41 @@ public class Player extends Entity {
         }
     }
 
+    public int searchItemInInventory(String itemName) {
+        int itemIndex = 999;
+
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).name.equals(itemName)) {
+                itemIndex = i;
+                break;
+            }
+        }
+
+        return itemIndex;
+    }
+
+    public boolean canObtainItem(Entity item) {
+        boolean canObtain = false;
+
+        if (item.stackable) {
+            int index = searchItemInInventory(item.name);
+            if (index!= 999) {
+                inventory.get(index).amount++;
+                canObtain = true;
+            }
+            else{ 
+                if (inventory.size() != maxInventorySize) {
+                    inventory.add(item);
+                    canObtain = true;
+                }
+            }
+        }
+        else {
+             if (inventory.size() != maxInventorySize) {
+                    inventory.add(item);
+                    canObtain = true;
+            }
+        }
+        return canObtain;
+    }
 }

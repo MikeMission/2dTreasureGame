@@ -16,6 +16,7 @@ public class OBJ_Key extends Entity {
         down1 = setup("/res/objects/key.png", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nA key innit brav.";
         price = 350;
+        stackable = true;
 
     }
 

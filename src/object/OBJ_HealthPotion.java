@@ -18,6 +18,8 @@ public class OBJ_HealthPotion extends Entity {
         down1 = setup("/res/objects/healthPotion.png", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nRestores " + value + " HP.";
         price = 200;
+        stackable = true;
+
     }
 
     public boolean use(Entity entity) {

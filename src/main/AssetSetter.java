@@ -39,6 +39,10 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = gp.tileSize * 25;
         gp.obj[mapNum][i].worldY = gp.tileSize * 19;
         i++;
+        gp.obj[mapNum][i] = new object.OBJ_HealthPotion(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 25;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 20;
+        i++;
         gp.obj[mapNum][i] = new object.OBJ_Door(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 46;
         gp.obj[mapNum][i].worldY = gp.tileSize * 7;
@@ -47,7 +51,7 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = gp.tileSize * 31;
         gp.obj[mapNum][i].worldY = gp.tileSize * 31;
         i++;
-        gp.obj[mapNum][i] = new object.OBJ_Chest(gp, new object.OBJ_BronzeCoin(gp));
+        gp.obj[mapNum][i] = new object.OBJ_Chest(gp, new object.OBJ_HealthPotion(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize * 8;
         gp.obj[mapNum][i].worldY = gp.tileSize * 20;
         

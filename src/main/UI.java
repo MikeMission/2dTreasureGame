@@ -488,7 +488,6 @@ public class UI {
         // draw player items
         for (int i = 0; i < entity.inventory.size(); i++) {
         
-
             // equip cursor
             
             if (entity.inventory.get(i) == entity.currentWeapon || entity.inventory.get(i) == entity.currentShield) {
@@ -496,9 +495,27 @@ public class UI {
                 g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
             }
 
-
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
-            
+
+            // Display amount
+            if (entity == gp.player &&entity.inventory.get(i).amount > 1) {
+                g2.setFont(g2.getFont().deriveFont(20F));
+                int amountX;
+                int amountY;
+
+                String s = "" + entity.inventory.get(i).amount; 
+                amountX = getXforAlignToRightText(s, slotX + 44);
+                amountY = slotY + gp.tileSize;
+
+                // shadow of the number llele
+                g2.setColor(Color.GRAY);
+                g2.drawString(s, amountX + 1, amountY + 1);
+                
+                g2.setColor(Color.white);
+                g2.drawString(s, amountX, amountY);
+                
+            }
+
             slotX += slotSize;
 
             if (i == 4 || i == 9 || i == 14) {
@@ -687,23 +704,20 @@ public class UI {
                     currentDialogue = "You cannot afford that silly.";
                     drawDialogueScreen();
                 }
-                else if (gp.player.inventory.size() == gp.player.maxInventorySize) {
-                    commandNum = -1;
-                    subState = 0;
-                    gp.gameState = gp.dialogueState;
-                    currentDialogue = "You cannot carry any more!";
-                    drawDialogueScreen();
-                }
-                else {
+                else if (gp.player.canObtainItem(npc.inventory.get(itemIndex))) {
                     gp.playSE(14);
                     gp.player.coin -= npc.inventory.get(itemIndex).price;
-                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                } 
+                else {
+                        subState = 0;
+                        gp.gameState = gp.dialogueState;
+                        currentDialogue = "You cannot carry any more!";
+                        drawDialogueScreen();
+                    }
                 }
-
             }
-        } 
-
-    }
+        }
+    
 
     public void trade_sell() {
         drawInventory(gp.player, true);
@@ -749,6 +763,11 @@ public class UI {
                     currentDialogue = "You cannot sell an equipped item!";
                     drawDialogueScreen();
                 }
+                else if (gp.player.inventory.get(itemIndex).amount > 1) {
+                    gp.playSE(15);
+                    gp.player.inventory.get(itemIndex).amount--;
+                    gp.player.coin += price;
+                }
                 else {
                     gp.playSE(15);
                     gp.player.inventory.remove(itemIndex);
@@ -758,8 +777,6 @@ public class UI {
         } 
     }
     
-
-
     public void options_top(int frameX, int frameY) {
         int textX = frameX + 50;
         int textY = frameY + gp.tileSize + gp.tileSize/2;
