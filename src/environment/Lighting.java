@@ -1,0 +1,64 @@
+package environment;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
+import java.awt.Shape;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import main.GamePannel;
+
+public class Lighting {
+    GamePannel gp;
+    BufferedImage darknessFilter;
+
+    public Lighting(GamePannel gp, int circleSize) {
+        // create a buffered image 
+        darknessFilter = new BufferedImage(gp.screenWidth, gp.screenHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = (Graphics2D) darknessFilter.getGraphics();
+
+        Area screenArea = new Area(new Rectangle2D.Double(0,0, gp.screenWidth, gp.screenHeight));
+
+        int centerX = gp.player.screenX + gp.tileSize / 2;
+        int centerY = gp.player.screenY + gp.tileSize / 2;
+
+        double x = centerX - circleSize / 2;
+        double y = centerY - circleSize / 2;
+
+        Shape circleShape = new Ellipse2D.Double(x,y,circleSize, circleSize);
+        Area lightArea = new Area(circleShape);
+
+        screenArea.subtract(lightArea);
+
+        Color color[] = new Color[12];
+        float fraction[] = new float[12];
+
+        
+        color = new Color[12];
+        fraction = new float[12];
+
+        float[] alphaValues = {0.1f, 0.42f, 0.52f, 0.61f, 0.69f, 0.76f, 0.82f, 0.87f, 0.91f, 0.94f, 0.96f, 0.98f};
+        float[] fractionValues = {0f, 0.4f, 0.5f, 0.6f, 0.65f, 0.7f, 0.75f, 0.8f, 0.85f, 0.9f, 0.95f, 1f};
+
+        for (int i = 0; i < color.length; i++) {
+            color[i] = new Color(0, 0, 0, alphaValues[i]);
+            fraction[i] = fractionValues[i];
+        }
+        // paint settings
+        RadialGradientPaint gPaint = new RadialGradientPaint(centerX, centerY, circleSize / 2, fraction, color);
+
+        g2.setPaint(gPaint);
+
+        g2.fill(lightArea);
+
+        g2.fill(screenArea);
+        g2.dispose();
+    }
+
+
+    public void draw(Graphics2D g2) {
+        g2.drawImage(darknessFilter, 0, 0, null);
+    }
+}
