@@ -23,6 +23,7 @@ public class Player extends Entity {
     public final int screenY;
     public boolean attackCanceled = false;
     int standCounter = 0;
+    public boolean lightUpdated = false;
 
     public Player(GamePannel gp, KeyHandler keyH) {
         super(gp);
@@ -532,6 +533,18 @@ public class Player extends Entity {
                 gp.ui.addMessage("Equipped " + currentShield.name);
                 getPlayerAttackImage();
             }
+            else if (selectedItem.type == type_light) {
+
+                if (currentLight == selectedItem) {
+                    // unequip light
+                    currentLight = null;
+                }
+                else {
+                    currentLight = selectedItem;
+                }
+                lightUpdated = true;
+            }
+
             else if (selectedItem.type == type_consumable) {
                 if (selectedItem.use(this) == true) {
                     if (selectedItem.amount > 1) {

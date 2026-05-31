@@ -236,6 +236,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                     }
                 }
             }
+            envManager.update();
         }
         
         if (gameState == pauseState) {
