@@ -146,6 +146,17 @@ public class Player extends Entity {
         attackRight1 = setup("/res/player/plr_attack_right1.png", gp.tileSize*2, gp.tileSize);
     }
 
+    public void getSleepingImage(BufferedImage image) {
+        up1 = image;
+        up2 = image;
+        down1 = image;
+        down2 = image;
+        left1 = image;
+        left2 = image;
+        right1 = image;
+        right2 = image;
+    }
+
     public void update() {
         
         if (attacking == true) {
@@ -541,6 +552,8 @@ public class Player extends Entity {
                 }
                 else {
                     currentLight = selectedItem;
+                    gp.ui.addMessage("Equipped " + currentLight.name);
+                    gp.playSE(9);
                 }
                 lightUpdated = true;
             }

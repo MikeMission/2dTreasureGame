@@ -79,7 +79,6 @@ public class UI {
         if (gp.gameState == gp.playState) {
             drawPlayerLife();
             drawMessage();
-            // drawPlayScreen();
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
@@ -117,6 +116,12 @@ public class UI {
         if (gp.gameState == gp.tradeState) {
             drawTradeScreen();
         }
+
+        if (gp.gameState == gp.sleepState) {
+            drawSleepScreen();
+        }
+
+      
     }
 
     public void drawGameOverScreen() {
@@ -977,6 +982,29 @@ public class UI {
         }
 
 
+    }
+
+    public void drawSleepScreen() {
+        counter++;
+    
+        if (counter < 120) {
+            gp.envManager.lighting.filterAlpha += 0.01f;
+            if (gp.envManager.lighting.filterAlpha > 1f) {
+                gp.envManager.lighting.filterAlpha = 1f;
+            }
+        }
+
+        else if (counter >= 120) {
+            gp.envManager.lighting.filterAlpha -= 0.01f;
+            if (gp.envManager.lighting.filterAlpha <= 0f) {
+                gp.envManager.lighting.filterAlpha = 0f;
+                counter = 0;
+                gp.envManager.lighting.dayCounter = 0;
+                gp.envManager.lighting.dayState = gp.envManager.lighting.day;
+                gp.gameState = gp.playState;
+                gp.player.getPlayerImage();
+            }
+        }
     }
 
     public int getItemIndexOnSlot(int slotCol, int slotRow) {

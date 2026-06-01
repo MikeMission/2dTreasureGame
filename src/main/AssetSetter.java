@@ -19,7 +19,7 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = gp.tileSize * 27;
         gp.obj[mapNum][i].worldY = gp.tileSize * 19;
         i++;
-        gp.obj[mapNum][i] = new object.OBJ_ManaCrystal(gp);
+        gp.obj[mapNum][i] = new object.OBJ_Tent(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 27;
         gp.obj[mapNum][i].worldY = gp.tileSize * 20;
         i++;

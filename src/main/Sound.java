@@ -36,6 +36,8 @@ public class Sound {
         soundURL[15] = getClass().getResource("/res/sound/sell.wav");
         soundURL[16] = getClass().getResource("/res/sound/openChest.wav");
         soundURL[17] = getClass().getResource("/res/sound/chestClosed.wav");
+        soundURL[18] = getClass().getResource("/res/sound/sleep.wav");
+
         
 
 

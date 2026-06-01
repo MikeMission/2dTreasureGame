@@ -1,6 +1,8 @@
 package environment;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
 import java.awt.image.BufferedImage;
@@ -9,6 +11,16 @@ import main.GamePannel;
 public class Lighting {
     GamePannel gp;
     BufferedImage darknessFilter;
+    public int dayCounter;
+    public float filterAlpha = 0f;
+
+    // day states
+    public final int day = 0;
+    public final int dusk = 1;
+    public final int night = 2;
+    public final int dawn = 3;
+    public int dayState = day;
+
 
     public Lighting(GamePannel gp) {
         this.gp = gp;
@@ -59,8 +71,62 @@ public class Lighting {
             setLightSource();
             gp.player.lightUpdated = false;
         }
+
+        if (dayState == day) {
+            
+            dayCounter++;
+
+            if (dayCounter > 600) { // 10 secs
+                dayState = dusk;
+                dayCounter = 0;
+            }
+
+        }
+
+        if (dayState == dusk) {
+            filterAlpha += 0.001f;
+
+            if (filterAlpha > 1f) {
+                filterAlpha = 1f;
+                dayState = night;
+            }
+        }
+
+        if (dayState == night) {
+
+            dayCounter++;
+
+            if (dayCounter > 600) {
+                dayState = dawn;
+                dayCounter = 0;
+            }
+        }
+
+        if (dayState == dawn) {
+            filterAlpha -= 0.001f;
+
+            if (filterAlpha < 0f) {
+                filterAlpha = 0f;
+                dayState = day;
+            }
+        }
     }
     public void draw(Graphics2D g2) {
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha));
         g2.drawImage(darknessFilter, 0, 0, null);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        String state = "";
+
+        switch (dayState) {
+            case day: state = "Day"; break;
+            case dusk: state = "Dusk"; break;
+            case night: state = "Night"; break;
+            case dawn: state = "Dawn"; break;
+        }
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50f));
+        g2.drawString(state, 800, 500);
+
     }
 }
