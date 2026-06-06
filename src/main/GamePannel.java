@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,6 +17,7 @@ import entity.Entity;
 import entity.Player;
 import environment.EnvironmentManager;
 import interactive_tiles.InteractiveTile;
+import tile.Map;
 import tile.TileManager;
 
 public class GamePannel extends javax.swing.JPanel implements Runnable {
@@ -60,6 +60,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
     public EnvironmentManager envManager = new EnvironmentManager(this);
+    Map map = new Map(this);
     Thread gameThread;
 
 
@@ -86,6 +87,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public final int transitionState = 7;
     public final int tradeState = 8;
     public final int sleepState = 9;
+    public final int mapState = 10;
 
 
 
@@ -260,7 +262,10 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         if (gameState == titleState) {
             ui.draw(g2);
         }
-
+        // map screen
+        else if (gameState == mapState) {
+            map.drawFullMapScreen(g2);
+        }
         // OTHERS
         else {
             // TILE
@@ -325,6 +330,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             //ENVIRONMENT 
             envManager.draw(g2);
 
+            // mini map
+            map.drawMiniMap(g2);
 
             // UI
             ui.draw(g2);

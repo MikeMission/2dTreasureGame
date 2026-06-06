@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-
 import main.GamePannel;
 import main.UtitlityTool;
 
