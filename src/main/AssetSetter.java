@@ -104,6 +104,10 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
         gp.monster[mapNum][i].worldX = gp.tileSize * 10;
         gp.monster[mapNum][i].worldY = gp.tileSize * 20;
+        i++;
+        gp.monster[mapNum][i] = new monster.MON_KnifeMonster(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 34;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 7;
     }
 
     public void setInteractiveTile() {
