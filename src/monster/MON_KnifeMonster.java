@@ -28,7 +28,7 @@ public class MON_KnifeMonster extends Entity {
         attack = 8;
         defense = 1;
         exp = 10;
-        
+        knockBackPower = 5;
  
         solidArea.x = 4;
         solidArea.y = 4;

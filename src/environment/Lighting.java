@@ -67,6 +67,8 @@ public class Lighting {
         g2.dispose();
     }
     public void update() {
+        int duration = 4200;
+
         if (gp.player.lightUpdated) {
             setLightSource();
             gp.player.lightUpdated = false;
@@ -76,7 +78,7 @@ public class Lighting {
             
             dayCounter++;
 
-            if (dayCounter > 600) { // 10 secs
+            if (dayCounter > duration) { // 10 secs
                 dayState = dusk;
                 dayCounter = 0;
             }
@@ -96,7 +98,7 @@ public class Lighting {
 
             dayCounter++;
 
-            if (dayCounter > 600) {
+            if (dayCounter > duration) {
                 dayState = dawn;
                 dayCounter = 0;
             }
