@@ -41,10 +41,7 @@ public class Player extends Entity {
 
 
         setDefualtValues();
-        getImage();
-        getAttackImage();
-        getGuardImage();
-        setItems();
+
     }
 
     public void setDefualtValues() {
@@ -69,12 +66,16 @@ public class Player extends Entity {
         coin = 1000; // TEST
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
-        // projectile = new OBJ_MudBall(gp);
+        currentLight = null;
         projectile = new OBJ_fireball(gp);
         attack = getAttack();
         defense = getDefense();
         name = "comp grad"; // prob change this to actual player
 
+        getImage();
+        getAttackImage();
+        getGuardImage();
+        setItems();
     }
 
     public void setDefaultPositions() {
@@ -82,11 +83,15 @@ public class Player extends Entity {
         worldY = gp.tileSize * 20 - (gp.tileSize / 2);
         direction = "down";
     }
-    public void restoreLifeAndMana() {
+    public void restoreStatus() {
         life = maxLife;
         mana = maxMana;
         invincible = false;
         transparent = false;
+        attacking = false;
+        guarding = false;
+        knockBack = false;
+        lightUpdated = true;
     }
     public void setItems() {
         inventory.clear();
@@ -104,6 +109,26 @@ public class Player extends Entity {
 
     public int getDefense() {
         return defense * currentShield.defenseValue;
+    }
+
+    public int getCurrentShieldSlot() {
+        int currentShieldSlot = 0;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i) == currentShield) {
+                currentShieldSlot = i;
+            }
+        }
+        return currentShieldSlot;
+    }
+
+    public int getCurrentWeaponSlot() {
+        int currentWeaponSlot = 0;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i) == currentWeapon) {
+                currentWeaponSlot = i;
+            }
+        }
+        return currentWeaponSlot;
     }
 
     public void getImage() {

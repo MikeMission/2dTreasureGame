@@ -19,6 +19,7 @@ import environment.EnvironmentManager;
 import interactive_tiles.InteractiveTile;
 import tile.Map;
 import tile.TileManager;
+import data.SaveLoad;
 
 public class GamePannel extends javax.swing.JPanel implements Runnable {
     
@@ -61,6 +62,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public PathFinder pFinder = new PathFinder(this);
     public EnvironmentManager envManager = new EnvironmentManager(this);
     Map map = new Map(this);
+    SaveLoad saveLoad = new SaveLoad(this);
     Thread gameThread;
 
 
@@ -118,24 +120,22 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
 
         if (fullScreenOn) {setFullScreen();}
     }
-
-    public void retry() {
+    public void resetGame(boolean restart) {
         player.setDefaultPositions();
-        player.restoreLifeAndMana();
+        player.restoreStatus();
         aSetter.setNPC();
         aSetter.setMonster();
-        playMusic(0);
-    }
-    public void restart() {
-        player.setDefualtValues();
-        player.setDefaultPositions();
-        player.restoreLifeAndMana();
-        player.setItems();
-        aSetter.setObject();
-        aSetter.setMonster();
-        aSetter.setInteractiveTile();
+        playMusic(0); // might not need.
 
+        if (restart) {
+            player.setDefualtValues();
+            aSetter.setObject();
+            aSetter.setInteractiveTile();
+            envManager.lighting.resetDay();
+        }
+        
     }
+  
     public void setFullScreen() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
