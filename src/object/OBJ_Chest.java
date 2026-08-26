@@ -24,34 +24,37 @@ public class OBJ_Chest extends Entity {
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        }
+
+    public void setDialogue() {
+        dialogues[0][0] = "You opened the chest and find: " + loot.name + "!" + "\nYou put the " + loot.name + " in your inventory.";
+        dialogues[1][0] = "You opened the chest and find: " + loot.name + "!" + "\nBut your inventory is full, so you leave it there.";
+        dialogues[2][0] = "The chest is empty.";
 
     }
 
     public void setLoot(Entity loot) {
         this.loot = loot;
+        setDialogue();
     }
 
     public void interact() {
-        gp.gameState = gp.dialogueState;
 
         if (!opened) {
             gp.playSE(16);
 
-            StringBuilder sb = new StringBuilder();
-            sb.append("You opened the chest and find: " + loot.name + "!");
-
             if (gp.player.canObtainItem(loot) == false) {
-                sb.append("\nBut your inventory is full, so you leave it there.");
+                startDialogue(this, 1);
             } else {
-                sb.append("\nYou put the " + loot.name + " in your inventory.");
+                startDialogue(this, 0);
                 down1 = image2;
                 opened = true;
 
             }
-            gp.ui.currentDialogue = sb.toString();
+
             
         } else {
-            gp.ui.currentDialogue = "The chest is empty.";
+            startDialogue(this, 2);
             // gp.playSE(17);
             // errr close chest doesn't really make sense once looted.
         }

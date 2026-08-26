@@ -2,9 +2,11 @@ package main;
 
 import entity.Entity;
 
-public class EventHandler {
+public class EventHandler{
     GamePannel gp;
     EventRect eventRect[][][];
+    Entity eventMaster; 
+
     int eventRectDefaultX, eventRectDefaultY;
     int previousEventX, previousEventY;
     boolean canTouchEvent = true;
@@ -16,6 +18,9 @@ public class EventHandler {
         int map = 0;
         int col = 0;
         int row = 0;
+
+        eventMaster = new Entity(gp);
+
         while (map < gp.maxMap && col < gp.maxWorldCol && row < gp.maxWorldRow) {
 
 
@@ -40,6 +45,12 @@ public class EventHandler {
             }
 
         }
+
+        setDialogue();
+    }
+    public void setDialogue() {
+        eventMaster.dialogues[0][0] = "You fall into a pit!\nYou lose 1 life.";
+        eventMaster.dialogues[1][0] = "You rest a while\nYour life and mana have been restored.\n Your progress have been saved.";
 
     }
 
@@ -103,7 +114,7 @@ public class EventHandler {
 
     public void damagePit(int gameState) {
         gp.gameState = gameState;
-        gp.ui.currentDialogue = "You fall into a pit!\nYou lose 1 life.";
+        eventMaster.startDialogue(eventMaster, 0);
         gp.player.life -= 1;
         // eventRect[col][row].eventDone = true;
         canTouchEvent = false;
@@ -113,7 +124,7 @@ public class EventHandler {
     public void healingPool(int gameState) {
         if (gp.keyH.enterPressed == true) { 
             gp.gameState = gameState;
-            gp.ui.currentDialogue = "You rest a while\nYour life and mana have been restored.\n Your progress have been saved.";
+            eventMaster.startDialogue(eventMaster, 1);
             gp.player.attackCanceled = true;
             gp.player.life = gp.player.maxLife;
             gp.player.mana = gp.player.maxMana;

@@ -17,22 +17,26 @@ public class OBJ_Key extends Entity {
         description = "[" + name + "]\nA key innit brav.";
         price = 350;
         stackable = true;
-
+        setDialogue();
+    }
+    public void setDialogue() {
+        dialogues[0][0] = "You used the key to open the door.";
+        dialogues[1][0] = "There is no door nearby.";
     }
 
     public boolean use(Entity entity) {
-        gp.gameState = gp.dialogueState;
+
         boolean used = false;
 
         int objIndex = getDetected(entity, gp.obj, "Door");
 
         if (objIndex != 999) {
-            gp.ui.currentDialogue = "You used the key to open the door.";
+            startDialogue(this, 0);
             gp.playSE(3);
             gp.obj[gp.currentMap][objIndex] = null;
             used = true;
         } else {
-            gp.ui.currentDialogue = "There is no door nearby.";
+            startDialogue(this, 1);
         }
 
         return used;

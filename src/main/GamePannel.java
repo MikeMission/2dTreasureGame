@@ -123,6 +123,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public void resetGame(boolean restart) {
         player.setDefaultPositions();
         player.restoreStatus();
+        player.resetCounter();
         aSetter.setNPC();
         aSetter.setMonster();
         playMusic(0); // might not need.

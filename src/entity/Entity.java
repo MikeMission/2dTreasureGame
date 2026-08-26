@@ -26,7 +26,7 @@ public class Entity {
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = false;
-    String dialogues[] = new String[20];
+    public String dialogues[][] = new String[20][20];
     public Entity attacker;
     
  
@@ -36,7 +36,8 @@ public class Entity {
     public boolean attacking = false;
     public boolean collisionOn = false;
     public int spriteNum = 1;
-    int dialogueIndex = 0;
+    public int dialogueIndex = 0;
+    public int dialogueSet = 0;
     public boolean alive = true;
     public boolean dying = false;
     public boolean hpBarOn = false;
@@ -59,7 +60,6 @@ public class Entity {
     int knockBackCounter = 0;
     public int guardCounter = 0;
     int offBalanceCounter = 0;
-
 
     // attributes
     public ArrayList<Entity> inventory = new ArrayList<>();
@@ -158,6 +158,17 @@ public class Entity {
         return goalRow;
     }
 
+    public void resetCounter() {
+        spriteCounter = 0;
+        actionLockCounter = 0;
+        invincibleCounter = 0;
+        shotAvailableCounter = 0;
+        dyingCounter = 0;
+        hpBarCounter = 0;
+        knockBackCounter = 0;
+        guardCounter = 0;
+        offBalanceCounter = 0;
+    }
     public void setLoot(Entity loot) {}
     public void setAction() {
         //to be overridden
@@ -166,10 +177,15 @@ public class Entity {
         //to be overridden
     }
     public void speak() {
-       
-        gp.ui.currentDialogue = dialogues[dialogueIndex];
-        dialogueIndex++;
 
+    }
+    public void startDialogue(Entity entity, int setNum) {
+        gp.gameState = gp.dialogueState; 
+        gp.ui.npc = entity; 
+        dialogueSet = setNum;
+    }
+    public void facePlayer() {
+    
         switch(gp.player.direction) {
             case "up":
                 direction = "down";
@@ -184,12 +200,8 @@ public class Entity {
                 direction = "left";
                 break;
         }
-
-        if (dialogues[dialogueIndex] == null) { // check here, since index updates PREVIOUSLY!
-            dialogueIndex = 0;
-            return;
-        }
     }
+
     public void interact() {
 
     }

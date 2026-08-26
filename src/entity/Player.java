@@ -76,6 +76,7 @@ public class Player extends Entity {
         getAttackImage();
         getGuardImage();
         setItems();
+        setDialogue();
     }
 
     public void setDefaultPositions() {
@@ -83,9 +84,17 @@ public class Player extends Entity {
         worldY = gp.tileSize * 20 - (gp.tileSize / 2);
         direction = "down";
     }
+
+    public void setDialogue() {
+        int prevLevel = level - 1;
+        dialogues[0][0] = "Leveled up " + prevLevel + " -> " + level;
+
+    }
     public void restoreStatus() {
+        
         life = maxLife;
         mana = maxMana;
+        speed = defaultSpeed;
         invincible = false;
         transparent = false;
         attacking = false;
@@ -473,7 +482,6 @@ public class Player extends Entity {
 
             if (index != 999) {
                 attackCanceled = true;
-                gp.gameState = gp.dialogueState;
                 gp.npc[gp.currentMap][index].speak();
             }
 
@@ -544,7 +552,6 @@ public class Player extends Entity {
     public void checkLevelUp(){
 
         if (exp >= nextLevelExp) {
-            int prevLevel = level;
             level ++;
             nextLevelExp = nextLevelExp*3;
             maxLife += 2;
@@ -556,7 +563,7 @@ public class Player extends Entity {
 
             gp.playSE(4);
             gp.gameState = gp.dialogueState;
-            gp.ui.currentDialogue = "Leveled up " + prevLevel + " -> " + level;
+            startDialogue(this, 0);
         }
 
     }

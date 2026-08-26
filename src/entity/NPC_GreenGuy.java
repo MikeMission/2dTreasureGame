@@ -44,7 +44,11 @@ public class NPC_GreenGuy extends Entity {
 
     }
     public void setDialogue() {
-        dialogues[0] = "Me Likeey Slimeeeey";
+        dialogues[0][0] = "Me slime green yeee";
+        dialogues[1][0] = "Bye bye";
+        dialogues[2][0] = "You cannot afford that silly.";
+        dialogues[3][0] = "You cannot carry any more!";
+        dialogues[4][0] = "You cannot sell an equipped item!";
     }
 
     public void setItems() {
@@ -82,10 +86,7 @@ public class NPC_GreenGuy extends Entity {
     public void speak() {
         
         direction = "down";
-
-        gp.ui.currentDialogue = dialogues[dialogueIndex];
-        dialogueIndex++;
-
+        startDialogue(this, dialogueSet);
       
         gp.gameState = gp.tradeState;
         gp.ui.npc = this;

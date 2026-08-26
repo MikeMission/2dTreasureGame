@@ -23,6 +23,8 @@ public class NPC_CapKid extends Entity {
         solidAreaDefaultY = solidArea.y;
         type = type_npc;
 
+        dialogueSet = -1;
+
 
         getImage();
         setDialogue();
@@ -42,9 +44,18 @@ public class NPC_CapKid extends Entity {
 
     }
     public void setDialogue() {
-        dialogues[0] = "So 'ooos' there then?";
-        dialogues[1] = "You Wotttt m8\n Sharrarap";
-        dialogues[2] = "Whats tha go'a do wi wo 'am doin 'en?\n ge' ou o' here";
+        dialogues[0][0] = "So 'ooos' there then?";
+        dialogues[0][1] = "You Wotttt m8\n Sharrarap";
+        dialogues[0][2] = "Whats tha go'a do wi wo 'am doin 'en?\n ge' ou o' here";
+
+        dialogues[1][0] = "err, rest at the campfire to save innit";
+        dialogues[1][1] = "if u kill those blueberries there \nyou can get sum stuff for free innit";
+        dialogues[1][2] = "ge' ou o' here";
+
+        dialogues[2][0] = "There's like a bunch of stuff to unlock,\n so get money u broke ahh";
+        dialogues[2][1] = "u can use ur money in that grey shed over there,\n thats my m8 green guy innit";
+        dialogues[2][2] = "ge' ou o' here";
+
     }
     public void setAction() {
         // NPC action code here
@@ -88,8 +99,15 @@ public class NPC_CapKid extends Entity {
     }
 
     public void speak() {
-        super.speak();
-        onPath = true;
+        facePlayer();
+        startDialogue(this, dialogueSet);
+
+        dialogueSet++;
+
+        if (dialogues[dialogueSet][0] == null){
+            dialogueSet = 0;
+        }
+        // onPath = true; // toggle to make npc follow.
     }
 
 
