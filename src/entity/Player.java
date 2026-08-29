@@ -563,6 +563,7 @@ public class Player extends Entity {
 
             gp.playSE(4);
             gp.gameState = gp.dialogueState;
+            setDialogue();
             startDialogue(this, 0);
         }
 
@@ -651,22 +652,24 @@ public class Player extends Entity {
     public boolean canObtainItem(Entity item) {
         boolean canObtain = false;
 
-        if (item.stackable) {
-            int index = searchItemInInventory(item.name);
+        Entity newItem = gp.eGenerator.getObject(item.name);
+
+        if (newItem.stackable) {
+            int index = searchItemInInventory(newItem.name);
             if (index!= 999) {
                 inventory.get(index).amount++;
                 canObtain = true;
             }
             else{ 
                 if (inventory.size() != maxInventorySize) {
-                    inventory.add(item);
+                    inventory.add(newItem);
                     canObtain = true;
                 }
             }
         }
         else {
              if (inventory.size() != maxInventorySize) {
-                    inventory.add(item);
+                    inventory.add(newItem);
                     canObtain = true;
             }
         }

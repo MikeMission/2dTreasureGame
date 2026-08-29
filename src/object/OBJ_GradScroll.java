@@ -4,11 +4,13 @@ import main.GamePannel;
 import entity.Entity;
 
 public class OBJ_GradScroll extends Entity {
+    public static final String objName = "Grad Scroll";
+
     public OBJ_GradScroll(GamePannel gp) {
         super(gp);
         
         type = type_gradScroll;
-        name = "Grad Scroll";
+        name = objName;
         down1 = setup("/res/objects/defaultGradScroll.png", gp.tileSize, gp.tileSize);
         attackValue = 2;
         attackArea.width = 36;

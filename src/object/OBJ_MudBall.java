@@ -9,12 +9,13 @@ import main.GamePannel;
 public class OBJ_MudBall extends Projectile {
 
     GamePannel gp; 
+    public static final String objName = "Mud Ball";
 
     public OBJ_MudBall(GamePannel gp) {
         super(gp);
         this.gp = gp;
 
-        name = "Mud Ball";
+        name = objName;
         speed = 8;
         maxLife = 80;
         life = maxLife;

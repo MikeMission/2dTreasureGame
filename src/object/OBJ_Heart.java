@@ -6,11 +6,13 @@ import entity.Entity;
 public class OBJ_Heart extends Entity {
 
     GamePannel gp;
+    public static final String objName = "Heart";
+
 
     public OBJ_Heart(GamePannel gp) {
         super(gp);
         this.gp = gp;
-        name = "Heart";
+        name = objName;
         type = type_pickupOnly;
         value = 2;
         down1 = setup("/res/objects/fullHeart.png", gp.tileSize, gp.tileSize);

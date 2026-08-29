@@ -5,11 +5,14 @@ import entity.Entity;
 
 public class OBJ_Boots extends Entity {
     GamePannel gp;
+
+    public static final String objName = "Boots";
+
     public OBJ_Boots(GamePannel gp) {
 
         super(gp);
         this.gp = gp;
-        name = "Boots";
+        name = objName;
         type = type_consumable;
         down1 = setup("/res/objects/boots.png", gp.tileSize, gp.tileSize);
         value = 1;

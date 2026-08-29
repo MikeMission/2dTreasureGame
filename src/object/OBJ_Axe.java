@@ -4,11 +4,14 @@ import main.GamePannel;
 import entity.Entity;
 
 public class OBJ_Axe extends Entity {
+
+    public static final String objName = "Axe";
+
     public OBJ_Axe(GamePannel gp) {
         super(gp);
         
         type = type_axe;
-        name = "Axe";
+        name = objName;
         down1 = setup("/res/objects/defaultAxe.png", gp.tileSize, gp.tileSize);
         attackValue = 2;
         attackArea.width = 36;

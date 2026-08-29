@@ -6,13 +6,14 @@ import entity.Entity;
 public class OBJ_Door extends Entity {
 
     GamePannel gp;
+    public static final String objName = "Door";
 
     public OBJ_Door(GamePannel gp) {
         super(gp);
         this.gp = gp;
 
         type = type_obstacle;
-        name = "Door";
+        name = objName;
         down1 = setup("/res/objects/door.png", gp.tileSize, gp.tileSize);
         collision = true;
         solidArea.x = 0;

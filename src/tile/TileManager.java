@@ -60,6 +60,8 @@ public class TileManager {
 
         loadMap("/res/map/map02.txt", 0);
         loadMap("/res/map/interior0.txt",1);
+        loadMap("/res/map/dungeonLayer1.txt", 2);
+        loadMap("/res/map/dungeonLayer2.txt", 3);
     }
 
     public void getTileImage() {

@@ -7,6 +7,7 @@ public class OBJ_HealthPotion extends Entity {
 
     GamePannel gp;
     int value = 5;
+    public static final String objName = "Health Potion";
 
     public OBJ_HealthPotion(GamePannel gp) {
         super(gp);
@@ -14,7 +15,7 @@ public class OBJ_HealthPotion extends Entity {
         this.gp = gp;
 
         type = type_consumable;
-        name = "Health Potion";
+        name = objName;
         down1 = setup("/res/objects/healthPotion.png", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nRestores " + value + " HP.";
         price = 200;

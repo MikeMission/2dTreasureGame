@@ -40,12 +40,11 @@ public class Sound {
         soundURL[19] = getClass().getResource("/res/sound/parry.wav");
         soundURL[20] = getClass().getResource("/res/sound/blocked.wav");
         soundURL[21] = getClass().getResource("/res/sound/speak.wav");
-
-
-
+        soundURL[22] = getClass().getResource("/res/sound/dungeonLayer1.wav");
+        soundURL[23] = getClass().getResource("/res/sound/dungeonLayer2.wav");
+        soundURL[24] = getClass().getResource("/res/sound/interior1.wav");
 
         
-
 
     }
 

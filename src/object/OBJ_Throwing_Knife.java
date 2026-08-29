@@ -8,12 +8,13 @@ import main.GamePannel;
 public class OBJ_Throwing_Knife extends Projectile {
 
     GamePannel gp; // because its in a diff package
-    
-     public OBJ_Throwing_Knife(GamePannel gp) {
+    public static final String objName = "Throwing Knife";
+
+    public OBJ_Throwing_Knife(GamePannel gp) {
         super(gp);
         this.gp = gp;
 
-        name = "Throwing Knife";
+        name = objName;
         speed = 4;
         maxLife = 80;
         life = maxLife;

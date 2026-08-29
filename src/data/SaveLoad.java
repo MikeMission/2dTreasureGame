@@ -30,23 +30,7 @@ public class SaveLoad {
     public SaveLoad(GamePannel gp) {
         this.gp = gp;
     }
-    public Entity getObject(String itemName) {
-        return itemName.equals("Axe") ? new OBJ_Axe(gp) :
-               itemName.equals("Boots") ? new OBJ_Boots(gp) :
-               itemName.equals("Grad Scroll") ? new OBJ_GradScroll(gp) :
-               itemName.equals("Health Potion") ? new OBJ_HealthPotion(gp) :
-               itemName.equals("Key") ? new OBJ_Key(gp) :
-               itemName.equals("Lantern") ? new OBJ_Lantern(gp) :
-               itemName.equals("Tent") ? new OBJ_Tent(gp) :
-               itemName.equals("Normal Sword") ? new OBJ_Sword_Normal(gp) :
-               itemName.equals("Wooden Circle Shield") ? new OBJ_Shield_Wood_Circle(gp) :
-               itemName.equals("Wood Shield") ? new OBJ_Shield_Wood(gp) :
-               itemName.equals("Door") ? new OBJ_Door(gp) :
-               itemName.equals("Chest") ? new OBJ_Chest(gp) :
 
-
-               null;
-    }
     public void save() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
@@ -134,7 +118,7 @@ public class SaveLoad {
             gp.player.inventory.clear();
 
             for(int i = 0 ; i < ds.itemNames.size(); i++) {
-                gp.player.inventory.add(getObject(ds.itemNames.get(i)));
+                gp.player.inventory.add(gp.eGenerator.getObject(ds.itemNames.get(i)));
                 gp.player.inventory.get(i).amount = ds.itemAmounts.get(i);
             }
 
@@ -152,12 +136,12 @@ public class SaveLoad {
                     if (ds.mapObjectNames[mapNum][i].equals("N/A")) {
                         gp.obj[mapNum][i] = null;
                     } else {
-                        gp.obj[mapNum][i] = getObject(ds.mapObjectNames[mapNum][i]);
+                        gp.obj[mapNum][i] = gp.eGenerator.getObject(ds.mapObjectNames[mapNum][i]);
                         gp.obj[mapNum][i].worldX = ds.mapObjectWorldX[mapNum][i];
                         gp.obj[mapNum][i].worldY = ds.mapObjectWorldY[mapNum][i];
 
                         if (ds.mapObjectLootNames[mapNum][i] != null) {
-                            gp.obj[mapNum][i].setLoot(getObject(ds.mapObjectLootNames[mapNum][i]));
+                            gp.obj[mapNum][i].setLoot(gp.eGenerator.getObject(ds.mapObjectLootNames[mapNum][i]));
                         }
 
                         gp.obj[mapNum][i].opened = ds.mapObjectOpened[mapNum][i];

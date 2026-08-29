@@ -7,12 +7,14 @@ public class OBJ_Chest extends Entity {
 
     GamePannel gp;
 
+    public static final String objName = "Chest";
+
     public OBJ_Chest(GamePannel gp) {
         super(gp);
         this.gp = gp;
 
         type = type_obstacle;
-        name = "Chest";
+        name = objName;
         image = setup("/res/objects/chest.png", gp.tileSize, gp.tileSize);
         image2 = setup("/res/objects/chestOpened.png", gp.tileSize, gp.tileSize);
         down1 = image;
