@@ -51,6 +51,9 @@ public class Entity {
     public boolean opened = false;
     public Entity loot;
     public boolean inRage = false;
+    public boolean sleep = false;
+    public boolean drawing = true;
+
 
     // counter
     public int spriteCounter = 0;
@@ -90,6 +93,7 @@ public class Entity {
     public Entity currentLight;
     public Projectile projectile;
     public boolean boss;
+    public boolean temp = false; // an entity can be temporary during events.
 
     // Item attributes
     public int value;
@@ -289,6 +293,10 @@ public class Entity {
 
     }
     public void update() {
+
+        if (sleep) {
+            return; // should do nothing...
+        }
 
         if (knockBack) {
             checkCollision();

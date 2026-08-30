@@ -185,8 +185,8 @@ public class AssetSetter {
         i = 0;
 
         gp.monster[mapNum][i] = new monster.MON_BlueSlimeBoss(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 26;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 34;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 24;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 30;
         i++;
     }
 

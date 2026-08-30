@@ -280,7 +280,7 @@ public class UI {
                     g2.setFont(g2.getFont().deriveFont(Font.BOLD,24f));
                     g2.setColor(Color.white);
                     g2.drawString(monster.name, x + 4, y - 10);
-                    
+
 
                 }
             }
@@ -471,11 +471,10 @@ public class UI {
                 charIndex = 0;
                 combinedText = "";
             
-                if (gp.gameState == gp.dialogueState) {
-                
+                if (gp.gameState == gp.dialogueState || gp.gameState == gp.cutsceneState) {
 
-                npc.dialogueIndex++;
-                gp.keyH.enterPressed = false;
+                    npc.dialogueIndex++;
+                    gp.keyH.enterPressed = false;
                 }
             }
 
@@ -488,6 +487,9 @@ public class UI {
                 charIndex = 0;
                 combinedText = "";
                 gp.gameState = gp.playState;
+            }
+            if (gp.gameState == gp.cutsceneState) {
+                gp.csManager.scenePhase++;
             }
         }
 

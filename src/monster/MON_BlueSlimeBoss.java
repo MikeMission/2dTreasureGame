@@ -2,6 +2,7 @@ package monster;
 
 import java.util.Random;
 
+import data.Progress;
 import entity.Entity;
 import main.GamePannel;
 import object.OBJ_BronzeCoin;
@@ -9,6 +10,7 @@ import object.OBJ_GradScroll;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
 import object.OBJ_Shield_Wood_Circle;
+import object.OBJ_ironDoor;
 
 public class MON_BlueSlimeBoss extends Entity {
 
@@ -31,6 +33,7 @@ public class MON_BlueSlimeBoss extends Entity {
         defense = 2;
         exp = 50;
         knockBackPower = 5;
+        sleep = true;
         
         int size = gp.tileSize * 5;
 
@@ -48,6 +51,7 @@ public class MON_BlueSlimeBoss extends Entity {
 
         getImage();
         getAttackImage();
+        setDialogue();
     }
 
     public void getImage() {
@@ -101,7 +105,12 @@ public class MON_BlueSlimeBoss extends Entity {
         }
         
     }
+    public void setDialogue() {
+        dialogues[0][0] = "oi";
+        dialogues[0][1] = "you've got to help me";
+        dialogues[0][2] = "this slime on my hea-";
 
+    }
     public void setAction() {
 
         if(inRage == false && life < maxLife/2) {
@@ -134,6 +143,22 @@ public class MON_BlueSlimeBoss extends Entity {
     }
 
     public void checkDrop() {
+
+        gp.bossBattleOn = false;
+        Progress.blueSlimeBossDefeated = true;
+
+        gp.stopMusic();
+        gp.playMusic(22);
+
+        // remove the iron door.
+        for (int i = 0; i < gp.obj[1].length; i++) {
+            if (gp.obj[gp.currentMap][i] != null && gp.obj[gp.currentMap][i].name.equals(OBJ_ironDoor.objName)){
+                gp.playSE(26);
+                gp.obj[gp.currentMap][i] = null;
+            }
+        }
+
+
         // roll dice
         int i = new Random().nextInt(100) + 1;
 

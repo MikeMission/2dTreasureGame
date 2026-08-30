@@ -1,5 +1,6 @@
 package main;
 
+import data.Progress;
 import entity.Entity;
 
 public class EventHandler{
@@ -80,6 +81,8 @@ public class EventHandler{
 
             else if (hit (2, 40, 44, "any" )== true ) {teleport(3, 27,11, gp.dungeon);} // to the dungeon2
             else if (hit (3, 26, 11, "any" )== true ) {teleport(2, 41,44, gp.dungeon);} // to the dungeon1 from dungeon 2
+
+            else if (hit (3, 26, 21, "any" )== true ) {blueSlimeBoss();} 
 
 
             
@@ -164,4 +167,11 @@ public class EventHandler{
         }
     }
 
+    public void blueSlimeBoss() {
+        if (gp.bossBattleOn == false && Progress.blueSlimeBossDefeated == false) {
+            gp.gameState = gp.cutsceneState;
+            gp.csManager.sceneNum = gp.csManager.blueSlimeBoss;
+
+        }
+    }
 }
