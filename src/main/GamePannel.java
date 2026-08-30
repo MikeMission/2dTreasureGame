@@ -278,6 +278,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         }
         // OTHERS
         else {
+            // bg
+            // this.setBackground(new java.awt.Color(77, 152, 187));
             // TILE
             tileM.draw(g2);
 
