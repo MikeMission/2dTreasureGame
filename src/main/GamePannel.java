@@ -43,7 +43,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public int maxWorldCol; // defualt 50
     public int maxWorldRow;
     public final int maxMap = 10; // max 10
-    public int currentMap = 0;
+    public int currentMap = 0; // should 0
 
     // fps
     final int FPS = 60;
@@ -130,6 +130,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         if (fullScreenOn) {setFullScreen();}
     }
     public void resetGame(boolean restart) {
+
+        currentArea = outside;
         player.setDefaultPositions();
         player.restoreStatus();
         player.resetCounter();
@@ -186,7 +188,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                 update();
                 // draw screen with updated information
                 drawToScreen();
-                drawToTempScreen();
+                paintComponent(g2);
 
                 delta--;
 
@@ -259,7 +261,13 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
 
     }
 
-    public void drawToTempScreen() {
+    // RENAMED DRAWTOTEMPSCREEN -> paintComponent!!!
+    @Override
+    public void paintComponent(Graphics g) {
+
+        super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g;
 
         // DEBUG
         long drawStart = 0;
@@ -279,7 +287,9 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         // OTHERS
         else {
             // bg
-            // this.setBackground(new java.awt.Color(77, 152, 187));
+            
+
+
             // TILE
             tileM.draw(g2);
 
@@ -366,6 +376,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             g2.drawString("Row: " + (player.worldY + player.solidArea.y)/tileSize, x,y); y += lineHeight;
             g2.drawString("Draw Time: " + passed, x,y); y += lineHeight;
             g2.drawString("Invincible: " + player.invincibleCounter, x,y); y += lineHeight;
+            g2.drawString("God Mode On", x, y); y += lineHeight;
+
 
         }
     }

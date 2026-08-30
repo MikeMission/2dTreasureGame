@@ -8,7 +8,7 @@ public class KeyHandler implements KeyListener{
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed, spacePressed;
     // DEBUG
     boolean showDebugText = false;
-
+    public boolean godModeOn = false;
     @Override
     public void keyTyped(KeyEvent e) {
         
@@ -177,6 +177,14 @@ public class KeyHandler implements KeyListener{
             }
             else if (showDebugText == true) {
                 showDebugText = false;
+            }
+        }
+        else if (code == KeyEvent.VK_G) {
+            if (godModeOn == false) {
+                godModeOn = true;
+            }
+            else if (godModeOn == true) {
+                godModeOn = false;
             }
         }
 

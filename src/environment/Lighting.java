@@ -34,7 +34,7 @@ public class Lighting {
         
 
         if (gp.player.currentLight == null) {
-            g2.setColor(new Color(0,0,0,0.95f));
+            g2.setColor(new Color(0,0,0,0.97f));
         }
         else {
             // Get the center x and y of the light circle
@@ -49,7 +49,7 @@ public class Lighting {
             color = new Color[12];
             fraction = new float[12];
 
-            float[] alphaValues = {0.1f, 0.42f, 0.52f, 0.61f, 0.69f, 0.76f, 0.82f, 0.87f, 0.91f, 0.94f, 0.96f, 0.98f};
+            float[] alphaValues = {0.1f, 0.42f, 0.52f, 0.61f, 0.69f, 0.76f, 0.82f, 0.87f, 0.91f, 0.91f, 0.93f, 0.94f};
             float[] fractionValues = {0f, 0.4f, 0.5f, 0.6f, 0.65f, 0.7f, 0.75f, 0.8f, 0.85f, 0.9f, 0.95f, 1f};
 
             for (int i = 0; i < color.length; i++) {

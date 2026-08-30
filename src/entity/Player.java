@@ -46,19 +46,19 @@ public class Player extends Entity {
 
     public void setDefualtValues() {
         worldX = gp.tileSize * 20 - (gp.tileSize / 2);
-        worldY = gp.tileSize * 20 - (gp.tileSize / 2);
+        worldY = gp.tileSize * 20 - (gp.tileSize / 2); // 20
         direction = "down";
         defaultSpeed = 4;
         speed = defaultSpeed;
 
         // PLAYER STATUS
         level = 1;
-        maxLife = 6;
+        maxLife = 6; // 6
         life = maxLife;
         maxMana = 4;
         mana = maxMana;
         ammo = 10;
-        strength = 1;
+        strength = 5;
         defense = 1;
         agility = 4; // Attack speed?? Not sure what to do w this var.
         exp = 0;
@@ -80,8 +80,9 @@ public class Player extends Entity {
     }
 
     public void setDefaultPositions() {
+        gp.currentMap = 0; // 0
         worldX = gp.tileSize * 20 - (gp.tileSize / 2);
-        worldY = gp.tileSize * 20 - (gp.tileSize / 2);
+        worldY = gp.tileSize * 20 - (gp.tileSize / 2); // 20
         direction = "down";
     }
 
@@ -376,7 +377,7 @@ public class Player extends Entity {
         if (mana > maxMana) {
             mana = maxMana;
         }
-        if (life <= 0) {
+        if (life <= 0 && keyH.godModeOn == false) { // added godmode...
             gp.stopMusic();
             gp.gameState = gp.gameOverState;
             gp.playSE(13);
