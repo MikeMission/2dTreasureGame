@@ -157,6 +157,12 @@ public class Player extends Entity {
 
     public void getAttackImage() {
 
+        // default attack images (unarmed) THIS IS BEFORE I DECIDED TO ADD 2ND SPRITES FOR ANIM
+        attackUp1 = setup("/res/player/plr_attack_up1.png", gp.tileSize, gp.tileSize*2);
+        attackDown1 = setup("/res/player/plr_attack_down1.png", gp.tileSize, gp.tileSize*2);
+        attackLeft1 = setup("/res/player/plr_attack_left1.png", gp.tileSize*2, gp.tileSize);
+        attackRight1 = setup("/res/player/plr_attack_right1.png", gp.tileSize*2, gp.tileSize);
+
         if (currentWeapon.type == type_sword) {
             attackUp2 = setup("/res/player/plr_sword_up2.png", gp.tileSize, gp.tileSize*2);
             attackDown2 = setup("/res/player/plr_sword_down2.png", gp.tileSize, gp.tileSize*2);
@@ -174,13 +180,19 @@ public class Player extends Entity {
             attackDown2 = setup("/res/player/plr_attack_down2.png", gp.tileSize, gp.tileSize*2);
             attackLeft2 = setup("/res/player/plr_attack_left2.png", gp.tileSize*2, gp.tileSize);
             attackRight2 = setup("/res/player/plr_attack_right2.png", gp.tileSize*2, gp.tileSize);
+        } else if (currentWeapon.type == type_pickaxe) {
+            // pickaxe anim has swing, 2 sprites
+            attackUp1 = setup("/res/player/plr_pick_up1.png", gp.tileSize, gp.tileSize*2);
+            attackUp2 = setup("/res/player/plr_pick_up2.png", gp.tileSize, gp.tileSize*2);
+            attackDown1 = setup("/res/player/plr_pick_down1.png", gp.tileSize, gp.tileSize*2);
+            attackDown2 = setup("/res/player/plr_pick_down2.png", gp.tileSize, gp.tileSize*2);
+            attackLeft1 = setup("/res/player/plr_pick_left1.png", gp.tileSize*2, gp.tileSize);
+            attackLeft2 = setup("/res/player/plr_pick_left2.png", gp.tileSize*2, gp.tileSize);
+            attackRight1 = setup("/res/player/plr_pick_right1.png", gp.tileSize*2, gp.tileSize);
+            attackRight2 = setup("/res/player/plr_pick_right2.png", gp.tileSize*2, gp.tileSize);
         }
 
-        // default attack images (unarmed)
-        attackUp1 = setup("/res/player/plr_attack_up1.png", gp.tileSize, gp.tileSize*2);
-        attackDown1 = setup("/res/player/plr_attack_down1.png", gp.tileSize, gp.tileSize*2);
-        attackLeft1 = setup("/res/player/plr_attack_left1.png", gp.tileSize*2, gp.tileSize);
-        attackRight1 = setup("/res/player/plr_attack_right1.png", gp.tileSize*2, gp.tileSize);
+   
     }
 
     public void getGuardImage() {
@@ -478,12 +490,13 @@ public class Player extends Entity {
 
     public void interactNPC(int index) {
 
-        if (gp.keyH.enterPressed == true) {
+        if (index != 999) {
 
-            if (index != 999) {
+            if (gp.keyH.enterPressed == true) {
                 attackCanceled = true;
                 gp.npc[gp.currentMap][index].speak();
             }
+            gp.npc[gp.currentMap][index].move(direction);
 
         }
 
@@ -543,6 +556,7 @@ public class Player extends Entity {
                 generateParticle(gp.iTile[gp.currentMap][index],gp.iTile[gp.currentMap][index]);
 
                 if (gp.iTile[gp.currentMap][index].life <= 0) {
+                    // gp.iTile[gp.currentMap][index].checkDrop(); // FOR MINING ORE LATER!!
                     gp.iTile[gp.currentMap][index] = gp.iTile[gp.currentMap][index].getDestroyedForm();
                 }
             }
@@ -576,7 +590,7 @@ public class Player extends Entity {
 
             Entity selectedItem = inventory.get(itemIndex);
 
-            if (selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_gradScroll) {
+            if (selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_gradScroll || selectedItem.type == type_pickaxe ) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
                 gp.playSE(9);

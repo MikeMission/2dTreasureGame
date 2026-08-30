@@ -12,11 +12,13 @@ import object.OBJ_Key;
 import object.OBJ_Lantern;
 import object.OBJ_ManaCrystal;
 import object.OBJ_MudBall;
+import object.OBJ_Pickaxe;
 import object.OBJ_Shield_Wood;
 import object.OBJ_Shield_Wood_Circle;
 import object.OBJ_Sword_Normal;
 import object.OBJ_Tent;
 import object.OBJ_Throwing_Knife;
+import object.OBJ_ironDoor;
 
 public class EntityGenerator {
     GamePannel gp;
@@ -26,9 +28,11 @@ public class EntityGenerator {
     }
 
     public Entity getObject(String itemName) {
-
+        
         Entity obj = null;
-
+        // ================================================
+        // REMEMBER TO ADD ALL NEW OBJECTS
+        // ================================================
         switch(itemName) {
             case OBJ_Axe.objName: obj = new OBJ_Axe(gp); break;
             case OBJ_Boots.objName: obj = new OBJ_Boots(gp); break;
@@ -46,6 +50,9 @@ public class EntityGenerator {
             case OBJ_ManaCrystal.objName: obj = new OBJ_ManaCrystal(gp); break;
             case OBJ_MudBall.objName: obj = new OBJ_MudBall(gp); break;
             case OBJ_Throwing_Knife.objName: obj = new OBJ_Throwing_Knife(gp); break;
+            case OBJ_Pickaxe.objName: obj = new OBJ_Pickaxe(gp); break;
+            case OBJ_ironDoor.objName: obj = new OBJ_ironDoor(gp); break;
+
         }
         return obj;
     }

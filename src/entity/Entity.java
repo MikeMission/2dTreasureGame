@@ -28,6 +28,7 @@ public class Entity {
     public boolean collision = false;
     public String dialogues[][] = new String[20][20];
     public Entity attacker;
+    public Entity LinkedEntity;
     
  
     // state
@@ -113,6 +114,7 @@ public class Entity {
     public final int type_pickupOnly = 8;
     public final int type_obstacle = 9;
     public final int type_light = 10;
+    public final int type_pickaxe = 11;
 
     public Entity(GamePannel gp) {
         this.gp = gp;
@@ -172,6 +174,9 @@ public class Entity {
     public void setLoot(Entity loot) {}
     public void setAction() {
         //to be overridden
+    }
+    public void move(String direction) {
+        // to be overridden
     }
     public void damageReaction() {
         //to be overridden

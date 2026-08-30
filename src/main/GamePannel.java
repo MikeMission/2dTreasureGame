@@ -403,6 +403,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                 playMusic(22);
             }
 
+            aSetter.setNPC(); // reset boulders when plr go out of dungeon
+
         }
 
         currentArea = nextArea;

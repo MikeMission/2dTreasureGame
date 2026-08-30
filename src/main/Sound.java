@@ -43,6 +43,11 @@ public class Sound {
         soundURL[22] = getClass().getResource("/res/sound/dungeonLayer1.wav");
         soundURL[23] = getClass().getResource("/res/sound/dungeonLayer2.wav");
         soundURL[24] = getClass().getResource("/res/sound/interior1.wav");
+        soundURL[25] = getClass().getResource("/res/sound/chip.wav");
+        soundURL[26] = getClass().getResource("/res/sound/ironDoorUnlock.wav");
+
+
+
 
         
 
