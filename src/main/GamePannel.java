@@ -144,13 +144,15 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         player.resetCounter();
         aSetter.setNPC();
         aSetter.setMonster();
-        playMusic(0); // might not need.
 
         if (restart) {
             player.setDefualtValues();
             aSetter.setObject();
             aSetter.setInteractiveTile();
             envManager.lighting.resetDay();
+        } else {
+            playMusic(0); // prevent 2 music from playing when end game options.
+
         }
         
     }
