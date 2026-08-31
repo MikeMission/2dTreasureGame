@@ -1,5 +1,7 @@
 package main;
 
+import data.Progress;
+
 public class AssetSetter {
 
     GamePannel gp;
@@ -184,10 +186,13 @@ public class AssetSetter {
         mapNum = 3;
         i = 0;
 
-        gp.monster[mapNum][i] = new monster.MON_BlueSlimeBoss(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 24;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 30;
-        i++;
+        if (Progress.blueSlimeBossDefeated == false) {
+            gp.monster[mapNum][i] = new monster.MON_BlueSlimeBoss(gp);
+            gp.monster[mapNum][i].worldX = gp.tileSize * 24;
+            gp.monster[mapNum][i].worldY = gp.tileSize * 30;
+            i++;
+        }
+        
     }
 
     public void setInteractiveTile() {

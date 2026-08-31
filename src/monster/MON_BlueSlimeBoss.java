@@ -10,6 +10,7 @@ import object.OBJ_GradScroll;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
 import object.OBJ_Shield_Wood_Circle;
+import object.OBJ_gpuTreasure;
 import object.OBJ_ironDoor;
 
 public class MON_BlueSlimeBoss extends Entity {
@@ -158,22 +159,8 @@ public class MON_BlueSlimeBoss extends Entity {
             }
         }
 
-
-        // roll dice
-        int i = new Random().nextInt(100) + 1;
-
         // set the monster drop
-        if (i < 50) {
-            dropItem(new OBJ_BronzeCoin(gp));
-        } else if (i >= 50 && i < 75) {
-            dropItem(new OBJ_Heart(gp));
-        } else if (i >= 75 && i < 85) {
-            dropItem(new OBJ_ManaCrystal(gp));
-        } else if (i >= 85 && i < 95) {
-            dropItem(new OBJ_Shield_Wood_Circle(gp));
-        } else if (i >= 95 && i <= 100) {
-            dropItem(new OBJ_GradScroll(gp));
-        }
-        
+        dropItem(new OBJ_gpuTreasure(gp));
+        Progress.gpuObtained = true;
     }
 }

@@ -334,7 +334,7 @@ public class UI {
 
             // TITLE NAME
             g2.setFont(g2.getFont().deriveFont(java.awt.Font.BOLD, 50F));
-            String text = "2D TREASURE ISLAND";
+            String text = "the tale of a comp grad";
             int x = getXforCenteredText(text);
             int y = gp.tileSize * 3;
 

@@ -135,7 +135,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         if (fullScreenOn) {setFullScreen();}
     }
     public void resetGame(boolean restart) {
-
+        stopMusic();
         currentArea = outside;
         removeTempEntity();
         bossBattleOn = false;

@@ -1,5 +1,6 @@
 package main;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Main {
@@ -8,7 +9,8 @@ public class Main {
       window = new JFrame();
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       window.setResizable(false);
-      window.setTitle("2dTreasureGame");
+      window.setTitle("the tale of a comp grad");
+      new Main().setIcon();
       
  
       GamePannel gamePannel = new GamePannel();
@@ -26,5 +28,10 @@ public class Main {
       gamePannel.setupGame();
       gamePannel.startGameThread();
 
+   }
+
+   public void setIcon(){
+      ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("res/player/plrDown1.png"));
+      window.setIconImage(icon.getImage());
    }
 }
