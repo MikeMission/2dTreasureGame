@@ -43,7 +43,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public int maxWorldCol; // defualt 50
     public int maxWorldRow;
     public final int maxMap = 10; // max 10
-    public int currentMap = 3; // should 0
+    public int currentMap = 0; // should 0
 
     // fps
     final int FPS = 60;

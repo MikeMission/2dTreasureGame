@@ -46,7 +46,7 @@ public class Player extends Entity {
 
     public void setDefualtValues() {
         worldX = gp.tileSize * 20 - (gp.tileSize / 2);
-        worldY = gp.tileSize * 25 - (gp.tileSize / 2); // 20
+        worldY = gp.tileSize * 20 - (gp.tileSize / 2); // 20
         direction = "down";
         defaultSpeed = 4;
         speed = defaultSpeed;
@@ -58,7 +58,7 @@ public class Player extends Entity {
         maxMana = 4;
         mana = maxMana;
         ammo = 10;
-        strength = 5;
+        strength = 1; // 1
         defense = 1;
         agility = 4; // Attack speed?? Not sure what to do w this var.
         exp = 0;
