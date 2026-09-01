@@ -102,6 +102,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public final int outside = 50;
     public final int indoor = 51;
     public final int dungeon = 52;
+    public final int ateInterior = 53;
 
 
 
@@ -421,6 +422,9 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             }
             if (nextArea == indoor) {
                 playMusic(24);
+            }
+            if (nextArea == ateInterior) {
+                playMusic(27);
             }
             if (nextArea == dungeon) {
                 playMusic(22);

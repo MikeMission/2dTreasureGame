@@ -29,7 +29,11 @@ public class OBJ_Chest extends Entity {
         }
 
     public void setDialogue() {
-        dialogues[0][0] = "You opened the chest and find: " + loot.name + "!" + "\nYou put the " + loot.name + " in your inventory.";
+        /**TODO:
+         * dialogue should auto adjust based on the name of the loot.
+         * if char > asdklasjd
+        */
+        dialogues[0][0] = "You opened the chest and find:\n " + loot.name + "!" + "\nYou put the " + loot.name + "\n in your inventory.";
         dialogues[1][0] = "You opened the chest and find: " + loot.name + "!" + "\nBut your inventory is full, so you leave it there.";
         dialogues[2][0] = "The chest is empty.";
 
@@ -51,7 +55,6 @@ public class OBJ_Chest extends Entity {
                 startDialogue(this, 0);
                 down1 = image2;
                 opened = true;
-
             }
 
             

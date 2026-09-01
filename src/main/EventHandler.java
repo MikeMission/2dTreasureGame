@@ -71,6 +71,10 @@ public class EventHandler{
 
             else if (hit(0,18,21, "any") == true) {healingPool(gp.dialogueState);}
 
+            else if (hit(0, 6, 5, "up") == true) {teleport(4, 18, 18, gp.ateInterior);}
+            else if (hit(4, 18, 19, "down") == true) {teleport(0, 6, 6, gp.outside);}
+
+
             else if (hit(0, 16, 16, "up") == true) {teleport(1, 24, 27, gp.indoor);} // to the merchant's house
             else if (hit (1, 24, 28, "down") == true) {teleport(0, 16, 16, gp.outside);} // outside of merchant
 

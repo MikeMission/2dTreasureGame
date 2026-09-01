@@ -94,6 +94,14 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = gp.tileSize * 35;
         gp.obj[mapNum][i].worldY = gp.tileSize * 39;
         i++;
+
+        mapNum = 4;
+        i = 0;
+        gp.obj[mapNum][i] = new object.OBJ_Chest(gp);
+        gp.obj[mapNum][i].setLoot(new object.OBJ_StrawberryCupcake(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize * 18;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 14;
+        i++;
     } 
 
     public void setNPC() {
@@ -123,6 +131,14 @@ public class AssetSetter {
         gp.npc[mapNum][i] = new entity.NPC_Boulder(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize * 29;
         gp.npc[mapNum][i].worldY = gp.tileSize * 25;
+
+        mapNum = 4;
+        i = 0;
+        gp.npc[mapNum][i] = new entity.NPC_Omari(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize * 20;
+        gp.npc[mapNum][i].worldY = gp.tileSize * 14;
+        i++;
+
 
 
     }

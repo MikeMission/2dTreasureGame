@@ -15,6 +15,7 @@ import object.OBJ_MudBall;
 import object.OBJ_Pickaxe;
 import object.OBJ_Shield_Wood;
 import object.OBJ_Shield_Wood_Circle;
+import object.OBJ_StrawberryCupcake;
 import object.OBJ_Sword_Normal;
 import object.OBJ_Tent;
 import object.OBJ_Throwing_Knife;
@@ -52,6 +53,7 @@ public class EntityGenerator {
             case OBJ_Throwing_Knife.objName: obj = new OBJ_Throwing_Knife(gp); break;
             case OBJ_Pickaxe.objName: obj = new OBJ_Pickaxe(gp); break;
             case OBJ_ironDoor.objName: obj = new OBJ_ironDoor(gp); break;
+            case OBJ_StrawberryCupcake.objName: obj = new object.OBJ_StrawberryCupcake(gp); break;
 
         }
         return obj;
