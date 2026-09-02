@@ -153,7 +153,6 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             envManager.lighting.resetDay();
         } else {
             playMusic(0); // prevent 2 music from playing when end game options.
-
         }
         
     }

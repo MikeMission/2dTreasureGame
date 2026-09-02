@@ -155,7 +155,7 @@ false
 077.png
 true
 078.png
-false
+true
 079.png
 true
 080.png

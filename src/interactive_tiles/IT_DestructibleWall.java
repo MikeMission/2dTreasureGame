@@ -40,10 +40,10 @@ public class IT_DestructibleWall extends InteractiveTile {
     }
     
     public Color getParticleColor() {
-        return new Color(65, 65, 65);
+        return new Color(85,47,30);
     }
     public int getParticleSize() {
-        return 6;
+        return 11;
     }
     public int getParticleSpeed() {
         return 1;

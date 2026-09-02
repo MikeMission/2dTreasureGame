@@ -110,21 +110,26 @@ public class KeyHandler implements KeyListener{
                 }
             }
             if (code == KeyEvent.VK_ENTER) {
+                // Wwarrior
                 if (gp.ui.commandNum == 0) {
                     gp.gameState = gp.playState;
-                    gp.playMusic(0);
                 }
+                // Mage
                 if (gp.ui.commandNum == 1) {
                     gp.gameState = gp.playState;
-                    gp.playMusic(0);
                 }
+                // Archer
                 if (gp.ui.commandNum == 2) {
                     gp.gameState = gp.playState;
-                    gp.playMusic(0);
                 }
+
+                // back
                 if (gp.ui.commandNum == 3) {
                     gp.ui.titleScreenState = 0;
                 }
+                
+                // play music
+                gp.playMusic(0);
             }
         }
     }
