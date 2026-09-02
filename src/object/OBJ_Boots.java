@@ -18,12 +18,16 @@ public class OBJ_Boots extends Entity {
         value = 1;
         description = "[" + name + "]\nA pair of old boots.\nAgility +1";
         price = 500;
+        setDialogue();
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "You used the " + name + ".\nYour agility has increased by " + value + ".";
     }
 
     public boolean use(Entity entity) {
-        gp.gameState = gp.dialogueState;
-        gp.ui.currentDialogue = "You used " + name + " -> +" + value + " Agility";
-        entity.speed += value;
+        startDialogue(this, 0);
+        entity.agility += value;
         gp.playSE(2);
         return true;
     }

@@ -49,6 +49,7 @@ public class MON_BlueSlimeBoss extends Entity {
         motion1_duration = 25;
         motion2_duration = 50;
         type = 2; // monster
+        stunDuration = 120;
 
         getImage();
         getAttackImage();

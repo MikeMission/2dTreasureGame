@@ -59,8 +59,8 @@ public class Player extends Entity {
         mana = maxMana;
         ammo = 10;
         strength = 1; // 1
-        defense = 1;
-        agility = 4; // Attack speed?? Not sure what to do w this var.
+        baseDefense = 1;
+        agility = 1; // Attack speed?? Not sure what to do w this var.
         exp = 0;
         nextLevelExp = 5;
         coin = 1000; // TEST
@@ -118,7 +118,7 @@ public class Player extends Entity {
     }
 
     public int getDefense() {
-        return defense * currentShield.defenseValue;
+        return baseDefense * currentShield.defenseValue; // no base def anymore, rely on shield.
     }
 
     public int getCurrentShieldSlot() {
@@ -570,10 +570,12 @@ public class Player extends Entity {
 
         if (exp >= nextLevelExp) {
             level ++;
-            nextLevelExp = nextLevelExp*3;
-            maxLife += 2;
+            // nextLevelExp = nextLevelExp*3; // TESTING
+            if (level < 15) { 
+                maxLife += 2;
+            }
             strength ++;
-            defense++;
+            baseDefense++;
             agility++;
             attack = getAttack();
             defense = getDefense();
@@ -582,6 +584,7 @@ public class Player extends Entity {
             gp.gameState = gp.dialogueState;
             setDialogue();
             startDialogue(this, 0);
+      
         }
 
     }

@@ -110,11 +110,6 @@ public class UI {
             drawGameOverScreen();
         }
 
-        // TRANSITION STATE 
-        if (gp.gameState == gp.transitionState) {
-            drawTransition();
-        }
-
         // TRADE STATE 
         if (gp.gameState == gp.tradeState) {
             drawTradeScreen();
@@ -195,11 +190,16 @@ public class UI {
         while (i < gp.player.life) {
             if (i % 2 == 0) {
                 g2.drawImage(heart_half, x, y, iconSize,iconSize, null);
+   
             } else {
                 g2.drawImage(heart_full, x, y, iconSize,iconSize, null);
                 x += iconSize;
             }
             i++;
+            if (i == 16) {
+                y += iconSize;
+                x -= iconSize * 8;
+            }
         }
 
         drawPlayerMana(); // might have to do stuff based on player class here, like only draw mana for mage or something
@@ -536,8 +536,8 @@ public class UI {
             String.valueOf(gp.player.life + "/" + gp.player.maxLife),
             String.valueOf(gp.player.mana + "/" + gp.player.maxMana),
             String.valueOf(gp.player.strength),
-            String.valueOf(gp.player.attack),
-            String.valueOf(gp.player.defense),
+            String.valueOf(gp.player.getAttack()),
+            String.valueOf(gp.player.getDefense()),
             String.valueOf(gp.player.agility),
             String.valueOf(gp.player.exp),
             String.valueOf(gp.player.nextLevelExp + "EXP"),
@@ -701,26 +701,6 @@ public class UI {
         }
 
         gp.keyH.enterPressed = false;
-
-    }
-
-    public void drawTransition() {
-        counter++;
-
-        g2.setColor(new Color(0,0,0,counter*5));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-
-        if (counter == 50) {
-            counter = 0;
-            gp.gameState = gp.playState;
-            gp.currentMap = gp.eHandler.tempMap;
-            gp.player.worldX = gp.tileSize * gp.eHandler.tempCol;
-            gp.player.worldY = gp.tileSize * gp.eHandler.tempRow;
-            gp.eHandler.previousEventX = gp.player.worldX;
-            gp.eHandler.previousEventY = gp.player.worldY;
-            gp.changeArea();
-        }
-
 
     }
 

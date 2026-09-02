@@ -80,7 +80,9 @@ public class EventHandler{
 
             else if (hit (1, 33, 22, "up")== true) {speak(gp.npc[1][1]);}
 
-            else if (hit (0, 46, 4, "any" )== true ) {teleport(2, 9,7, gp.dungeon);} // to the dungeon1 from out
+            // else if (hit (0, 46, 4, "any" )== true ) {teleport(2, 9,7, gp.dungeon);} // to the dungeon1 from out
+            else if (hit (0, 46, 4, "any" )== true ) {teleport(3, 27,11, gp.dungeon);} // fast acces to dungeon2 testing.
+
             else if (hit (2, 8, 7, "any" )== true ) {teleport(0, 46,5, gp.outside);} // to outside of dungeon
 
             else if (hit (2, 40, 44, "any" )== true ) {teleport(3, 27,11, gp.dungeon);} // to the dungeon2
@@ -152,8 +154,8 @@ public class EventHandler{
     }
 
     public void teleport(int map, int col, int row, int area) {
-
-        gp.gameState = gp.transitionState;
+        gp.gameState = gp.cutsceneState; 
+        gp.csManager.sceneNum = gp.csManager.teleport;
         gp.nextArea = area;
         tempMap = map;
         tempCol = col;

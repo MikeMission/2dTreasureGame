@@ -23,6 +23,7 @@ public class CutsceneManager {
     public final int NA = 0;
     public final int blueSlimeBoss = 1;
     public final int gpuObtained = 2;
+    public final int teleport = 3;
     // \n
     public CutsceneManager (GamePannel gp) {
         this.gp = gp;
@@ -69,7 +70,14 @@ public class CutsceneManager {
         switch(sceneNum) {
             case blueSlimeBoss: scene_blueSlimeBoss(); break;
             case gpuObtained: scene_gpuObtained(); break;
+            case teleport: scene_Transition(); break;
         }
+    }
+    public void scene_beggining() {
+        if (scenePhase == 0) {
+
+        }
+        
     }
     public void scene_blueSlimeBoss() {
         if (scenePhase == 0) {
@@ -240,6 +248,51 @@ public class CutsceneManager {
             // scrolling the endcredit string.
             y--;
             drawString(1f, 38f, y, endCredit, 40);
+        }
+
+    }
+    public void scene_Transition() {
+        if (scenePhase == 0) {
+            // phase in
+            alpha += 0.05f;
+            if (alpha > 1f) {
+                alpha = 1f;
+            }
+            drawBlackBackground(alpha);
+
+            if (alpha == 1f) {
+                scenePhase++;
+            }
+
+        }
+        if (scenePhase == 1) {
+            // change map.
+            if (counterReached(1)) { // do this for 1 frame..
+                counter = 0;
+                gp.currentMap = gp.eHandler.tempMap;
+                gp.player.worldX = gp.tileSize * gp.eHandler.tempCol;
+                gp.player.worldY = gp.tileSize * gp.eHandler.tempRow;
+                gp.eHandler.previousEventX = gp.player.worldX;
+                gp.eHandler.previousEventY = gp.player.worldY;
+                gp.changeArea();
+                scenePhase++;
+            }
+        }
+        if (scenePhase == 2) {
+            // phase out
+            alpha -= 0.05f;
+            if (alpha < 0f) {
+                alpha = 0f;
+                scenePhase++;
+            }
+            drawBlackBackground(alpha);
+        }
+
+        if (scenePhase == 3) {
+            // return back to playState.
+            scenePhase = NA;
+            sceneNum = 0;
+            gp.gameState = gp.playState;
         }
 
     }

@@ -19,6 +19,7 @@ public class OBJ_GradScroll extends Entity {
         description = "[" + name + "]\nA computer science\n graduate scroll.\nAttack +2";
         motion1_duration = 5;
         motion2_duration = 25;
+        price = 100;
     }
 
 }

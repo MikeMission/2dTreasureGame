@@ -80,6 +80,7 @@ public class Entity {
     public int ammo;
     public int level;
     public int strength;
+    public int baseDefense;
     public int defense;
     public int agility;
     public int attack;
@@ -94,6 +95,7 @@ public class Entity {
     public Projectile projectile;
     public boolean boss;
     public boolean temp = false; // an entity can be temporary during events.
+    public int stunDuration;
 
     // Item attributes
     public int value;
@@ -363,7 +365,7 @@ public class Entity {
 
         if (offBalance == true) {
             offBalanceCounter++;
-            if (offBalanceCounter > 60) {
+            if (offBalanceCounter > stunDuration) {
                 offBalance = false;
                 offBalanceCounter = 0;
             }
@@ -584,6 +586,9 @@ public class Entity {
                 // guard
                 else {
                     damage /= 3;
+                    if (damage < 1) {
+                    damage = 1;
+                    }
                     gp.playSE(20);
                 }
             }
