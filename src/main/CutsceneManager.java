@@ -3,6 +3,9 @@ package main;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 import entity.Entity;
 import entity.PlayerDummy;
@@ -95,29 +98,61 @@ public class CutsceneManager {
             phaseOut();
         }
         if (scenePhase == 2) {
-            drawBlackBackground(1f);
-            alpha += 0.005f;
-            if (alpha > 1f) {
-                alpha = 1f;
+            // phaseOut();
+
+            try {
+                BufferedImage titleImage = ImageIO.read(getClass().getResourceAsStream("/res/menuBackgrounds/beginningCutsceneBgs/graduation.png"));
+                g2.drawImage(titleImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-            String text = "After graduating, you return home."
-            + "\n country side, a small remote town."
-            + "\n "
-            + "\n but your hometown feels a bit different."
-            + "\n there's monsters lurking everywhere";
-
-
-            drawString(alpha, 28, 150, text, 70);
-            if (counterReached(500)) {
+            String text = "It's the day you've been grinding for"
+            + "\n 4 years of your life for this degree";
+            drawString(1f, 28, 500, text, 28);
+            if (counterReached(600)) {
                 counter = 0;
                 scenePhase++;
             }
         }
         if (scenePhase == 3) {
-            phaseIn();
+            phaseOut();
         }
         if (scenePhase == 4) {
+            try {
+                BufferedImage titleImage = ImageIO.read(getClass().getResourceAsStream("/res/menuBackgrounds/beginningCutsceneBgs/train.png"));
+                g2.drawImage(titleImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String text = "you go back home, thinking about"
+            + "\n those 4 years you've spent"
+            + "\n just slaving away at learning.";
+
+            drawString(1f, 28, 500, text, 28);
+            if (counterReached(600)) {
+                counter = 0;
+                scenePhase++;
+            }
+        }
+        if (scenePhase == 5) {
+            try {
+                BufferedImage titleImage = ImageIO.read(getClass().getResourceAsStream("/res/menuBackgrounds/beginningCutsceneBgs/house.png"));
+                g2.drawImage(titleImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String text = "you finally arrive home"
+            + "\nbut it feels a bit different."
+            + "\n there's monsters lurking everywhere";
+
+            drawString(1f, 28, 340, text, 28);
+            if (counterReached(600)) {
+                counter = 0;
+                scenePhase++;
+            }
+        }
+        if (scenePhase == 6) {
             drawBlackBackground(1f);
             alpha += 0.005f;
             if (alpha > 1f) {
@@ -127,15 +162,15 @@ public class CutsceneManager {
             String text = "nothing a computer science grad couldn't handle";
 
             drawString(alpha, 40, 250, text, 70);
-            if (counterReached(250)) {
+            if (counterReached(150)) {
                 counter = 0;
                 scenePhase++;
             }
         }
-        if (scenePhase == 5) {
+        if (scenePhase == 7) {
             phaseOut();
         }
-        if (scenePhase == 6) {
+        if (scenePhase == 8) {
             // start the game.
             gp.gameState = gp.playState;
             scenePhase = NA;
@@ -403,8 +438,17 @@ public class CutsceneManager {
         g2.setFont(g2.getFont().deriveFont(fontSize));
 
         for (String line : text.split("\n")) {
+            
             int x = gp.ui.getXforCenteredText(line);
+
+            g2.setFont(g2.getFont().deriveFont(fontSize));
+            g2.setColor(Color.BLACK);
+            g2.drawString(line, x+3, y+3);
+
+            g2.setFont(g2.getFont().deriveFont(fontSize));
+            g2.setColor(Color.WHITE);
             g2.drawString(line, x, y);
+
             y += lineHeight;
         }
 
