@@ -62,9 +62,17 @@ public class Sound {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
-            fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            checkVolume();
-
+            
+            // Check if MASTER_GAIN is supported
+            if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+                fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                checkVolume();
+            } else {
+                // Handle unsupported case
+                System.out.println("MASTER_GAIN not supported for this audio format");
+                fc = null; // or use a default value
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

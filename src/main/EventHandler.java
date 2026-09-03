@@ -180,4 +180,9 @@ public class EventHandler{
 
         }
     }
+
+    public void begginingEvent() {
+        gp.gameState = gp.cutsceneState;
+        gp.csManager.sceneNum = gp.csManager.beggining;
+    }
 }

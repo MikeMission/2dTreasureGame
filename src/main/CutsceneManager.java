@@ -4,6 +4,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import entity.Entity;
 import entity.PlayerDummy;
 import monster.MON_BlueSlimeBoss;
 import object.OBJ_gpuTreasure;
@@ -24,6 +25,9 @@ public class CutsceneManager {
     public final int blueSlimeBoss = 1;
     public final int gpuObtained = 2;
     public final int teleport = 3;
+    public final int ending = 4; // implement later lol
+    public final int beggining = 5; // implement later lol
+
     // \n
     public CutsceneManager (GamePannel gp) {
         this.gp = gp;
@@ -68,17 +72,146 @@ public class CutsceneManager {
     public void draw(Graphics2D g2) {
         this.g2 = g2;
         switch(sceneNum) {
+            case beggining: scene_beggining();break;
             case blueSlimeBoss: scene_blueSlimeBoss(); break;
             case gpuObtained: scene_gpuObtained(); break;
             case teleport: scene_Transition(); break;
+            case ending: scene_ending();break;
+
         }
     }
+    // CORE SCENES
     public void scene_beggining() {
         if (scenePhase == 0) {
+            drawBlackBackground(1f);
+            
+            drawString(1f, 70, gp.screenHeight/2, "Your tale starts here", 40);
+            if (counterReached(200)) {
+                counter = 0;
+                scenePhase++;
+            }
+        }
+        if (scenePhase == 1) {
+            phaseOut();
+        }
+        if (scenePhase == 2) {
+            drawBlackBackground(1f);
+            alpha += 0.005f;
+            if (alpha > 1f) {
+                alpha = 1f;
+            }
 
+            String text = "After graduating, you return home."
+            + "\n country side, a small remote town."
+            + "\n "
+            + "\n but your hometown feels a bit different."
+            + "\n there's monsters lurking everywhere";
+
+
+            drawString(alpha, 28, 150, text, 70);
+            if (counterReached(500)) {
+                counter = 0;
+                scenePhase++;
+            }
+        }
+        if (scenePhase == 3) {
+            phaseIn();
+        }
+        if (scenePhase == 4) {
+            drawBlackBackground(1f);
+            alpha += 0.005f;
+            if (alpha > 1f) {
+                alpha = 1f;
+            }
+
+            String text = "nothing a computer science grad couldn't handle";
+
+            drawString(alpha, 40, 250, text, 70);
+            if (counterReached(250)) {
+                counter = 0;
+                scenePhase++;
+            }
+        }
+        if (scenePhase == 5) {
+            phaseOut();
+        }
+        if (scenePhase == 6) {
+            // start the game.
+            gp.gameState = gp.playState;
+            scenePhase = NA;
+            sceneNum = 0;
+            // gp.playMusic(22);
+            // play home music
         }
         
     }
+
+    public void scene_ending() {
+        if (scenePhase == 0) {
+            drawBlackBackground(1f);
+
+            drawString(1f, 70, gp.screenHeight/2, "The Tale Of a Comp Grad", 40);
+            if (counterReached(300)) {
+                counter = 0;
+                // gp.playMusic(0); ending song
+                scenePhase++;
+            }
+
+        }
+        if (scenePhase == 1) {
+            // endcredits
+
+            drawBlackBackground(1f);
+            y = gp.screenHeight/2;
+
+            drawString(1f, 38, y, endCredit,40);
+            if (counterReached(300)) {
+                counter = 0;
+                // gp.playMusic(0); ending lol
+                scenePhase++;
+            }
+        }
+        if (scenePhase == 2) {
+            drawBlackBackground(1f);
+            // scrolling the endcredit string.
+            y--;
+            drawString(1f, 38f, y, endCredit, 40);
+        }
+    }
+
+    public void scene_Transition() {
+        if (scenePhase == 0) {
+            phaseIn();
+        }
+        if (scenePhase == 1) {
+            // change map.
+            if (counterReached(1)) { // do this for 1 frame..
+                counter = 0;
+                gp.currentMap = gp.eHandler.tempMap;
+                gp.player.worldX = gp.tileSize * gp.eHandler.tempCol;
+                gp.player.worldY = gp.tileSize * gp.eHandler.tempRow;
+                gp.eHandler.previousEventX = gp.player.worldX;
+                gp.eHandler.previousEventY = gp.player.worldY;
+                gp.changeArea();
+                scenePhase++;
+
+            }
+        }
+        if (scenePhase == 2) {
+            phaseOut();
+        }
+
+        if (scenePhase == 3) {
+            // return back to playState.
+
+            scenePhase = NA;
+            sceneNum = 0;
+            gp.gameState = gp.playState;
+        }
+
+    }
+    
+    // BOSS SCENES & PROGRESSION
     public void scene_blueSlimeBoss() {
         if (scenePhase == 0) {
             gp.bossBattleOn = true;
@@ -161,7 +294,9 @@ public class CutsceneManager {
             gp.playMusic(23);
         }
     }
+
     public void scene_gpuObtained() {
+
         if (scenePhase == 0) {
             gp.stopMusic();
             gp.ui.npc = new OBJ_gpuTreasure(gp);
@@ -186,16 +321,7 @@ public class CutsceneManager {
             }
         }
         if (scenePhase == 4) {
-            alpha += 0.005f;
-            if (alpha > 1f) {
-                alpha = 1f;
-            }
-            drawBlackBackground(alpha);
-
-            if (alpha == 1f) {
-                alpha = 0;
-                scenePhase++;
-            }
+            phaseIn();
         }
         if (scenePhase == 5) {
 
@@ -213,90 +339,48 @@ public class CutsceneManager {
             + "\n you've always wanted to make your own pc.";
 
             drawString(alpha, 38f, 150, text, 70);
-            if (counterReached(800)) {
+            if (counterReached(700)) {
                 counter = 0;
-                gp.playMusic(0);
                 scenePhase++;
             }
+
         }
         if (scenePhase == 6) {
-            drawBlackBackground(1f);
-
-            drawString(1f, 70, gp.screenHeight/2, "The Tale Of a Comp Grad", 40);
-            if (counterReached(300)) {
-                counter = 0;
-                // gp.playMusic(0); ending song
-                scenePhase++;
-            }
-
+            phaseIn();
         }
         if (scenePhase == 7) {
-            // endcredits
-
-            drawBlackBackground(1f);
-            y = gp.screenHeight/2;
-
-            drawString(1f, 38f, y, endCredit,40);
-            if (counterReached(300)) {
-                counter = 0;
-                // gp.playMusic(0); ending lol
-                scenePhase++;
-            }
+            phaseOut();
         }
         if (scenePhase == 8) {
-            drawBlackBackground(1f);
-            // scrolling the endcredit string.
-            y--;
-            drawString(1f, 38f, y, endCredit, 40);
-        }
-
-    }
-    public void scene_Transition() {
-        if (scenePhase == 0) {
-            // phase in
-            alpha += 0.05f;
-            if (alpha > 1f) {
-                alpha = 1f;
-            }
-            drawBlackBackground(alpha);
-
-            if (alpha == 1f) {
-                scenePhase++;
-            }
-
-        }
-        if (scenePhase == 1) {
-            // change map.
-            if (counterReached(1)) { // do this for 1 frame..
-                counter = 0;
-                gp.currentMap = gp.eHandler.tempMap;
-                gp.player.worldX = gp.tileSize * gp.eHandler.tempCol;
-                gp.player.worldY = gp.tileSize * gp.eHandler.tempRow;
-                gp.eHandler.previousEventX = gp.player.worldX;
-                gp.eHandler.previousEventY = gp.player.worldY;
-                gp.changeArea();
-                scenePhase++;
-            }
-        }
-        if (scenePhase == 2) {
-            // phase out
-            alpha -= 0.05f;
-            if (alpha < 0f) {
-                alpha = 0f;
-                scenePhase++;
-            }
-            drawBlackBackground(alpha);
-        }
-
-        if (scenePhase == 3) {
-            // return back to playState.
+            // return back to playstate
+            gp.gameState = gp.playState;
             scenePhase = NA;
             sceneNum = 0;
-            gp.gameState = gp.playState;
+            gp.playMusic(22);
         }
-
     }
 
+
+    // TOOLS
+    public void phaseIn() {
+        // phase in
+        alpha += 0.05f;
+        if (alpha > 1f) {
+            alpha = 1f;
+            scenePhase++;
+        }
+        drawBlackBackground(alpha);
+    }
+
+    public void phaseOut() {
+        alpha -= 0.05f;
+        if (alpha < 0f) {
+            alpha = 0f;
+            scenePhase++;
+        }
+        drawBlackBackground(alpha);
+    }
+    
     public boolean counterReached(int duration) {
         boolean counterReached = false;
         counter++;

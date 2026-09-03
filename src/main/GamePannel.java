@@ -87,7 +87,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public final int characterState = 4;
     public final int optionsState = 5;
     public final int gameOverState = 6;
-    public final int transitionState = 7;
+    // public final int transitionState = 7; you will be remembered 
     public final int tradeState = 8;
     public final int sleepState = 9;
     public final int mapState = 10;
@@ -103,9 +103,6 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public final int indoor = 51;
     public final int dungeon = 52;
     public final int ateInterior = 53;
-
-
-
 
     public GamePannel() {
 
@@ -137,6 +134,9 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     }
     public void resetGame(boolean restart) {
         stopMusic();
+        if (music.clip != null) {
+            music.clip = null;
+        }
         currentArea = outside;
         removeTempEntity();
         bossBattleOn = false;
@@ -177,39 +177,36 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
 
     @Override
     public void run() {
-
-        double drawInterval = 1000000000 / FPS; // 0.01666 seconds
+        double drawInterval = 1000000000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
 
         while (gameThread != null) {
-
             currentTime = System.nanoTime();
-
-            delta += (currentTime - lastTime) / drawInterval;
-            timer += (currentTime - lastTime);
+            double timePassed = (currentTime - lastTime) / (double)drawInterval;
             lastTime = currentTime;
+            
+            // Limit updates to prevent speed spikes
+            if (timePassed > 3.0) { // If more than 3 frames passed
+                timePassed = 1.0;   // Only do 1 frame worth of updates
+            }
+            
+            delta += timePassed;
+            timer += (currentTime - lastTime);
 
-            if (delta >= 1) {
-                // update information 
+            while (delta >= 1) {
                 update();
-                // draw screen with updated information
                 drawToScreen();
                 paintComponent(g2);
-
                 delta--;
-
             }
 
             if (timer >= 1000000000) {
-                // System.out.println("FPS: " + drawCount);
                 timer = 0;
             }
-
         }
-
     }
 
     public void update() {
@@ -263,10 +260,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             }
             envManager.update();
         }
-        
-        if (gameState == pauseState) {
-
-        }
+        // can add different states...
+        // for now any state other than playState, we do nothing here.
 
     }
 

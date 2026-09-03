@@ -86,6 +86,7 @@ public class KeyHandler implements KeyListener{
                     gp.ui.titleScreenState = 1;
                 }
                 if (gp.ui.commandNum == 1) {
+                    // skip the cutscene
                     gp.saveLoad.load();
                     gp.gameState = gp.playState; 
                     gp.playMusic(0);
@@ -112,24 +113,25 @@ public class KeyHandler implements KeyListener{
             if (code == KeyEvent.VK_ENTER) {
                 // Wwarrior
                 if (gp.ui.commandNum == 0) {
-                    gp.gameState = gp.playState;
+                    gp.eHandler.begginingEvent();
                 }
                 // Mage
                 if (gp.ui.commandNum == 1) {
-                    gp.gameState = gp.playState;
+                    gp.eHandler.begginingEvent();
                 }
                 // Archer
                 if (gp.ui.commandNum == 2) {
-                    gp.gameState = gp.playState;
+                    gp.eHandler.begginingEvent();
                 }
 
                 // back
                 if (gp.ui.commandNum == 3) {
                     gp.ui.titleScreenState = 0;
                 }
-                
                 // play music
-                gp.playMusic(0);
+                if (gp.music.clip == null) { // whenever restarting the game it should be null..
+                    gp.playMusic(0);
+                }
             }
         }
     }
