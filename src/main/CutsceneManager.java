@@ -86,42 +86,82 @@ public class CutsceneManager {
     // CORE SCENES
     public void scene_beggining() {
         if (scenePhase == 0) {
-            drawBlackBackground(1f);
-            
-            drawString(1f, 70, gp.screenHeight/2, "Your tale starts here", 40);
-            if (counterReached(200)) {
-                counter = 0;
+            if (counterReached(1)) { // for 1 frame
+                gp.playMusic(28);
                 scenePhase++;
             }
         }
         if (scenePhase == 1) {
-            phaseOut();
+
+            drawBlackBackground(1f);
+            
+            drawString(1f, 70, gp.screenHeight/2, "Your tale starts here", 40);
+            if (counterReached(220)) {
+                counter = 0;
+                scenePhase++;
+                
+            }
         }
         if (scenePhase == 2) {
-            // phaseOut();
 
+            drawBlackBackground(1f);
+            phaseIn();
+        }
+        if (scenePhase == 3) {
+            // phase in
+            alpha -= 0.05f;
+            if (alpha < 0f) {
+                alpha = 0f;
+            }
             try {
                 BufferedImage titleImage = ImageIO.read(getClass().getResourceAsStream("/res/menuBackgrounds/beginningCutsceneBgs/graduation.png"));
                 g2.drawImage(titleImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+                drawBlackBackground(alpha);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             String text = "It's the day you've been grinding for"
             + "\n 4 years of your life for this degree";
-            drawString(1f, 28, 500, text, 28);
-            if (counterReached(600)) {
+            drawString(1f-alpha, 28, 500, text, 28);
+            if (counterReached(550) || gp.keyH.enterPressed) {
                 counter = 0;
                 scenePhase++;
             }
         }
-        if (scenePhase == 3) {
-            phaseOut();
-        }
         if (scenePhase == 4) {
+            // phase out into black screen
+            alpha += 0.05f;
+            if (alpha > 1f) {
+                alpha = 1f;
+                scenePhase++;
+            }
+            try {
+                BufferedImage titleImage = ImageIO.read(getClass().getResourceAsStream("/res/menuBackgrounds/beginningCutsceneBgs/graduation.png"));
+                g2.drawImage(titleImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+                drawBlackBackground(alpha);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        if (scenePhase == 5) {
+            drawBlackBackground(1f);
+            phaseIn();
+        }
+        if (scenePhase == 6) {
+            // phase in 
+            alpha -= 0.05f;
+            if (alpha < 0f) {
+                alpha = 0f;
+            }
             try {
                 BufferedImage titleImage = ImageIO.read(getClass().getResourceAsStream("/res/menuBackgrounds/beginningCutsceneBgs/train.png"));
                 g2.drawImage(titleImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+                drawBlackBackground(alpha);
+            
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -129,16 +169,43 @@ public class CutsceneManager {
             + "\n those 4 years you've spent"
             + "\n just slaving away at learning.";
 
-            drawString(1f, 28, 500, text, 28);
-            if (counterReached(600)) {
+            drawString(1f-alpha, 28, 500, text, 28);
+            if (counterReached(550) || gp.keyH.enterPressed) {
                 counter = 0;
                 scenePhase++;
             }
         }
-        if (scenePhase == 5) {
+        if (scenePhase == 7) {
+            // phase in
+            alpha += 0.05f;
+            if (alpha > 1f) {
+                alpha = 1f;
+                scenePhase++;
+            }
+
+            try {
+                BufferedImage titleImage = ImageIO.read(getClass().getResourceAsStream("/res/menuBackgrounds/beginningCutsceneBgs/train.png"));
+                g2.drawImage(titleImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+                drawBlackBackground(alpha);
+            
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (scenePhase == 8) {
+            drawBlackBackground(1f);
+            phaseIn();
+        }
+        if (scenePhase == 9) {
+            // phase in
+            alpha -= 0.05f;
+            if (alpha < 0f) {
+                alpha = 0f;
+            }
             try {
                 BufferedImage titleImage = ImageIO.read(getClass().getResourceAsStream("/res/menuBackgrounds/beginningCutsceneBgs/house.png"));
                 g2.drawImage(titleImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+                drawBlackBackground(alpha);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -146,13 +213,13 @@ public class CutsceneManager {
             + "\nbut it feels a bit different."
             + "\n there's monsters lurking everywhere";
 
-            drawString(1f, 28, 340, text, 28);
-            if (counterReached(600)) {
+            drawString(1f-alpha, 28, 340, text, 28);
+            if (counterReached(550) || gp.keyH.enterPressed) {
                 counter = 0;
                 scenePhase++;
             }
         }
-        if (scenePhase == 6) {
+        if (scenePhase == 10) {
             drawBlackBackground(1f);
             alpha += 0.005f;
             if (alpha > 1f) {
@@ -162,21 +229,24 @@ public class CutsceneManager {
             String text = "nothing a computer science grad couldn't handle";
 
             drawString(alpha, 40, 250, text, 70);
-            if (counterReached(150)) {
+            if (counterReached(180)) {
                 counter = 0;
                 scenePhase++;
             }
         }
-        if (scenePhase == 7) {
+        if (scenePhase == 11) {
             phaseOut();
         }
-        if (scenePhase == 8) {
+        if (scenePhase == 12) {
             // start the game.
-            gp.gameState = gp.playState;
-            scenePhase = NA;
-            sceneNum = 0;
-            // gp.playMusic(22);
-            // play home music
+            if(counterReached(1)) {
+                gp.gameState = gp.playState;
+                scenePhase = NA;
+                sceneNum = 0;
+                gp.stopMusic();
+                gp.playMusic(0);
+            }
+
         }
         
     }

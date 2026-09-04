@@ -130,7 +130,8 @@ public class KeyHandler implements KeyListener{
                 }
                 // play music
                 if (gp.music.clip == null) { // whenever restarting the game it should be null..
-                    gp.playMusic(0);
+                    // gp.playMusic(0);
+                    // dont play music!
                 }
             }
         }
