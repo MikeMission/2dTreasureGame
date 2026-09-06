@@ -42,8 +42,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     // world settings
     public int maxWorldCol; // defualt 50
     public int maxWorldRow;
-    public final int maxMap = 10; // max 10
-    public int currentMap = 0; // should 0
+    public final int maxMap = 10; // max 10 entities on the map
+    public int currentMap = 5; // tutorial 5
 
     // fps
     final int FPS = 60;
@@ -92,6 +92,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public final int sleepState = 9;
     public final int mapState = 10;
     public final int cutsceneState = 11;
+    public final int controlsState = 12;
+
 
     // OTHERS
     public boolean bossBattleOn = false;
@@ -103,6 +105,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public final int indoor = 51;
     public final int dungeon = 52;
     public final int ateInterior = 53;
+    public final int playerHouse = 54;
 
     public GamePannel() {
 

@@ -15,38 +15,39 @@ public class EventHandler{
 
     public EventHandler(GamePannel gp) {
         this.gp = gp;
-        eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
-        int map = 0;
-        int col = 0;
-        int row = 0;
-
+        eventRect = new EventRect[gp.maxMap][][];
         eventMaster = new Entity(gp);
 
-        while (map < gp.maxMap && col < gp.maxWorldCol && row < gp.maxWorldRow) {
-
-
-            eventRect[map][col][row] = new EventRect();
-            eventRect[map][col][row].x = 23;
-            eventRect[map][col][row].y = 23;
-            eventRect[map][col][row].width = 2;
-            eventRect[map][col][row].height = 2;
-            eventRect[map][col][row].eventRectDefaultX = eventRect[map][col][row].x;
-            eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
-
-            col++;
-            if (col == gp.maxWorldCol) {
-                col = 0;
-                row++;
-
-                if (row == gp.maxWorldRow) {
-                    row = 0;
-                    map ++;
-                }
-
+        // Initialize each map with its correct dimensions
+        for (int map = 0; map < gp.maxMap; map++) {
+            int cols, rows;
+            
+            // Set dimensions for each map
+            if (map == 6) { // make exception for ts map bro 
+                cols = 100;
+                rows = 100;
+            } else {
+                cols = 50;
+                rows = 50;
             }
-
+            
+            eventRect[map] = new EventRect[cols][rows];
+            
+            // Initialize all event rectangles for this map
+            for (int col = 0; col < cols; col++) {
+                for (int row = 0; row < rows; row++) {
+                    eventRect[map][col][row] = new EventRect();
+                    eventRect[map][col][row].x = 23;
+                    eventRect[map][col][row].y = 23;
+                    eventRect[map][col][row].width = 2;
+                    eventRect[map][col][row].height = 2;
+                    eventRect[map][col][row].eventRectDefaultX = eventRect[map][col][row].x;
+                    eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
+                }
+            }
         }
-
+        
+        eventMaster = new Entity(gp);
         setDialogue();
     }
     public void setDialogue() {
@@ -66,22 +67,28 @@ public class EventHandler{
         }
 
         if (canTouchEvent == true) {
+            
+            // player house 
+            if (hit(5, 26, 9, "up")) {teleport(7, 24, 28 , gp.playerHouse);}
+            if (hit(7, 24, 29, "down")) {teleport(6, 83,30 , gp.outside);}
+            if (hit(6, 83, 29, "up")) {teleport(7, 24,28 , gp.playerHouse);}
+
             if (hit(0,26, 21, "down") == true) {damagePit(gp.dialogueState);}
             else if (hit(0,26, 24, "any") == true) {damagePit(gp.dialogueState);}
 
             else if (hit(0,18,21, "any") == true) {healingPool(gp.dialogueState);}
 
-            else if (hit(0, 6, 5, "up") == true) {teleport(4, 18, 18, gp.ateInterior);}
-            else if (hit(4, 18, 19, "down") == true) {teleport(0, 6, 6, gp.outside);}
+            else if (hit(6, 13, 10, "up") == true) {teleport(4, 18, 18, gp.ateInterior);}
+            else if (hit(4, 18, 19, "down") == true) {teleport(7, 13, 11, gp.outside);}
 
 
-            else if (hit(0, 16, 16, "up") == true) {teleport(1, 24, 27, gp.indoor);} // to the merchant's house
-            else if (hit (1, 24, 28, "down") == true) {teleport(0, 16, 16, gp.outside);} // outside of merchant
+            else if (hit(6, 72, 10, "up") == true) {teleport(1, 24, 27, gp.indoor);} // to the merchant's house
+            else if (hit (1, 24, 28, "down") == true) {teleport(7, 72, 11, gp.outside);} // outside of merchant
 
             else if (hit (1, 33, 22, "up")== true) {speak(gp.npc[1][1]);}
 
             // else if (hit (0, 46, 4, "any" )== true ) {teleport(2, 9,7, gp.dungeon);} // to the dungeon1 from out
-            else if (hit (0, 46, 4, "any" )== true ) {teleport(3, 27,11, gp.dungeon);} // fast acces to dungeon2 testing.
+            else if (hit (6, 83, 97, "any" )== true ) {teleport(3, 27,11, gp.dungeon);} // fast acces to dungeon2 testing.
 
             else if (hit (2, 8, 7, "any" )== true ) {teleport(0, 46,5, gp.outside);} // to outside of dungeon
 
@@ -89,7 +96,6 @@ public class EventHandler{
             else if (hit (3, 26, 11, "any" )== true ) {teleport(2, 41,44, gp.dungeon);} // to the dungeon1 from dungeon 2
 
             else if (hit (3, 26, 21, "any" )== true ) {blueSlimeBoss();} 
-
 
             
         } 
@@ -100,7 +106,7 @@ public class EventHandler{
         boolean hit = false;
 
         if (map == gp.currentMap) {
-            gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;;
+            gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
             gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
             eventRect[map][col][row].x = col * gp.tileSize + eventRect[map][col][row].x;
             eventRect[map][col][row].y = row * gp.tileSize + eventRect[map][col][row].y;
@@ -111,8 +117,6 @@ public class EventHandler{
                     
                     previousEventX = gp.player.worldX;
                     previousEventY = gp.player.worldY;
-
-
                 }
                 
             }

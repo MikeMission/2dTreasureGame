@@ -2,13 +2,16 @@ package main;
 
 import entity.Entity;
 import object.OBJ_Axe;
+import object.OBJ_Bed;
 import object.OBJ_Boots;
 import object.OBJ_BronzeCoin;
 import object.OBJ_Chest;
 import object.OBJ_Door;
+import object.OBJ_Dresser;
 import object.OBJ_GradScroll;
 import object.OBJ_HealthPotion;
 import object.OBJ_Key;
+import object.OBJ_Lamp;
 import object.OBJ_Lantern;
 import object.OBJ_ManaCrystal;
 import object.OBJ_MudBall;
@@ -54,6 +57,10 @@ public class EntityGenerator {
             case OBJ_Pickaxe.objName: obj = new OBJ_Pickaxe(gp); break;
             case OBJ_ironDoor.objName: obj = new OBJ_ironDoor(gp); break;
             case OBJ_StrawberryCupcake.objName: obj = new object.OBJ_StrawberryCupcake(gp); break;
+            case OBJ_Bed.objName: obj = new object.OBJ_Bed(gp); break;
+            case OBJ_Dresser.objName: obj = new object.OBJ_Dresser(gp); break;
+            case OBJ_Lamp.objName: obj = new object.OBJ_Lamp(gp); break;
+            
 
         }
         return obj;

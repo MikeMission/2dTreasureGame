@@ -122,7 +122,7 @@ public class CutsceneManager {
                 e.printStackTrace();
             }
 
-            String text = "It's the day you've been grinding for"
+            String text = "It's the day you've been grinding for."
             + "\n 4 years of your life for this degree";
             drawString(1f-alpha, 28, 500, text, 28);
             if (counterReached(550) || gp.keyH.enterPressed) {
@@ -239,8 +239,12 @@ public class CutsceneManager {
         }
         if (scenePhase == 12) {
             // start the game.
+            gp.keyH.enterPressed = false; // just in case they hold enter or somth.
             if(counterReached(1)) {
-                gp.gameState = gp.playState;
+                gp.ui.npc = gp.player;
+                gp.player.dialogueSet = 1;
+                gp.ui.drawDialogueScreen();
+                gp.gameState = gp.dialogueState;
                 scenePhase = NA;
                 sceneNum = 0;
                 gp.stopMusic();

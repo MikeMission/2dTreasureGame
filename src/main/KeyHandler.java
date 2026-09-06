@@ -65,6 +65,12 @@ public class KeyHandler implements KeyListener{
         else if (gp.gameState == gp.mapState) {
             mapState(code);
         }
+
+        // controlsState 
+        else if (gp.gameState == gp.controlsState) {
+            controlsState(code);
+        }
+
     }
 
     public void titleState (int code) {
@@ -171,11 +177,15 @@ public class KeyHandler implements KeyListener{
         if (code == KeyEvent.VK_M) {
             gp.gameState = gp.mapState;
         }
+        
         if (code == KeyEvent.VK_X) {
             gp.map.miniMapOn = !gp.map.miniMapOn; // toggle 
         }
         if (code == KeyEvent.VK_SPACE) {
             spacePressed = true;
+        }
+        if (code == KeyEvent.VK_H) {
+            gp.gameState = gp.controlsState;
         }
 
         // DEBUG
@@ -273,6 +283,15 @@ public class KeyHandler implements KeyListener{
     public void dialogueState (int code) {
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
+        }
+    }
+    
+    public void controlsState (int code) {
+        if (code == KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.playState;
+        }
+        if (code == KeyEvent.VK_H) {
+            gp.gameState = gp.playState;
         }
     }
 

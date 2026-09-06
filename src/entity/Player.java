@@ -45,8 +45,8 @@ public class Player extends Entity {
     }
 
     public void setDefualtValues() {
-        worldX = gp.tileSize * 20 - (gp.tileSize / 2);
-        worldY = gp.tileSize * 20 - (gp.tileSize / 2); // 20
+        worldX = gp.tileSize * 27 - (gp.tileSize / 2);
+        worldY = gp.tileSize * 42 - (gp.tileSize / 2); // 20
         direction = "down";
         defaultSpeed = 4;
         speed = defaultSpeed;
@@ -80,15 +80,19 @@ public class Player extends Entity {
     }
 
     public void setDefaultPositions() {
-        gp.currentMap = 0; // 0
-        worldX = gp.tileSize * 20 - (gp.tileSize / 2);
-        worldY = gp.tileSize * 20 - (gp.tileSize / 2); // 20
+        gp.currentMap = 5; // tutorial
+        worldX = gp.tileSize * 27 - (gp.tileSize / 2);
+        worldY = gp.tileSize * 42 - (gp.tileSize / 2); // 20
         direction = "down";
     }
 
     public void setDialogue() {
         int prevLevel = level - 1;
         dialogues[0][0] = "Leveled up " + prevLevel + " -> " + level;
+
+        dialogues[1][0] = "WASD to move";
+        dialogues[1][1] = "press 'H' to bring up controls!";
+        dialogues[1][2] = "get to your house safely!";
 
     }
     public void restoreStatus() {
@@ -103,6 +107,7 @@ public class Player extends Entity {
         knockBack = false;
         lightUpdated = true;
     }
+    
     public void setItems() {
         inventory.clear();
         inventory.add(currentWeapon);
@@ -583,12 +588,15 @@ public class Player extends Entity {
             attack = getAttack();
             defense = getDefense();
 
+            // gp.stopMusic(); deal with this later.
             gp.playSE(4);
+            dialogueSet = 0; // level up text
             gp.gameState = gp.dialogueState;
             setDialogue();
             startDialogue(this, 0);
       
         }
+
 
     }
 

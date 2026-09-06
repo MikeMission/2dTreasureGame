@@ -119,6 +119,10 @@ public class UI {
             drawSleepScreen();
         }
 
+        if (gp.gameState == gp.controlsState) {
+            drawControlsScreen();
+        }
+
       
     }
 
@@ -437,6 +441,37 @@ public class UI {
         int x = getXforCenteredText(text);
         int y = gp.screenHeight / 2;
         g2.drawString(text, x, y);
+    }
+
+    public void drawControlsScreen() {
+        // CREATE A FRAME 
+        final int frameX = gp.tileSize;
+        final int frameY = gp.tileSize;
+        final int frameWidth = gp.tileSize * 8;
+        final int frameHeight = gp.tileSize * 10;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        // IM PROBABLY GONNA REBIND CONTROLS LATER.
+        int textX = frameX + 20;
+        int textY = frameY + gp.tileSize;
+        final int lineHeight = 25;
+
+        g2.setColor(Color.white);
+
+        g2.setFont(g2.getFont().deriveFont(40f));
+        g2.drawString("Controls:", textX, textY);
+        textY += lineHeight*2.5;
+        g2.setFont(g2.getFont().deriveFont(24f));
+
+        String[] keys = {"C", "ESC", "M", "X", "H", "ENTER","SPACE"};
+
+        String[] descriptions = {"Inventory ->", "Options ->", "Map Full Screen ->", "Toggle Mini Map ->", "Toggle Controls Screen ->", "Attack/Interact ->", "Block/Parry ->"};
+
+        for (int i = 0; i < descriptions.length; i++) {
+            String line = descriptions[i] + keys[i];
+            g2.drawString(line, textX, textY);
+            textY += lineHeight*2;
+        }
+        
     }
 
     public void drawDialogueScreen() {
