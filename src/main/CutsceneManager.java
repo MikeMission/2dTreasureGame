@@ -109,6 +109,9 @@ public class CutsceneManager {
         }
         if (scenePhase == 3) {
             // phase in
+
+            gp.keyH.enterPressed = false; // just in case they hold enter or somth.
+
             alpha -= 0.05f;
             if (alpha < 0f) {
                 alpha = 0f;
@@ -153,6 +156,8 @@ public class CutsceneManager {
         }
         if (scenePhase == 6) {
             // phase in 
+            gp.keyH.enterPressed = false; // just in case they hold enter or somth.
+
             alpha -= 0.05f;
             if (alpha < 0f) {
                 alpha = 0f;
@@ -198,6 +203,8 @@ public class CutsceneManager {
         }
         if (scenePhase == 9) {
             // phase in
+            gp.keyH.enterPressed = false; // just in case they hold enter or somth.
+
             alpha -= 0.05f;
             if (alpha < 0f) {
                 alpha = 0f;
@@ -241,9 +248,8 @@ public class CutsceneManager {
             // start the game.
             gp.keyH.enterPressed = false; // just in case they hold enter or somth.
             if(counterReached(1)) {
-                gp.ui.npc = gp.player;
-                gp.player.dialogueSet = 1;
-                gp.ui.drawDialogueScreen();
+                gp.setBackground(new java.awt.Color(77, 152, 187));
+                gp.player.startDialogue(gp.player, 1);
                 gp.gameState = gp.dialogueState;
                 scenePhase = NA;
                 sceneNum = 0;

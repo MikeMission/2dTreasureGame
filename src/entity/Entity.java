@@ -121,8 +121,9 @@ public class Entity {
     public final int type_gradScroll = 7;
     public final int type_pickupOnly = 8;
     public final int type_obstacle = 9;
-    public final int type_light = 10;
+    public final int type_light = 10; // player's lantern or whatnot
     public final int type_pickaxe = 11;
+    public final int type_lightEmmiter = 12; // lamp obj and such.
 
     public Entity(GamePannel gp) {
         this.gp = gp;

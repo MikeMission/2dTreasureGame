@@ -13,11 +13,12 @@ public class OBJ_Lamp extends Entity {
         super(gp);
         this.gp = gp;
 
-        type = type_obstacle;
+        type = type_lightEmmiter;
         name = objName;
         image = setup("/res/objects/lamp.png", gp.tileSize, gp.tileSize);
         down1 = image;
         collision = true;
+        lightRadius = 450;
 
         solidArea.x = 4;
         solidArea.y = 16;
@@ -25,20 +26,21 @@ public class OBJ_Lamp extends Entity {
         solidArea.height = 32; // should cover around ~2 tiles
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        }
+        setDialogue();
+    }
 
     public void setDialogue() {
         /**TODO:
          * dialogue should auto adjust based on the name of the loot.
          * if char > asdklasjd
         */
-        dialogues[0][0] = "";
+        dialogues[0][0] = "You turn on the lamp";
 
     }
 
     public void interact() {
 
-        startDialogue(this, 2);
+        startDialogue(this, 0);
         // gp.playSE(17);
         // errr close chest doesn't really make sense once looted.
 

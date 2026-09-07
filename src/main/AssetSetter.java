@@ -125,6 +125,11 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 25;
         i++;
 
+        gp.obj[mapNum][i] = new object.OBJ_Lantern(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 21;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 22;
+        i++;
+
         mapNum = 6;
         i = 0;
         gp.obj[mapNum][i] = new object.OBJ_Chest(gp);
@@ -149,6 +154,45 @@ public class AssetSetter {
         gp.obj[mapNum][i].setLoot(new object.OBJ_HealthPotion(gp));
         gp.obj[mapNum][i].worldX = gp.tileSize * 27;
         gp.obj[mapNum][i].worldY = gp.tileSize * 18;
+        i++;
+
+        gp.obj[mapNum][i] = new object.OBJ_Chest(gp);
+        gp.obj[mapNum][i].setLoot(new object.OBJ_HealthPotion(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize * 2;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 69;
+        i++;
+
+        gp.obj[mapNum][i] = new object.OBJ_Chest(gp);
+        gp.obj[mapNum][i].setLoot(new object.OBJ_HealthPotion(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize * 47;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 62;
+        i++;
+
+        gp.obj[mapNum][i] = new object.OBJ_Chest(gp);
+        gp.obj[mapNum][i].setLoot(new object.OBJ_HealthPotion(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize * 74;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 20;
+        i++;
+
+        gp.obj[mapNum][i] = new object.OBJ_Chest(gp);
+        gp.obj[mapNum][i].setLoot(new object.OBJ_HealthPotion(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize * 80;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 19;
+        i++;
+
+        gp.obj[mapNum][i] = new object.OBJ_Campfire(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 53;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 24;
+        i++;
+
+        gp.obj[mapNum][i] = new object.OBJ_Campfire(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 49;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 77;
+        i++;
+
+        gp.obj[mapNum][i] = new object.OBJ_Campfire(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 17;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 14;
         i++;
 
     } 
@@ -193,36 +237,36 @@ public class AssetSetter {
     }
 
     public void setMonster() {
-        int mapNum = 0;
+        int mapNum = 6;
 
         int i = 0;
         gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 17;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 24;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 49;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 6;
         i++;
         gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 19;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 28;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 54;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 10;
         i++;
         gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 12;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 24;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 48;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 17;
         i++;
         gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 11;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 23;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 54;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 14;
         i++;
         gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 10;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 61;
         gp.monster[mapNum][i].worldY = gp.tileSize * 22;
         i++;
         gp.monster[mapNum][i] = new monster.MON_BlueSlime(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 10;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 20;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 60;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 29;
         i++;
         gp.monster[mapNum][i] = new monster.MON_KnifeMonster(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 34;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 7;
+        gp.monster[mapNum][i].worldX = gp.tileSize * 21;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 23;
 
         mapNum = 2;
 
@@ -287,10 +331,6 @@ public class AssetSetter {
     public void setInteractiveTile() {
         int mapNum = 0;
         int i = 0;
-        
-        gp.iTile[mapNum][i] = new interactive_tiles.IT_DryTree(gp, 19, 13);i++;
-        gp.iTile[mapNum][i] = new interactive_tiles.IT_DryTree(gp, 20, 13);i++;
-        gp.iTile[mapNum][i] = new interactive_tiles.IT_Campfire(gp, 18, 21);i++;
 
         mapNum = 2;
         i = 0;
@@ -355,7 +395,15 @@ public class AssetSetter {
 
         gp.iTile[mapNum][i] = new interactive_tiles.IT_DryTree(gp, 67, 91);i++;
         gp.iTile[mapNum][i] = new interactive_tiles.IT_DryTree(gp, 11, 93);i++;
+
+        gp.iTile[mapNum][i] = new interactive_tiles.IT_DryTree(gp, 81, 19);i++;
+
+        gp.iTile[mapNum][i] = new interactive_tiles.IT_DryTree(gp, 3, 69);i++;
+        gp.iTile[mapNum][i] = new interactive_tiles.IT_DryTree(gp, 3, 70);i++;
+        gp.iTile[mapNum][i] = new interactive_tiles.IT_DryTree(gp, 3, 71);i++;
+        gp.iTile[mapNum][i] = new interactive_tiles.IT_DryTree(gp, 3, 72);i++;
         gp.iTile[mapNum][i] = new interactive_tiles.IT_DryTree(gp, 3, 73);i++;
+
 
     }
 

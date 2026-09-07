@@ -52,7 +52,6 @@ public class EventHandler{
     }
     public void setDialogue() {
         eventMaster.dialogues[0][0] = "You fall into a pit!\nYou lose 1 life.";
-        eventMaster.dialogues[1][0] = "You rest a while\nYour life and mana have been restored.\n Your progress have been saved.";
 
     }
 
@@ -76,21 +75,19 @@ public class EventHandler{
             if (hit(0,26, 21, "down") == true) {damagePit(gp.dialogueState);}
             else if (hit(0,26, 24, "any") == true) {damagePit(gp.dialogueState);}
 
-            else if (hit(0,18,21, "any") == true) {healingPool(gp.dialogueState);}
-
             else if (hit(6, 13, 10, "up") == true) {teleport(4, 18, 18, gp.ateInterior);}
-            else if (hit(4, 18, 19, "down") == true) {teleport(7, 13, 11, gp.outside);}
+            else if (hit(4, 18, 19, "down") == true) {teleport(6, 13, 11, gp.outside);}
 
 
             else if (hit(6, 72, 10, "up") == true) {teleport(1, 24, 27, gp.indoor);} // to the merchant's house
-            else if (hit (1, 24, 28, "down") == true) {teleport(7, 72, 11, gp.outside);} // outside of merchant
+            else if (hit (1, 24, 28, "down") == true) {teleport(6, 72, 11, gp.outside);} // outside of merchant
 
             else if (hit (1, 33, 22, "up")== true) {speak(gp.npc[1][1]);}
 
             // else if (hit (0, 46, 4, "any" )== true ) {teleport(2, 9,7, gp.dungeon);} // to the dungeon1 from out
             else if (hit (6, 83, 97, "any" )== true ) {teleport(3, 27,11, gp.dungeon);} // fast acces to dungeon2 testing.
 
-            else if (hit (2, 8, 7, "any" )== true ) {teleport(0, 46,5, gp.outside);} // to outside of dungeon
+            else if (hit (2, 8, 7, "any" )== true ) {teleport(6, 83,98, gp.outside);} // to outside of dungeon
 
             else if (hit (2, 40, 44, "any" )== true ) {teleport(3, 27,11, gp.dungeon);} // to the dungeon2
             else if (hit (3, 26, 11, "any" )== true ) {teleport(2, 41,44, gp.dungeon);} // to the dungeon1 from dungeon 2
@@ -118,9 +115,7 @@ public class EventHandler{
                     previousEventX = gp.player.worldX;
                     previousEventY = gp.player.worldY;
                 }
-                
             }
-
             // after checking, restore original position
 
             gp.player.solidArea.x = gp.player.solidAreaDefaultX;
@@ -129,7 +124,6 @@ public class EventHandler{
             eventRect[map][col][row].y = eventRect[map][col][row].eventRectDefaultY;
 
         }
-
         return hit;
 
     }
@@ -141,20 +135,6 @@ public class EventHandler{
         // eventRect[col][row].eventDone = true;
         canTouchEvent = false;
 
-    }
-
-    public void healingPool(int gameState) {
-        if (gp.keyH.enterPressed == true) { 
-            gp.gameState = gameState;
-            eventMaster.startDialogue(eventMaster, 1);
-            gp.player.attackCanceled = true;
-            gp.player.life = gp.player.maxLife;
-            gp.player.mana = gp.player.maxMana;
-            gp.player.ammo = 10;
-            gp.aSetter.setMonster();
-            gp.saveLoad.save();
-            
-        }
     }
 
     public void teleport(int map, int col, int row, int area) {

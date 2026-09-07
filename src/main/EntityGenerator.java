@@ -5,6 +5,7 @@ import object.OBJ_Axe;
 import object.OBJ_Bed;
 import object.OBJ_Boots;
 import object.OBJ_BronzeCoin;
+import object.OBJ_Campfire;
 import object.OBJ_Chest;
 import object.OBJ_Door;
 import object.OBJ_Dresser;
@@ -60,7 +61,7 @@ public class EntityGenerator {
             case OBJ_Bed.objName: obj = new object.OBJ_Bed(gp); break;
             case OBJ_Dresser.objName: obj = new object.OBJ_Dresser(gp); break;
             case OBJ_Lamp.objName: obj = new object.OBJ_Lamp(gp); break;
-            
+            case OBJ_Campfire.objName: obj = new object.OBJ_Campfire(gp); break;
 
         }
         return obj;

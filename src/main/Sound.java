@@ -47,6 +47,8 @@ public class Sound {
         soundURL[26] = getClass().getResource("/res/sound/ironDoorUnlock.wav");
         soundURL[27] = getClass().getResource("/res/sound/omari.wav");
         soundURL[28] = getClass().getResource("/res/sound/introSong.wav");
+        soundURL[29] = getClass().getResource("/res/sound/playerHouse.wav");
+
 
 
 

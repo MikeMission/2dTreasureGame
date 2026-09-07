@@ -21,6 +21,10 @@ public class Lighting {
     public final int dawn = 3;
     public int dayState = day;
 
+    // light vars
+    float[] alphaValues = {0.1f, 0.42f, 0.52f, 0.61f, 0.69f, 0.76f, 0.82f, 0.87f, 0.91f, 0.91f, 0.93f, 0.94f};
+    float[] fractionValues = {0f, 0.4f, 0.5f, 0.6f, 0.65f, 0.7f, 0.75f, 0.8f, 0.85f, 0.9f, 0.95f, 1f};
+
 
     public Lighting(GamePannel gp) {
         this.gp = gp;
@@ -36,42 +40,66 @@ public class Lighting {
         if (gp.player.currentLight == null) {
             g2.setColor(new Color(0,0,0,0.97f));
         }
-        else {
+        else { // draw the lantern's radial light
             // Get the center x and y of the light circle
             int centerX = gp.player.screenX + (gp.tileSize)/2;
             int centerY = gp.player.screenY + (gp.tileSize)/2;
-                
-            // Create a gradation effect
+
             Color color[] = new Color[12];
             float fraction[] = new float[12];
-
             
             color = new Color[12];
             fraction = new float[12];
-
-            float[] alphaValues = {0.1f, 0.42f, 0.52f, 0.61f, 0.69f, 0.76f, 0.82f, 0.87f, 0.91f, 0.91f, 0.93f, 0.94f};
-            float[] fractionValues = {0f, 0.4f, 0.5f, 0.6f, 0.65f, 0.7f, 0.75f, 0.8f, 0.85f, 0.9f, 0.95f, 1f};
 
             for (int i = 0; i < color.length; i++) {
                 color[i] = new Color(0, 0, 0, alphaValues[i]);
                 fraction[i] = fractionValues[i];
             }
+            // put lightRadius attr in the type_light obj.
             // paint settings
-            RadialGradientPaint gPaint = new RadialGradientPaint(centerX, centerY, gp.player.currentLight.lightRadius / 2, fraction, color);
+            RadialGradientPaint gPaint1 = new RadialGradientPaint(centerX, centerY, gp.player.currentLight.lightRadius / 2, fraction, color);
+            g2.setPaint(gPaint1);
+        }  
 
-            g2.setPaint(gPaint);
-        }
+        // help me cryine
+
+        // // go through gp.obj, if there is a object type_light then we make radial light based on its attr.
+        // for (int object = 0; object < gp.obj[1].length; object++) {
+        //     if (gp.obj[gp.currentMap][object] != null && gp.obj[gp.currentMap][object].type == 12) {
+        //         // make the light
+        //         int centerX = gp.obj[gp.currentMap][object].worldX + (gp.tileSize/2);
+        //         int centerY = gp.obj[gp.currentMap][object].worldY + (gp.tileSize/2);
+
+        //         Color color[] = new Color[12];
+        //         float fraction[] = new float[12];
+
+        //         color = new Color[12];
+        //         fraction = new float[12];
+
+        //         for (int i = 0; i < color.length; i++) {
+        //             color[i] = new Color(0, 0, 0, alphaValues[i]);
+        //             fraction[i] = fractionValues[i];
+        //         }
+        //         // put lightRadius attr in the type_light obj.
+        //         // paint settings
+        //         RadialGradientPaint gPaint = new RadialGradientPaint(centerX, centerY, gp.obj[gp.currentMap][object].lightRadius / 2, fraction, color);
+        //         g2.setPaint(gPaint);
+        //         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        //     }
+        // }
 
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
-        g2.dispose();
+        // g2.dispose();
     }
     public void resetDay() {
         dayState = day;
         filterAlpha = 0f;
     }
     public void update() {
-        int duration = 4200;
+        // int duration = 4200;
+        int duration = 100; // testing
+
 
         if (gp.player.lightUpdated) {
             setLightSource();
@@ -120,8 +148,21 @@ public class Lighting {
     public void draw(Graphics2D g2) {
         if (gp.currentArea == gp.outside) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha));
+            g2.drawImage(darknessFilter, 0, 0, null);
+
         }
-        if (gp.currentArea == gp.outside || gp.currentArea == gp.dungeon) {
+        if (gp.currentArea == gp.indoor || gp.currentArea == gp.playerHouse) {
+            float tempAlpha = filterAlpha;
+
+            if (filterAlpha > 0.25f) {
+                tempAlpha = filterAlpha - 0.25f;
+            }
+
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, tempAlpha));
+            g2.drawImage(darknessFilter, 0, 0, null);
+
+        }
+        if (gp.currentArea == gp.dungeon) { // don't set composite and upd alpha for eternal darkness
             g2.drawImage(darknessFilter, 0, 0, null);
         }
         

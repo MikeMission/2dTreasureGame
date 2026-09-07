@@ -476,7 +476,7 @@ public class Player extends Entity {
                 gp.obj[gp.currentMap][index].use(this);
                 gp.obj[gp.currentMap][index] = null;
                 return;
-            } else if (gp.obj[gp.currentMap][index].type == type_obstacle) {
+            } else if (gp.obj[gp.currentMap][index].type == type_obstacle || gp.obj[gp.currentMap][index].type == type_lightEmmiter) {
                 if (keyH.enterPressed == true) {
                     gp.obj[gp.currentMap][index].interact();
                 }

@@ -61,7 +61,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public PathFinder pFinder = new PathFinder(this);
     public EnvironmentManager envManager = new EnvironmentManager(this);
     Map map = new Map(this);
-    SaveLoad saveLoad = new SaveLoad(this);
+    public SaveLoad saveLoad = new SaveLoad(this);
     public EntityGenerator eGenerator = new EntityGenerator(this);
     public CutsceneManager csManager = new CutsceneManager(this);
     Thread gameThread;
@@ -110,7 +110,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public GamePannel() {
 
         this.setPreferredSize(new java.awt.Dimension(screenWidth, screenHeight));
-        this.setBackground(new java.awt.Color(77, 152, 187));
+        this.setBackground(new java.awt.Color(0,0,0));
         this.setDoubleBuffered(true);
 
         this.addKeyListener(keyH);
@@ -291,6 +291,10 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         else if (gameState == mapState) {
             map.drawFullMapScreen(g2);
         }
+        // when in beggining cutscene, only draw cutscene manager.
+        else if (gameState == cutsceneState && csManager.sceneNum == csManager.beggining) {
+            csManager.draw(g2);
+        }
         // OTHERS
         else {
     
@@ -413,6 +417,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         if (nextArea != currentArea) {
 
             stopMusic();
+            // make it so when it is night, we change the music!
 
             if (nextArea == outside) {
                 playMusic(0);
@@ -425,6 +430,9 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             }
             if (nextArea == dungeon) {
                 playMusic(22);
+            }
+            if (nextArea == playerHouse) {
+                playMusic(29);
             }
 
             aSetter.setNPC(); // reset boulders when plr go out of dungeon

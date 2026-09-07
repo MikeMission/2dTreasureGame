@@ -29,7 +29,7 @@ public class MON_BlueSlime extends Entity {
         attack = 5;
         defense = 0;
         exp = 2;
-        projectile = new OBJ_MudBall(gp);
+        // projectile = new OBJ_MudBall(gp);
  
         solidArea.x = 3;
         solidArea.y = 18;
@@ -64,7 +64,7 @@ public class MON_BlueSlime extends Entity {
             searchPath(getGoalCol(gp.player),getGoalRow(gp.player));
 
             // check if it shoots a projectile
-            checkShootOrNot(200, 7);
+            // checkShootOrNot(200, 7);
         }
         else {
             // check if it starts chasing
