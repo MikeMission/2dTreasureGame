@@ -1,5 +1,6 @@
 package main;
 
+import ai.PathFinder;
 import data.Progress;
 import entity.Entity;
 
@@ -78,9 +79,11 @@ public class EventHandler{
             else if (hit(6, 13, 10, "up") == true) {teleport(4, 18, 18, gp.ateInterior);}
             else if (hit(4, 18, 19, "down") == true) {teleport(6, 13, 11, gp.outside);}
 
-
             else if (hit(6, 72, 10, "up") == true) {teleport(1, 24, 27, gp.indoor);} // to the merchant's house
             else if (hit (1, 24, 28, "down") == true) {teleport(6, 72, 11, gp.outside);} // outside of merchant
+
+            else if (hit(6, 76, 29, "up") == true) {teleport(8, 26, 26, gp.neighbourIndoor);}
+            else if (hit(8, 26,28,"any") == true) {teleport(6, 76, 31, gp.outside);}
 
             else if (hit (1, 33, 22, "up")== true) {speak(gp.npc[1][1]);}
 

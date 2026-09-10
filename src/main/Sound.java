@@ -12,7 +12,7 @@ import javax.sound.sampled.AudioSystem;
 public class Sound {
 
     Clip clip;
-    URL soundURL[] = new URL[30];
+    URL soundURL[] = new URL[100];
     FloatControl fc;
     int volumeScale = 3;
     float volume;
@@ -48,6 +48,10 @@ public class Sound {
         soundURL[27] = getClass().getResource("/res/sound/omari.wav");
         soundURL[28] = getClass().getResource("/res/sound/introSong.wav");
         soundURL[29] = getClass().getResource("/res/sound/playerHouse.wav");
+        soundURL[30] = getClass().getResource("/res/sound/neighbourInterior.wav");
+        soundURL[31] = getClass().getResource("/res/sound/night1.wav");
+
+
 
 
 

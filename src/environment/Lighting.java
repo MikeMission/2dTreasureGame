@@ -97,8 +97,8 @@ public class Lighting {
         filterAlpha = 0f;
     }
     public void update() {
-        // int duration = 4200;
-        int duration = 100; // testing
+        int duration = 4200;
+        // int duration = 100; // testing
 
 
         if (gp.player.lightUpdated) {

@@ -90,7 +90,7 @@ public class Player extends Entity {
         int prevLevel = level - 1;
         dialogues[0][0] = "Leveled up " + prevLevel + " -> " + level;
 
-        dialogues[1][0] = "WASD to move";
+        dialogues[1][0] = "W A S D to move";
         dialogues[1][1] = "press 'H' to bring up controls!";
         dialogues[1][2] = "get to your house safely!";
 
@@ -699,7 +699,7 @@ public class Player extends Entity {
             }
         }
         else {
-             if (inventory.size() != maxInventorySize) {
+            if (inventory.size() != maxInventorySize) {
                     inventory.add(newItem);
                     canObtain = true;
             }

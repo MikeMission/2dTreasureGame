@@ -32,7 +32,8 @@ public class TileManager {
             "/res/map/AteInterior.txt", // 4
             "/res/map/tutorial.txt", // 5
             "/res/map/map01.txt", // 6 100x100
-            "/res/map/playerHouse.txt"// 7
+            "/res/map/playerHouse.txt", // 7
+            "/res/map/neighbourInterior.txt" // 8
         };
 
     public TileManager(GamePannel gp) {

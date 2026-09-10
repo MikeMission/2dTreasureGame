@@ -20,16 +20,15 @@ public class PathFinder {
     }
 
     public void instantiateNodes() {
-        node = new Node[gp.maxWorldCol][gp.maxWorldRow];
-
+        node = new Node[100][100];
         int col = 0;
         int row = 0;
         
-        while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
+        while (col < 100 && row < 100) {
             node [col][row] = new Node(col,row);
             
             col++;
-            if (col == gp.maxWorldCol) {
+            if (col == 100) {
                 col = 0;
                 row ++;
             }
@@ -43,13 +42,13 @@ public class PathFinder {
         int col = 0;
         int row = 0;
         
-        while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
+        while (col < 100 && row < 100) {
             node[col][row].open = false;
             node[col][row].checked = false;
             node[col][row].solid = false;
             
             col++;
-            if (col == gp.maxWorldCol) {
+            if (col == 100) {
                 col = 0;
                 row ++;
             }

@@ -1,6 +1,8 @@
 package entity;
 
 
+import java.util.Random;
+
 import main.GamePannel;
 
 
@@ -63,25 +65,25 @@ public class NPC_Omari extends Entity {
 
     // limiting movement 
 
-    // public void setAction() {
-    //     // NPC action code here
+    public void setAction() {
+        // NPC action code here
 
-    //     actionLockCounter++;
-    //     if (actionLockCounter == 120) {
+        actionLockCounter++;
+        if (actionLockCounter == 120) {
             
-    //         Random random = new Random();
-    //         int i = random.nextInt(100)+1; // pick up a number from
-    //         if (i <= 50) {
-    //             direction = "up";
-    //         }
-    //         else if (i > 50) {
-    //             direction = "down";
-    //         }
+            Random random = new Random();
+            int i = random.nextInt(100)+1; // pick up a number from
+            if (i <= 50) {
+                direction = "up";
+            }
+            else if (i > 50) {
+                direction = "down";
+            }
 
-    //         actionLockCounter = 0;
-    //     }
+            actionLockCounter = 0;
+        }
 
-    // }
+    }
 
     @Override
     public void speak() {
