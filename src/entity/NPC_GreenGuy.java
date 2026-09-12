@@ -9,6 +9,7 @@ import object.OBJ_Axe;
 import object.OBJ_Boots;
 import object.OBJ_HealthPotion;
 import object.OBJ_Key;
+import object.OBJ_Lantern;
 
 public class NPC_GreenGuy extends Entity {
     
@@ -54,7 +55,7 @@ public class NPC_GreenGuy extends Entity {
     public void setItems() {
 
         inventory.add(new OBJ_HealthPotion(gp));
-        inventory.add(new OBJ_Boots(gp));
+        inventory.add(new OBJ_Lantern(gp));
         inventory.add(new OBJ_Key(gp));
         inventory.add(new OBJ_Axe(gp));
 

@@ -17,7 +17,6 @@ import object.OBJ_HealthPotion;
 import object.OBJ_Key;
 import object.OBJ_Lamp;
 import object.OBJ_Lantern;
-import object.OBJ_ManaCrystal;
 import object.OBJ_Milk;
 import object.OBJ_MudBall;
 import object.OBJ_Muffin;
@@ -60,7 +59,6 @@ public class EntityGenerator {
             case OBJ_Door.objName: obj = new OBJ_Door(gp); break;
             case OBJ_Chest.objName: obj = new OBJ_Chest(gp); break;
             case OBJ_BronzeCoin.objName: obj = new OBJ_BronzeCoin(gp); break;
-            case OBJ_ManaCrystal.objName: obj = new OBJ_ManaCrystal(gp); break;
             case OBJ_MudBall.objName: obj = new OBJ_MudBall(gp); break;
             case OBJ_Throwing_Knife.objName: obj = new OBJ_Throwing_Knife(gp); break;
             case OBJ_Pickaxe.objName: obj = new OBJ_Pickaxe(gp); break;

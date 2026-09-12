@@ -58,7 +58,7 @@ public class MON_BlueSlime extends Entity {
         if (onPath) {
 
             // check if it stops chasing
-            checkStopChasingOrNot(gp.player, 7, 100);
+            checkStopChasingOrNot(gp.player, 3, 100);
 
             // search the direction to go
             searchPath(getGoalCol(gp.player),getGoalRow(gp.player));
@@ -68,7 +68,7 @@ public class MON_BlueSlime extends Entity {
         }
         else {
             // check if it starts chasing
-            checkStartChasingOrNot(gp.player, 5, 100);
+            checkStartChasingOrNot(gp.player, 4, 100);
             
             // get random direction
             getRandomDirection(120);
@@ -92,8 +92,6 @@ public class MON_BlueSlime extends Entity {
             dropItem(new OBJ_BronzeCoin(gp));
         } else if (i >= 50 && i < 75) {
             dropItem(new OBJ_Heart(gp));
-        } else if (i >= 75 && i < 85) {
-            dropItem(new OBJ_ManaCrystal(gp));
         } else if (i >= 85 && i < 95) {
             dropItem(new OBJ_Shield_Wood_Circle(gp));
         } else if (i >= 95 && i <= 100) {

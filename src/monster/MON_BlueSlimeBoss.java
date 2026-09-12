@@ -5,11 +5,6 @@ import java.util.Random;
 import data.Progress;
 import entity.Entity;
 import main.GamePannel;
-import object.OBJ_BronzeCoin;
-import object.OBJ_GradScroll;
-import object.OBJ_Heart;
-import object.OBJ_ManaCrystal;
-import object.OBJ_Shield_Wood_Circle;
 import object.OBJ_gpuTreasure;
 import object.OBJ_ironDoor;
 

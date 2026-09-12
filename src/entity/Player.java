@@ -55,8 +55,6 @@ public class Player extends Entity {
         level = 1;
         maxLife = 6; // 6
         life = maxLife;
-        maxMana = 4;
-        mana = maxMana;
         ammo = 10;
         strength = 1; // 1
         baseDefense = 1;
@@ -98,7 +96,6 @@ public class Player extends Entity {
     public void restoreStatus() {
         
         life = maxLife;
-        mana = maxMana;
         speed = defaultSpeed;
         invincible = false;
         transparent = false;
@@ -349,22 +346,24 @@ public class Player extends Entity {
             guardCounter = 0;
 
         }
+        // make it so when player has a certain item, they can shoot
+        // ts redacted for now.
 
-        if (gp.keyH.shotKeyPressed == true && projectile.alive == false
-             && shotAvailableCounter >= 30 && projectile.haveResource(this)) {
-            projectile.set(worldX, worldY, direction, true, this);
-            projectile.subtractResource(this);
+        // if (gp.keyH.shotKeyPressed == true && projectile.alive == false
+        //      && shotAvailableCounter >= 30 && projectile.haveResource(this)) {
+        //     projectile.set(worldX, worldY, direction, true, this);
+        //     projectile.subtractResource(this);
 
-            for (int i = 0; i < gp.projectileList[1].length; i++) {
-                if (gp.projectileList[gp.currentMap][i] == null) {
-                    gp.projectileList[gp.currentMap][i] = projectile;
-                    break;
-                }
-            }
+        //     for (int i = 0; i < gp.projectileList[1].length; i++) {
+        //         if (gp.projectileList[gp.currentMap][i] == null) {
+        //             gp.projectileList[gp.currentMap][i] = projectile;
+        //             break;
+        //         }
+        //     }
 
-            gp.playSE(10);
-            shotAvailableCounter = 0;
-        }
+        //     gp.playSE(10);
+        //     shotAvailableCounter = 0;
+        // }
 
         // INVINCIBILITY
         if (invincible == true) {
@@ -376,15 +375,13 @@ public class Player extends Entity {
             }
         }
 
-        if (shotAvailableCounter < 30) {
-            shotAvailableCounter++;
-        }
+        // if (shotAvailableCounter < 30) {
+        //     shotAvailableCounter++;
+        // }
         if (life > maxLife) {
             life = maxLife;
         }
-        if (mana > maxMana) {
-            mana = maxMana;
-        }
+
         if (life <= 0 && keyH.godModeOn == false) { // added godmode...
             gp.stopMusic();
             gp.gameState = gp.gameOverState;

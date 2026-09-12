@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 import object.OBJ_BronzeCoin;
 import object.OBJ_Heart;
 import object.OBJ_Key;
-import object.OBJ_ManaCrystal;
+// import object.OBJ_ManaCrystal; bye 
 import entity.Entity;
 
 public class UI {
@@ -30,7 +30,7 @@ public class UI {
     public boolean gameFinished = false;
     public String currentDialogue = "";
     public int commandNum = 0;
-    public int titleScreenState = 0;
+    // public int titleScreenState = 0;
     public int playerSlotCol = 0;
     public int playerSlotRow = 0;
     public int subState = 0;
@@ -57,9 +57,6 @@ public class UI {
         Entity bronzeCoin = new OBJ_BronzeCoin(gp);
         coin = bronzeCoin.down1;
 
-        Entity crystal = new OBJ_ManaCrystal(gp);
-        crystal_full = crystal.image;
-        crystal_empty = crystal.image2;
     }
 
     public void addMessage(String text) {
@@ -206,42 +203,8 @@ public class UI {
             }
         }
 
-        drawPlayerMana(); // might have to do stuff based on player class here, like only draw mana for mage or something
     }
 
-    public void drawPlayerMana() {
-
-        int x = (gp.tileSize/2);
-        int y = (gp.tileSize/2)+32;
-        int i = 0;
-        int iconSize = 32;
-        // DRAW MAX MANA
-
-        if (gp.player.maxLife > 8) {
-            y += iconSize;
-        }
-        while (i < gp.player.maxMana) {
-            g2.drawImage(crystal_empty, x, y,iconSize,iconSize,null);
-            i++;
-            x += iconSize;
-            
-            
-        }
-
-        // RESET
-        x = gp.tileSize / 2;
-        y = (gp.tileSize / 2)+32;
-        i = 0;
-        if (gp.player.maxLife > 8) {
-            y += iconSize;
-        }
-        // DRAW CURRENT MANA
-        while (i < gp.player.mana) {
-            g2.drawImage(crystal_full, x, y, iconSize,iconSize,null);
-            i++;
-            x += iconSize;
-        }
-    }
     public void drawMonsterHealthBar() {
 
         for (int monsterIndex = 0; monsterIndex < gp.monster[1].length; monsterIndex++) {
@@ -321,120 +284,64 @@ public class UI {
 
     public void drawTitleScreen() {
 
-        if (titleScreenState == 0) {
+        // BACKGROUND COLOR
+        g2.setColor(new java.awt.Color(0, 0, 0));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
-            // BACKGROUND COLOR
-            g2.setColor(new java.awt.Color(0, 0, 0));
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-
-            // BACKGROUND IMAGE
-            try {
-                BufferedImage titleImage = ImageIO.read(getClass().getResourceAsStream("/res/menuBackgrounds/background1.png"));
-                g2.drawImage(titleImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-            // TITLE NAME
-            g2.setFont(g2.getFont().deriveFont(java.awt.Font.BOLD, 50F));
-            String text = "the tale of a comp grad";
-            int x = getXforCenteredText(text);
-            int y = gp.tileSize * 3;
-
-            // SHADOW
-            g2.setColor(java.awt.Color.gray);
-            g2.drawString(text, x + 5, y + 5);
-
-            // MAIN COLOR
-            g2.setColor(java.awt.Color.white);
-            g2.drawString(text, x, y);
-
-
-
-            // PLAYER IMAGE
-            x = gp.screenWidth / 2 - (gp.tileSize / 2);
-            y += gp.tileSize;
-            g2.drawImage(gp.player.down1, x, y, gp.tileSize, gp.tileSize, null);
-
-            // MENU OPTIONS
-            g2.setFont(g2.getFont().deriveFont(java.awt.Font.BOLD, 30F));
-
-            text = "NEW GAME";
-            x = getXforCenteredText(text);
-            y += gp.tileSize * 3.5;
-            g2.drawString(text, x, y);
-            if (commandNum == 0) {
-                g2.drawString(">", x - gp.tileSize, y);
-            }
-
-            text = "LOAD GAME";
-            x = getXforCenteredText(text);
-            y += gp.tileSize;
-            g2.drawString(text, x, y);
-            if (commandNum == 1) {
-                g2.drawString(">", x - gp.tileSize, y);
-            }
-
-            text = "QUIT";
-            x = getXforCenteredText(text);
-            y += gp.tileSize;
-            g2.drawString(text, x, y);
-            if (commandNum == 2) {
-                g2.drawString(">", x - gp.tileSize, y);
-            }
-
+        // BACKGROUND IMAGE
+        try {
+            BufferedImage titleImage = ImageIO.read(getClass().getResourceAsStream("/res/menuBackgrounds/background1.png"));
+            g2.drawImage(titleImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else if (titleScreenState == 1) {
 
-            // CLASS SELECTION SCREEN
-            g2.setColor(java.awt.Color.black);
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        // TITLE NAME
+        g2.setFont(g2.getFont().deriveFont(java.awt.Font.BOLD, 50F));
+        String text = "the tale of a comp grad";
+        int x = getXforCenteredText(text);
+        int y = gp.tileSize * 3;
 
-            g2.setFont(g2.getFont().deriveFont(java.awt.Font.BOLD, 50F));
-            String text = "SELECT YOUR CLASS!";
-            int x = getXforCenteredText(text);
-            int y = gp.tileSize * 3;
-            g2.setColor(java.awt.Color.white);
-            g2.drawString(text, x, y);
+        // SHADOW
+        g2.setColor(java.awt.Color.gray);
+        g2.drawString(text, x + 5, y + 5);
 
-            text = "WARRIOR";
-            x = getXforCenteredText(text);
-            y += gp.tileSize * 3;
-            g2.drawString(text, x, y);
-            if (commandNum == 0) {
-                g2.drawString(">", x - gp.tileSize, y);
-            }
+        // MAIN COLOR
+        g2.setColor(java.awt.Color.white);
+        g2.drawString(text, x, y);
 
-            text = "MAGE";
-            x = getXforCenteredText(text);
-            y += gp.tileSize;
-            g2.drawString(text, x, y);
-            if (commandNum == 1) {
-                g2.drawString(">", x - gp.tileSize, y);
-            }
+        // PLAYER IMAGE
+        x = gp.screenWidth / 2 - (gp.tileSize / 2);
+        y += gp.tileSize;
+        g2.drawImage(gp.player.down1, x, y, gp.tileSize, gp.tileSize, null);
 
-            text = "ARCHER";
-            x = getXforCenteredText(text);
-            y += gp.tileSize;
-            g2.drawString(text, x, y);
-            if (commandNum == 2) {
-                g2.drawString(">", x - gp.tileSize, y);
-            }
+        // MENU OPTIONS
+        g2.setFont(g2.getFont().deriveFont(java.awt.Font.BOLD, 30F));
 
-            text = "BACK";
-            x = getXforCenteredText(text);
-            y += 2*gp.tileSize;
-            g2.drawString(text, x, y);
-            if (commandNum == 3) {
-                g2.drawString(">", x - gp.tileSize, y);
-            }
+        text = "NEW GAME";
+        x = getXforCenteredText(text);
+        y += gp.tileSize * 3.5;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
 
+        text = "LOAD GAME";
+        x = getXforCenteredText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
 
-            
+        text = "QUIT";
+        x = getXforCenteredText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 2) {
+            g2.drawString(">", x - gp.tileSize, y);
         }
     }
-
     public void drawPauseScreen() {
         g2.setFont(arial_80B);
         String text = "PAUSED";
@@ -551,7 +458,7 @@ public class UI {
         final int lineHeight = 25;
 
         // NAMES 
-        String[] names = {"Level", "Life", "Mana", "Strength", "Attack", "Defense","Agility", "EXP", "Next Lvl","Coin","Weapon", "Shield"};
+        String[] names = {"Level", "Life", "Strength", "Attack", "Defense","Agility", "EXP", "Next Lvl","Coin","Weapon", "Shield"};
 
         for (int i = 0; i < names.length; i++) {
             if (names[i] == "Weapon") {
@@ -569,7 +476,6 @@ public class UI {
         String[] values = {
             String.valueOf(gp.player.level),
             String.valueOf(gp.player.life + "/" + gp.player.maxLife),
-            String.valueOf(gp.player.mana + "/" + gp.player.maxMana),
             String.valueOf(gp.player.strength),
             String.valueOf(gp.player.getAttack()),
             String.valueOf(gp.player.getDefense()),
@@ -1084,7 +990,6 @@ public class UI {
             if (gp.keyH.enterPressed) {
                 subState = 0;
                 gp.gameState = gp.titleState;
-                titleScreenState = 0;
                 gp.resetGame(true);
             }
         }

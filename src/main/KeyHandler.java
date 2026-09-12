@@ -74,73 +74,38 @@ public class KeyHandler implements KeyListener{
     }
 
     public void titleState (int code) {
-        if (gp.ui.titleScreenState == 0) {
-            if (code == KeyEvent.VK_W) {
-                gp.ui.commandNum--;
-                if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 2;
-                }
+        if (code == KeyEvent.VK_W) {
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0) {
+                gp.ui.commandNum = 2;
             }
-            if (code == KeyEvent.VK_S) {
-                gp.ui.commandNum++;
-                if (gp.ui.commandNum > 2) {
-                    gp.ui.commandNum = 0;
-                }
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > 2) {
+                gp.ui.commandNum = 0;
             }
-            if (code == KeyEvent.VK_ENTER) {
-                if (gp.ui.commandNum == 0) {
-                    gp.ui.titleScreenState = 1;
-                }
-                if (gp.ui.commandNum == 1) {
-                    // skip the cutscene
-                    gp.saveLoad.load();
-                    gp.gameState = gp.playState; 
-                    gp.playMusic(0);
-                }
-                if (gp.ui.commandNum == 2) {
-                    System.exit(0);
-                }
-            }
-        
-        } 
-        else if (gp.ui.titleScreenState == 1) {
-            if (code == KeyEvent.VK_W) {
-                gp.ui.commandNum--;
-                if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 3;
-                }
-            }
-            if (code == KeyEvent.VK_S) {
-                gp.ui.commandNum++;
-                if (gp.ui.commandNum > 3) {
-                    gp.ui.commandNum = 0;
-                }
-            }
-            if (code == KeyEvent.VK_ENTER) {
-                // Wwarrior
-                if (gp.ui.commandNum == 0) {
-                    gp.eHandler.begginingEvent();
-                }
-                // Mage
-                if (gp.ui.commandNum == 1) {
-                    gp.eHandler.begginingEvent();
-                }
-                // Archer
-                if (gp.ui.commandNum == 2) {
-                    gp.eHandler.begginingEvent();
-                }
-
-                // back
-                if (gp.ui.commandNum == 3) {
-                    gp.ui.titleScreenState = 0;
-                }
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.ui.commandNum == 0) { // new game
+                gp.eHandler.begginingEvent();
                 // play music
                 if (gp.music.clip == null) { // whenever restarting the game it should be null..
                     // gp.playMusic(0);
                     // dont play music!
                 }
             }
+            if (gp.ui.commandNum == 1) { // load game
+                // skip the cutscene
+                gp.saveLoad.load();
+                gp.gameState = gp.playState; 
+                gp.playMusic(0);
+            }
+            if (gp.ui.commandNum == 2) {
+                System.exit(0);
+            }
         }
+    
     }
 
     public void playState (int code) {

@@ -91,8 +91,6 @@ public class MON_Bat extends Entity {
             dropItem(new OBJ_BronzeCoin(gp));
         } else if (i >= 50 && i < 75) {
             dropItem(new OBJ_Heart(gp));
-        } else if (i >= 75 && i < 85) {
-            dropItem(new OBJ_ManaCrystal(gp));
         } else if (i >= 85 && i < 95) {
             dropItem(new OBJ_Shield_Wood_Circle(gp));
         } else if (i >= 95 && i <= 100) {

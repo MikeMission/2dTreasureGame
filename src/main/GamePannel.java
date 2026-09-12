@@ -397,7 +397,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public void drawToScreen() {
         Graphics g = getGraphics();
         g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
-        g.dispose();
+        // g.dispose(); idk, hopefully this stops teh drawing error.
     }
 
     public void playMusic(int i) {

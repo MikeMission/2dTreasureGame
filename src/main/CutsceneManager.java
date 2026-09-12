@@ -248,9 +248,9 @@ public class CutsceneManager {
             // start the game.
             gp.keyH.enterPressed = false; // just in case they hold enter or somth.
             if(counterReached(1)) {
+                gp.gameState = gp.dialogueState;
                 gp.setBackground(new java.awt.Color(77, 152, 187));
                 gp.player.startDialogue(gp.player, 1);
-                gp.gameState = gp.dialogueState;
                 scenePhase = NA;
                 sceneNum = 0;
                 gp.stopMusic();
