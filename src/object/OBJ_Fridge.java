@@ -31,16 +31,7 @@ public class OBJ_Fridge extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         // randomly set loot every time initialised?
-        for (int lootAmount = 0; lootAmount < 3; lootAmount++){ 
-            int randomLoot = new Random().nextInt(5) + 1;
-            switch (randomLoot) {
-                case 1: setLoot(new OBJ_HealthPotion(gp)); break;
-                case 2: setLoot(new OBJ_Grapes(gp)); break;
-                case 3: setLoot(new OBJ_CinnamonRoll(gp)); break;
-                case 4: setLoot(new OBJ_Milk(gp)); break;
-                case 5: setLoot(new OBJ_Toast(gp)); break;
-            }
-        }
+        
     }
 
     public void setDialogue() {
@@ -48,7 +39,8 @@ public class OBJ_Fridge extends Entity {
          * dialogue should auto adjust based on the name of the loot.
          * if char > asdklasjd
         */
-        dialogues[0][0] = "You opened the fridge and find:\n " + loot.name + "!" + "\nYou put the " + loot.name + "\n in your inventory.";
+        // dialogues[0][0] = "You opened the fridge and find:\n " + loot.name + "!" + "\nYou put the " + loot.name + "\n in your inventory.";
+        dialogues[0][0] = "You opened the fridge and find: " + loot.name + "!" + " You put the " + loot.name + " in your inventory.";
         dialogues[1][0] = "You've reached the daily limit";
 
     }
@@ -62,6 +54,7 @@ public class OBJ_Fridge extends Entity {
         if (openingCounter == 4) {
             opened = true;
         }
+        randomLoot();
 
         if (!opened && openingCounter < 3) {
             gp.playSE(16);
@@ -79,4 +72,16 @@ public class OBJ_Fridge extends Entity {
         }
     }
     
+    public void randomLoot() {
+        for (int lootAmount = 0; lootAmount < 3; lootAmount++){ 
+            int randomLoot = new Random().nextInt(5) + 1;
+            switch (randomLoot) {
+                case 1: setLoot(new OBJ_HealthPotion(gp)); break;
+                case 2: setLoot(new OBJ_Grapes(gp)); break;
+                case 3: setLoot(new OBJ_CinnamonRoll(gp)); break;
+                case 4: setLoot(new OBJ_Milk(gp)); break;
+                case 5: setLoot(new OBJ_Toast(gp)); break;
+            }
+        }
+    }
 }

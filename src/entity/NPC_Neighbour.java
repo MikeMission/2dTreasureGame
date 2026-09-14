@@ -22,6 +22,7 @@ public class NPC_Neighbour extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         type = type_npc;
+        name = "neighbour";
 
         dialogueSet = -1;
 

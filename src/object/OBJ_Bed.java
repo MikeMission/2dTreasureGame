@@ -36,17 +36,16 @@ public class OBJ_Bed extends Entity {
          * if char > asdklasjd
         */
         dialogues[0][0] = "You rest.";
-        dialogues[0][1] = "Your health has been replenished\n Your progress have been saved.";
+        dialogues[0][1] = "Your health has been replenished Your progress have been saved.";
     }
 
     
     public void interact() {
-        startDialogue(this, 0);
-        gp.player.attackCanceled = true;
+        gp.gameState = gp.sleepState;
+        gp.playSE(18);
         gp.player.life = gp.player.maxLife;
-        gp.player.mana = gp.player.maxMana;
-        gp.player.ammo = 10;
+        gp.player.getSleepingImage(down1);
         gp.saveLoad.save();
     }
-    
+
 }

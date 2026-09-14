@@ -22,6 +22,7 @@ public class NPC_Mum extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         type = type_npc;
+        name = "mum";
 
         dialogueSet = -1;
 

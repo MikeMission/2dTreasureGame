@@ -31,6 +31,8 @@ import object.OBJ_Tent;
 import object.OBJ_Throwing_Knife;
 import object.OBJ_Toast;
 import object.OBJ_ironDoor;
+import object.OBJ_noShield;
+import object.OBJ_noSword;
 
 public class EntityGenerator {
     GamePannel gp;
@@ -76,7 +78,8 @@ public class EntityGenerator {
             case OBJ_Grapes.objName: obj = new object.OBJ_Grapes(gp); break;
             case OBJ_Muffin.objName: obj = new object.OBJ_Muffin(gp); break;
             case OBJ_MuffinQ.objName: obj = new object.OBJ_MuffinQ(gp); break;
-
+            case OBJ_noSword.objName : obj = new object.OBJ_noSword(gp); break;
+            case OBJ_noShield.objName : obj = new object.OBJ_noShield(gp); break;
 
 
 

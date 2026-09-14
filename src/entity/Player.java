@@ -5,10 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import object.OBJ_Sword_Normal;
-import object.OBJ_fireball;
+import object.OBJ_noShield;
+import object.OBJ_noSword;
 import object.OBJ_Key;
-import object.OBJ_Shield_Wood;
 
 import main.GamePannel;
 import main.KeyHandler;
@@ -39,7 +38,6 @@ public class Player extends Entity {
         // attackArea.width = 36;
         // attackArea.height = 36;
 
-
         setDefualtValues();
 
     }
@@ -62,10 +60,10 @@ public class Player extends Entity {
         exp = 0;
         nextLevelExp = 5;
         coin = 1000; // TEST
-        currentWeapon = new OBJ_Sword_Normal(gp);
-        currentShield = new OBJ_Shield_Wood(gp);
+        currentWeapon = new OBJ_noSword(gp);
+        currentShield = new OBJ_noShield(gp);
         currentLight = null;
-        projectile = new OBJ_fireball(gp);
+        // projectile = new OBJ_fireball(gp);
         attack = getAttack();
         defense = getDefense();
         name = "comp grad"; // prob change this to actual player
@@ -120,16 +118,18 @@ public class Player extends Entity {
     }
 
     public int getDefense() {
-        return baseDefense * currentShield.defenseValue; // no base def anymore, rely on shield.
+        return baseDefense * currentShield.defenseValue;
     }
 
     public int getCurrentShieldSlot() {
         int currentShieldSlot = 0;
+    
         for (int i = 0; i < inventory.size(); i++) {
             if (inventory.get(i) == currentShield) {
                 currentShieldSlot = i;
             }
         }
+    
         return currentShieldSlot;
     }
 
@@ -146,31 +146,35 @@ public class Player extends Entity {
     public void getImage() {
         //load player image
 
-        up1 = setup("/res/player/plrUp1.png", gp.tileSize, gp.tileSize);
-        up2 = setup("/res/player/plrUp2.png", gp.tileSize, gp.tileSize);
-        down1 = setup("/res/player/plrDown1.png", gp.tileSize, gp.tileSize);
-        down2 = setup("/res/player/plrDown2.png", gp.tileSize, gp.tileSize);
-        left1 = setup("/res/player/plrLeft1.png", gp.tileSize, gp.tileSize);
-        left2 = setup("/res/player/plrLeft2.png", gp.tileSize, gp.tileSize);
-        right1 = setup("/res/player/plrRight1.png", gp.tileSize, gp.tileSize);
-        right2 = setup("/res/player/plrRight2.png", gp.tileSize, gp.tileSize);
+        up1 = setup("/res/player/compGrad/up1.png", gp.tileSize, gp.tileSize);
+        up2 = setup("/res/player/compGrad/up2.png", gp.tileSize, gp.tileSize);
+        down1 = setup("/res/player/compGrad/down1.png", gp.tileSize, gp.tileSize);
+        down2 = setup("/res/player/compGrad/down2.png", gp.tileSize, gp.tileSize);
+        left1 = setup("/res/player/compGrad/left2.png", gp.tileSize, gp.tileSize);
+        left2 = setup("/res/player/compGrad/left1.png", gp.tileSize, gp.tileSize);
+        right1 = setup("/res/player/compGrad/right2.png", gp.tileSize, gp.tileSize);
+        right2 = setup("/res/player/compGrad/right1.png", gp.tileSize, gp.tileSize);
 
 
     }
 
     public void getAttackImage() {
 
-        // default attack images (unarmed) THIS IS BEFORE I DECIDED TO ADD 2ND SPRITES FOR ANIM
-        attackUp1 = setup("/res/player/plr_attack_up1.png", gp.tileSize, gp.tileSize*2);
-        attackDown1 = setup("/res/player/plr_attack_down1.png", gp.tileSize, gp.tileSize*2);
-        attackLeft1 = setup("/res/player/plr_attack_left1.png", gp.tileSize*2, gp.tileSize);
-        attackRight1 = setup("/res/player/plr_attack_right1.png", gp.tileSize*2, gp.tileSize);
-
-        if (currentWeapon.type == type_sword) {
-            attackUp2 = setup("/res/player/plr_sword_up2.png", gp.tileSize, gp.tileSize*2);
-            attackDown2 = setup("/res/player/plr_sword_down2.png", gp.tileSize, gp.tileSize*2);
-            attackLeft2 = setup("/res/player/plr_sword_left2.png", gp.tileSize*2, gp.tileSize);
-            attackRight2 = setup("/res/player/plr_sword_right2.png", gp.tileSize*2, gp.tileSize);
+        // default attack images (unarmed)
+        attackUp1 = setup("/res/player/compGrad/basicAttack_up1.png", gp.tileSize, gp.tileSize*2);
+        attackDown1 = setup("/res/player/compGrad/basicAttack_down1.png", gp.tileSize, gp.tileSize*2);
+        attackLeft1 = setup("/res/player/compGrad/basicAttack_left1.png", gp.tileSize*2, gp.tileSize);
+        attackRight1 = setup("/res/player/compGrad/basicAttack_right1.png", gp.tileSize*2, gp.tileSize);
+        attackUp2 = setup("/res/player/compGrad/basicAttack_up2.png", gp.tileSize, gp.tileSize*2);
+        attackDown2 = setup("/res/player/compGrad/basicAttack_down2.png", gp.tileSize, gp.tileSize*2);
+        attackLeft2 = setup("/res/player/compGrad/basicAttack_left2.png", gp.tileSize*2, gp.tileSize);
+        attackRight2 = setup("/res/player/compGrad/basicAttack_right2.png", gp.tileSize*2, gp.tileSize);
+        
+        if (currentWeapon.type == type_sword) { // make sword sprite or whatever.
+            attackUp2 = setup("/res/player/compGrad/basicAttack_up2.png", gp.tileSize, gp.tileSize*2);
+            attackDown2 = setup("/res/player/compGrad/basicAttack_down2.png", gp.tileSize, gp.tileSize*2);
+            attackLeft2 = setup("/res/player/compGrad/basicAttack_left2.png", gp.tileSize*2, gp.tileSize);
+            attackRight2 = setup("/res/player/compGrad/basicAttack_right2.png", gp.tileSize*2, gp.tileSize);
         }
         else if (currentWeapon.type == type_axe) {
             attackUp2 = setup("/res/player/plr_axe_up2.png", gp.tileSize, gp.tileSize*2);
@@ -199,10 +203,10 @@ public class Player extends Entity {
     }
 
     public void getGuardImage() {
-        guardUp = setup("/res/player/plr_guard_up.png", gp.tileSize, gp.tileSize);
-        guardDown = setup("/res/player/plr_guard_down.png", gp.tileSize, gp.tileSize);
-        guardLeft = setup("/res/player/plr_guard_left.png", gp.tileSize, gp.tileSize);
-        guardRight = setup("/res/player/plr_guard_right.png", gp.tileSize, gp.tileSize);
+        guardUp = setup("/res/player/compGrad/basicBlock_up.png", gp.tileSize, gp.tileSize);
+        guardDown = setup("/res/player/compGrad/basicBlock_down.png", gp.tileSize, gp.tileSize);
+        guardLeft = setup("/res/player/compGrad/basicBlock_left.png", gp.tileSize, gp.tileSize);
+        guardRight = setup("/res/player/compGrad/basicBlock_right.png", gp.tileSize, gp.tileSize);
 
     }
 

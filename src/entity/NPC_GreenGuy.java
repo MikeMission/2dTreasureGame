@@ -25,6 +25,7 @@ public class NPC_GreenGuy extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         type = type_npc;
+        name = "Green Guy";
 
 
         getImage();

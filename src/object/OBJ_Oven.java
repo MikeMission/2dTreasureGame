@@ -34,8 +34,8 @@ public class OBJ_Oven extends Entity {
          * dialogue should auto adjust based on the name of the loot.
          * if char > asdklasjd
         */
-        dialogues[0][0] = "You opened the oven and find:\n " + loot.name + "!" + "\nYou put the " + loot.name + "\n in your inventory.";
-        dialogues[0][1] = "You also store an extra muffin\n for your neighbours";
+        dialogues[0][0] = "You opened the oven and find:  " + loot.name + "!" + " You put the " + loot.name + "  in your inventory.";
+        dialogues[0][1] = "You also store an extra muffin for your neighbours";
     }
 
     public void setLoot(Entity loot) {

@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
 import object.OBJ_BronzeCoin;
 import object.OBJ_Heart;
 import object.OBJ_Key;
@@ -385,12 +386,20 @@ public class UI {
         // WINDOW
         int x = gp.tileSize * 3;
         int y = gp.tileSize / 2;
+        // int y = gp.tileSize * 2;
         int width = gp.screenWidth - (gp.tileSize * 6);
         int height = gp.tileSize * 4;
+        // System.out.println(npc);
+        g2.setFont(g2.getFont().deriveFont(java.awt.Font.PLAIN, 28F));
+
+        if (npc != gp.player && npc.name != null && gp.eGenerator.getObject(npc.name) == null) {
+            y = gp.tileSize*2;
+            drawSubWindow(x, y - gp.tileSize - gp.tileSize/2, gp.tileSize * 7, gp.tileSize + gp.tileSize/2);
+            g2.drawString(npc.name, x + gp.tileSize/2, y - gp.tileSize/2 - 10);
+        }
 
         drawSubWindow(x, y, width, height);
-
-        g2.setFont(g2.getFont().deriveFont(java.awt.Font.PLAIN, 28F));
+        
         x += gp.tileSize;
         y += gp.tileSize;
 
@@ -403,7 +412,11 @@ public class UI {
             if (charIndex < characters.length) {
 
                 String s = String.valueOf(characters[charIndex]);
-                combinedText = combinedText + s;
+                if (charIndex == 42) {
+                    combinedText = combinedText + s + "-\n";
+                } else {
+                    combinedText = combinedText + s;
+                }
                 currentDialogue = combinedText;
                 gp.playSE(21);
                 charIndex++;
@@ -486,6 +499,7 @@ public class UI {
             gp.player.currentWeapon.name,
             gp.player.currentShield.name
         };
+        
         
         for (int i = 0; i < values.length; i++) {
             if (values[i] == String.valueOf(gp.player.coin)) {
@@ -607,7 +621,6 @@ public class UI {
             if (itemIndex < entity.inventory.size()) {
 
                 drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
-
 
                 String description = entity.inventory.get(itemIndex).description;
                 int textX = dFrameX + 20;

@@ -247,7 +247,7 @@ public class CutsceneManager {
         if (scenePhase == 12) {
             // start the game.
             gp.keyH.enterPressed = false; // just in case they hold enter or somth.
-            if(counterReached(1)) {
+            if(counterReached(2)) { // 2 frames?
                 gp.gameState = gp.dialogueState;
                 gp.setBackground(new java.awt.Color(77, 152, 187));
                 gp.player.startDialogue(gp.player, 1);

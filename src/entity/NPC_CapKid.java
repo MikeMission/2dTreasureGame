@@ -22,6 +22,7 @@ public class NPC_CapKid extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         type = type_npc;
+        name = "Cap Kid";
 
         dialogueSet = -1;
 
@@ -45,15 +46,15 @@ public class NPC_CapKid extends Entity {
     }
     public void setDialogue() {
         dialogues[0][0] = "So 'ooos' there then?";
-        dialogues[0][1] = "You Wotttt m8\n Sharrarap";
-        dialogues[0][2] = "Whats tha go'a do wi wo 'am doin 'en?\n ge' ou o' here";
+        dialogues[0][1] = "You Wotttt m8 Sharrarap";
+        dialogues[0][2] = "Whats tha go'a do wi wo 'am doin 'en? ge' ou o' here";
 
         dialogues[1][0] = "err, rest at the campfire to save innit";
-        dialogues[1][1] = "if u kill those blueberries there \nyou can get sum stuff for free innit";
+        dialogues[1][1] = "if u kill those blueberries there you can get sum stuff for free innit";
         dialogues[1][2] = "ge' ou o' here";
 
-        dialogues[2][0] = "There's like a bunch of stuff to unlock,\n so get money u broke ahh";
-        dialogues[2][1] = "u can use ur money in that grey shed over there,\n thats my m8 green guy innit";
+        dialogues[2][0] = "There's like a bunch of stuff to unlock, so get money u broke ahh";
+        dialogues[2][1] = "u can use ur money in that grey shed over there, thats my m8 green guy innit";
         dialogues[2][2] = "ge' ou o' here";
 
     }
