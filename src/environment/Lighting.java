@@ -97,6 +97,7 @@ public class Lighting {
         filterAlpha = 0f;
     }
     public void update() {
+        // int duration = 120000; // 2 mins lol
         int duration = 4200;
         // int duration = 100; // testing
 

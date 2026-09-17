@@ -1,6 +1,5 @@
 package main;
 
-import ai.PathFinder;
 import data.Progress;
 import entity.Entity;
 
@@ -96,6 +95,8 @@ public class EventHandler{
             else if (hit (3, 26, 11, "any" )== true ) {teleport(2, 41,44, gp.dungeon);} // to the dungeon1 from dungeon 2
 
             else if (hit (3, 26, 21, "any" )== true ) {blueSlimeBoss();} 
+            // everytime you enter the room, we'll check if she needs to say anything.
+            else if (hit (7, 24, 28, "any")== true ) {mumDialogueEvent();}
 
             
         } 
@@ -164,12 +165,17 @@ public class EventHandler{
         if (gp.bossBattleOn == false && Progress.blueSlimeBossDefeated == false) {
             gp.gameState = gp.cutsceneState;
             gp.csManager.sceneNum = gp.csManager.blueSlimeBoss;
-
         }
     }
 
     public void begginingEvent() {
         gp.gameState = gp.cutsceneState;
         gp.csManager.sceneNum = gp.csManager.beggining;
+    }
+    public void mumDialogueEvent() {
+        if (gp.currentQuest == gp.quest1) {
+            gp.csManager.sceneNum = gp.csManager.mum;
+            gp.gameState = gp.cutsceneState;
+        }
     }
 }

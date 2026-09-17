@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import entity.Entity;
+import entity.NPC_Mum;
 import entity.PlayerDummy;
 import monster.MON_BlueSlimeBoss;
 import object.OBJ_gpuTreasure;
@@ -29,7 +30,9 @@ public class CutsceneManager {
     public final int gpuObtained = 2;
     public final int teleport = 3;
     public final int ending = 4; // implement later lol
-    public final int beggining = 5; // implement later lol
+    public final int beggining = 5;
+    public final int mum = 6;
+    
 
     // \n
     public CutsceneManager (GamePannel gp) {
@@ -80,6 +83,7 @@ public class CutsceneManager {
             case gpuObtained: scene_gpuObtained(); break;
             case teleport: scene_Transition(); break;
             case ending: scene_ending();break;
+            case mum: scene_mumMuffinQuest();break;
 
         }
     }
@@ -247,16 +251,15 @@ public class CutsceneManager {
         if (scenePhase == 12) {
             // start the game.
             gp.keyH.enterPressed = false; // just in case they hold enter or somth.
-            if(counterReached(2)) { // 2 frames?
-                gp.gameState = gp.dialogueState;
+            if(counterReached(1)) { // 1 frame pls
                 gp.setBackground(new java.awt.Color(77, 152, 187));
                 gp.player.startDialogue(gp.player, 1);
                 scenePhase = NA;
                 sceneNum = 0;
                 gp.stopMusic();
                 gp.playMusic(0);
+                gp.ui.drawDialogueScreen();// hopefully this helps.
             }
-
         }
         
     }
@@ -327,6 +330,42 @@ public class CutsceneManager {
     }
     
     // BOSS SCENES & PROGRESSION
+    public void scene_mumMuffinQuest() {
+        if (scenePhase == 0) {
+            drawDummyPlayer();
+            scenePhase++;
+        }
+        if (scenePhase == 1) {
+
+            // move camera to mum
+            gp.player.worldY -= 2;
+
+            if (gp.player.worldY < gp.tileSize * 23) {
+
+                for (int i = 0; i < gp.npc[1].length; i++) {
+                    if (gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name == "mum") {
+                        gp.ui.npc = gp.npc[gp.currentMap][i];
+                    }
+                }
+
+                scenePhase++;
+            }
+        }
+        if (scenePhase == 2) {
+            gp.ui.npc.facePlayer();
+            gp.ui.drawDialogueScreen();
+        }
+        if (scenePhase == 3) {
+            removeDummyPlayer();
+            
+            gp.player.drawing = true;
+            scenePhase = NA;
+            sceneNum = 0;
+            gp.currentQuest = gp.quest2; // should stop this cutscene..
+            gp.gameState = gp.playState;
+        }
+    }
+
     public void scene_blueSlimeBoss() {
         if (scenePhase == 0) {
             gp.bossBattleOn = true;
@@ -342,19 +381,7 @@ public class CutsceneManager {
                 }
             }
             // replacing the plr with a dummy.
-
-            for (int i = 0; i < gp.npc[1].length; i++) {
-                if (gp.npc[gp.currentMap][i] == null) {
-                    gp.npc[gp.currentMap][i] = new PlayerDummy(gp); 
-                    gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
-                    gp.npc[gp.currentMap][i].worldY = gp.player.worldY;
-                    gp.npc[gp.currentMap][i].direction = gp.player.direction;
-                    break;
-                }
-            }
-
-
-            gp.player.drawing = false;
+            drawDummyPlayer();
 
             scenePhase++;
         }
@@ -389,16 +416,7 @@ public class CutsceneManager {
         if (scenePhase == 4) {
             // return to plr
 
-            for (int i = 0; i < gp.npc[1].length; i++) {
-                if (gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name.equals(PlayerDummy.npcName)) {
-                    // restore plr pos
-                    gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
-                    gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
-
-                    gp.npc[gp.currentMap][i] = null;
-                    break;
-                }
-            }
+            removeDummyPlayer();
 
             gp.player.drawing = true;
             scenePhase = NA;
@@ -535,5 +553,32 @@ public class CutsceneManager {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
 
+    }
+
+    public void drawDummyPlayer() {
+        for (int i = 0; i < gp.npc[1].length; i++) {
+                if (gp.npc[gp.currentMap][i] == null) {
+                    gp.npc[gp.currentMap][i] = new PlayerDummy(gp); 
+                    gp.npc[gp.currentMap][i].worldX = gp.player.worldX;
+                    gp.npc[gp.currentMap][i].worldY = gp.player.worldY;
+                    gp.npc[gp.currentMap][i].direction = gp.player.direction;
+                    break;
+                }
+            }
+
+        gp.player.drawing = false;
+    }
+
+    public void removeDummyPlayer() {
+        for (int i = 0; i < gp.npc[1].length; i++) {
+            if (gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name.equals(PlayerDummy.npcName)) {
+                // restore plr pos
+                gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
+                gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
+
+                gp.npc[gp.currentMap][i] = null;
+                break;
+            }
+        }
     }
 }

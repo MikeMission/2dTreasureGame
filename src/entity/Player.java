@@ -12,8 +12,6 @@ import object.OBJ_Key;
 import main.GamePannel;
 import main.KeyHandler;
 
-
-
 public class Player extends Entity {
     
     KeyHandler keyH;
@@ -43,6 +41,7 @@ public class Player extends Entity {
     }
 
     public void setDefualtValues() {
+        gp.currentQuest = gp.quest1;
         worldX = gp.tileSize * 27 - (gp.tileSize / 2);
         worldY = gp.tileSize * 42 - (gp.tileSize / 2); // 20
         direction = "down";

@@ -80,6 +80,7 @@ public class UI {
             drawPlayerLife();
             drawMonsterHealthBar();
             drawMessage();
+            drawQuest();
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
@@ -206,6 +207,24 @@ public class UI {
 
     }
 
+    public void drawQuest() {
+        if (gp.currentQuest == null) {
+            return; // draw nothing brav!
+        }
+        int x = gp.tileSize / 2;
+        int y = gp.tileSize * 3;
+
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(25f));
+        // get quest 
+        String questTitle = gp.currentQuest.title;
+        String questDescription = gp.currentQuest.description;
+
+        g2.drawString(questTitle, x, y); y+=gp.tileSize/2;
+        g2.setFont(g2.getFont().deriveFont(15f));
+        g2.drawString(questDescription, x, y);
+    }
+
     public void drawMonsterHealthBar() {
 
         for (int monsterIndex = 0; monsterIndex < gp.monster[1].length; monsterIndex++) {
@@ -255,11 +274,13 @@ public class UI {
         }
         
     }
+    
     public void drawMessage(){
-        
+        // this is the game message thingie
+
         int messageX = gp.tileSize;
-        int messageY = gp.tileSize * 4;
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 18F));
+        int messageY = gp.tileSize * 5;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 12F));
 
         for(int i = 0; i < message.size(); i++) {
 
@@ -272,7 +293,7 @@ public class UI {
 
                 int counter = messageCounter.get(i) + 1; // messagecounter ++
                 messageCounter.set(i, counter); // set the counter to the arr
-                messageY += 25;
+                messageY += 14;
 
                 if (messageCounter.get(i) > 180) {
                     message.remove(i);
@@ -402,7 +423,7 @@ public class UI {
         
         x += gp.tileSize;
         y += gp.tileSize;
-
+        
         if (npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
 
             // currentDialogue = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
@@ -807,12 +828,17 @@ public class UI {
                     subState = 0;
                     npc.startDialogue(npc, 4);
                 }
+                if (gp.player.inventory.get(itemIndex).sellable == false) {
+                    commandNum = -1;
+                    subState = 0;
+                    npc.startDialogue(npc, 5);
+                }
                 else if (gp.player.inventory.get(itemIndex).amount > 1) {
                     gp.playSE(15);
                     gp.player.inventory.get(itemIndex).amount--;
                     gp.player.coin += price;
                 }
-                else {
+                else if (gp.player.inventory.get(itemIndex).sellable){
                     gp.playSE(15);
                     gp.player.inventory.remove(itemIndex);
                     gp.player.coin += price;

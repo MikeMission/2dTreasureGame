@@ -19,6 +19,7 @@ public class OBJ_noSword extends Entity{
         knockBackPower = 1;
         motion1_duration = 5;
         motion2_duration = 25;
+        sellable = false;
         // price = 30;
     }
 }

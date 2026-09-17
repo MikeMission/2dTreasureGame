@@ -20,6 +20,7 @@ import interactive_tiles.InteractiveTile;
 import tile.Map;
 import tile.TileManager;
 import data.SaveLoad;
+import data.Quest;
 
 public class GamePannel extends javax.swing.JPanel implements Runnable {
     
@@ -94,8 +95,12 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public final int cutsceneState = 11;
     public final int controlsState = 12;
 
-
-    // OTHERS
+    // QUEST
+    public Quest currentQuest;
+    public Quest quest1 = new Quest("Get to your house safely!", "avoid or hit the slimes");
+    public Quest quest2 = new Quest("Give Muffin to Neighbour","interact with the oven");
+    
+    // BOSS
     public boolean bossBattleOn = false;
     
     // AREA
@@ -204,6 +209,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                 update();
                 drawToScreen();
                 paintComponent(g2);
+                // repaint();
                 delta--;
             }
 
@@ -274,8 +280,11 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-
-        Graphics2D g2 = (Graphics2D) g;
+        // for some reason g2 is null before the game starts, but we go next king.
+        if (g2 == null) {
+            return;
+        }
+        // Graphics2D g2 = (Graphics2D) g;
 
         // DEBUG
         long drawStart = 0;
@@ -398,9 +407,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public void drawToScreen() {
         Graphics g = getGraphics();
         g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
-        if (g != null) {
-            g.dispose(); // idk, hopefully this stops teh drawing error.
-        }
+        g.dispose(); // idk, hopefully this stops teh drawing error.
+        
     }
 
     public void playMusic(int i) {
@@ -424,7 +432,12 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             // make it so when it is night, we change the music!
 
             if (nextArea == outside) {
-                playMusic(0);
+                if (envManager.lighting.dayState == envManager.lighting.day) {
+                    playMusic(0);
+                }
+                else { // thing is.. how can we change if player is already outside...
+                    playMusic(31);
+                }
             }
             if (nextArea == indoor) {
                 playMusic(24);

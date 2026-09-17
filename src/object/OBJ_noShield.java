@@ -14,6 +14,7 @@ public class OBJ_noShield extends Entity{
         down1 = setup("/res/objects/noShield.png", gp.tileSize, gp.tileSize);
         defenseValue = 1;
         description = "[" + name + "]\nYou're Using your fists";
+        sellable = false;
         // price = 30;
     }
 }

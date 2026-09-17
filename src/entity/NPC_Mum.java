@@ -24,12 +24,10 @@ public class NPC_Mum extends Entity {
         type = type_npc;
         name = "mum";
 
-        dialogueSet = -1;
-
+        dialogueSet = 0;
 
         getImage();
         setDialogue();
-
     }
 
      public void getImage() {

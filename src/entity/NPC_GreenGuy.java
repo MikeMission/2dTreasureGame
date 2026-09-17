@@ -51,6 +51,7 @@ public class NPC_GreenGuy extends Entity {
         dialogues[2][0] = "You cannot afford that silly.";
         dialogues[3][0] = "You cannot carry any more!";
         dialogues[4][0] = "You cannot sell an equipped item!";
+        dialogues[5][0] = "You cannot sell this item.";
     }
 
     public void setItems() {
