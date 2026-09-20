@@ -99,7 +99,7 @@ public class KeyHandler implements KeyListener{
                 // skip the cutscene
                 gp.saveLoad.load();
                 gp.gameState = gp.playState; 
-                gp.playMusic(0);
+                gp.playMusic(gp.currentTrack);
             }
             if (gp.ui.commandNum == 2) {
                 System.exit(0);
@@ -144,7 +144,9 @@ public class KeyHandler implements KeyListener{
         }
         
         if (code == KeyEvent.VK_X) {
-            gp.map.miniMapOn = !gp.map.miniMapOn; // toggle 
+            if (gp.currentArea == gp.outside) {
+                gp.map.miniMapOn = !gp.map.miniMapOn; // toggle 
+            }
         }
         if (code == KeyEvent.VK_SPACE) {
             spacePressed = true;

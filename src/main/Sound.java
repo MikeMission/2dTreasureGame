@@ -12,7 +12,7 @@ import javax.sound.sampled.AudioSystem;
 public class Sound {
 
     Clip clip;
-    URL soundURL[] = new URL[100];
+    public URL soundURL[] = new URL[100];
     FloatControl fc;
     int volumeScale = 3;
     float volume;
@@ -50,6 +50,8 @@ public class Sound {
         soundURL[29] = getClass().getResource("/res/sound/playerHouse.wav");
         soundURL[30] = getClass().getResource("/res/sound/neighbourInterior.wav");
         soundURL[31] = getClass().getResource("/res/sound/night1.wav");
+        soundURL[32] = getClass().getResource("/res/sound/outside1.wav");
+
 
 
 
@@ -64,7 +66,14 @@ public class Sound {
 
     }
 
-
+    public void setVolume(float value) {
+        this.volume = value;
+         if (fc != null) {
+            // Clamp to legal range to avoid IllegalArgumentException
+            float clamped = Math.max(fc.getMinimum(), Math.min(fc.getMaximum(), value));
+            fc.setValue(clamped);
+        }
+    }
     public void setFile(int i) {
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
@@ -92,7 +101,6 @@ public class Sound {
 
     public void loop() {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
-
     }
     
     public void stop() {
@@ -108,7 +116,7 @@ public class Sound {
             case 4: volume = 1f; break;
             case 5: volume = 6f;break;
         }
-        fc.setValue(volume);
+        setVolume(volume);
     }
 
 }

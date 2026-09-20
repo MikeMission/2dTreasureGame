@@ -17,6 +17,16 @@ public class DataStorage implements Serializable {
     int nextLevelExp;
     int coin;
 
+    // plr location
+    int x;
+    int y;
+    int currentMap;
+
+    // current things
+    int currentQuestID;
+    int currentArea;
+    int currentTrack;
+
     // plr inventory
     ArrayList<String> itemNames = new ArrayList<>();
     ArrayList<Integer> itemAmounts = new ArrayList<>();

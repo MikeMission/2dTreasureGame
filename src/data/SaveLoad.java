@@ -10,22 +10,12 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import main.GamePannel;
-import object.OBJ_Axe;
-import object.OBJ_Boots;
-import object.OBJ_Chest;
-import object.OBJ_Door;
-import object.OBJ_GradScroll;
-import object.OBJ_HealthPotion;
-import object.OBJ_Key;
-import object.OBJ_Lantern;
-import object.OBJ_Shield_Wood;
-import object.OBJ_Shield_Wood_Circle;
-import object.OBJ_Sword_Normal;
-import object.OBJ_Tent;
 
 public class SaveLoad {
     
     GamePannel gp;
+    ObjectOutputStream oos;
+    ObjectInputStream ois;
 
     public SaveLoad(GamePannel gp) {
         this.gp = gp;
@@ -33,7 +23,7 @@ public class SaveLoad {
 
     public void save() {
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
+            oos = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
 
             DataStorage ds = new DataStorage();
             
@@ -48,6 +38,16 @@ public class SaveLoad {
             ds.exp = gp.player.exp;
             ds.nextLevelExp = gp.player.nextLevelExp;
             ds.coin = gp.player.coin;
+
+            // location
+            ds.x = gp.player.worldX;
+            ds.y = gp.player.worldY;
+
+            // current things
+            ds.currentMap = gp.currentMap;
+            ds.currentQuestID = gp.currentQuestID;
+            ds.currentArea = gp.currentArea;
+            ds.currentTrack = gp.currentTrack;
 
             // inventory
             for (int i = 0; i < gp.player.inventory.size(); i++) {
@@ -89,17 +89,20 @@ public class SaveLoad {
 
             // write 
             oos.writeObject(ds);
-
+            oos.close();
         }
         catch(Exception e) {
             System.out.println("Save Exception!");
             System.out.println("failed to save data to save.dat");
+            e.printStackTrace();
+        }
+        finally {
         }
 
     }
     public void load() {
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("save.dat")));
+            ois = new ObjectInputStream(new FileInputStream(new File("save.dat")));
 
             DataStorage ds = (DataStorage) ois.readObject();
 
@@ -113,6 +116,14 @@ public class SaveLoad {
             gp.player.exp = ds.exp;
             gp.player.nextLevelExp = ds.nextLevelExp;
             gp.player.coin = ds.coin;
+            // plr location
+            gp.player.worldX = ds.x;
+            gp.player.worldY = ds.y;
+            // plr current stuff
+            gp.currentMap = ds.currentMap;
+            gp.currentQuestID = ds.currentQuestID;
+            gp.currentArea = ds.currentArea;
+            gp.currentTrack = ds.currentTrack;
             
             // plr inv
             gp.player.inventory.clear();
@@ -136,6 +147,9 @@ public class SaveLoad {
                     if (ds.mapObjectNames[mapNum][i].equals("N/A")) {
                         gp.obj[mapNum][i] = null;
                     } else {
+                        // System.out.println(i);
+                        // System.out.println(gp.obj[mapNum][i]);
+                        // IDK NULL POINTER FOR SOME REASON?!
                         gp.obj[mapNum][i] = gp.eGenerator.getObject(ds.mapObjectNames[mapNum][i]);
                         gp.obj[mapNum][i].worldX = ds.mapObjectWorldX[mapNum][i];
                         gp.obj[mapNum][i].worldY = ds.mapObjectWorldY[mapNum][i];
@@ -152,10 +166,12 @@ public class SaveLoad {
                 }
             }
 
+            ois.close();
         }
         catch (Exception e) {
             System.out.println("Load Exception!");
             System.out.println("failed to load data from save.dat");
+            e.printStackTrace();
         }
     }
 }

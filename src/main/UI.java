@@ -5,10 +5,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import data.Quest;
 import object.OBJ_BronzeCoin;
 import object.OBJ_Heart;
 import object.OBJ_Key;
@@ -121,8 +123,6 @@ public class UI {
         if (gp.gameState == gp.controlsState) {
             drawControlsScreen();
         }
-
-      
     }
 
     public void drawGameOverScreen() {
@@ -208,17 +208,19 @@ public class UI {
     }
 
     public void drawQuest() {
-        if (gp.currentQuest == null) {
+        if (gp.currentQuestID == 0) {
             return; // draw nothing brav!
         }
         int x = gp.tileSize / 2;
         int y = gp.tileSize * 3;
-
+        
         g2.setColor(Color.WHITE);
         g2.setFont(g2.getFont().deriveFont(25f));
         // get quest 
-        String questTitle = gp.currentQuest.title;
-        String questDescription = gp.currentQuest.description;
+        Quest currentQuest = Quest.getQuestFromID(gp.currentQuestID, gp.quests);
+
+        String questTitle = currentQuest.title;
+        String questDescription = currentQuest.description;
 
         g2.drawString(questTitle, x, y); y+=gp.tileSize/2;
         g2.setFont(g2.getFont().deriveFont(15f));
@@ -406,7 +408,7 @@ public class UI {
     public void drawDialogueScreen() {
         // WINDOW
         int x = gp.tileSize * 3;
-        int y = gp.tileSize / 2;
+        int y = gp.tileSize * 7;
         // int y = gp.tileSize * 2;
         int width = gp.screenWidth - (gp.tileSize * 6);
         int height = gp.tileSize * 4;
@@ -414,12 +416,16 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(java.awt.Font.PLAIN, 28F));
 
         if (npc != gp.player && npc.name != null && gp.eGenerator.getObject(npc.name) == null) {
-            y = gp.tileSize*2;
             drawSubWindow(x, y - gp.tileSize - gp.tileSize/2, gp.tileSize * 7, gp.tileSize + gp.tileSize/2);
             g2.drawString(npc.name, x + gp.tileSize/2, y - gp.tileSize/2 - 10);
         }
 
+        if (npc.speakingImage != null) {
+            g2.drawImage(npc.speakingImage, x + gp.tileSize*10, y - gp.tileSize*8, null);
+        }
+        
         drawSubWindow(x, y, width, height);
+       
         
         x += gp.tileSize;
         y += gp.tileSize;
@@ -431,13 +437,8 @@ public class UI {
             char characters[] = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
 
             if (charIndex < characters.length) {
-
                 String s = String.valueOf(characters[charIndex]);
-                if (charIndex == 42) {
-                    combinedText = combinedText + s + "-\n";
-                } else {
-                    combinedText = combinedText + s;
-                }
+                combinedText = combinedText + s;
                 currentDialogue = combinedText;
                 gp.playSE(21);
                 charIndex++;

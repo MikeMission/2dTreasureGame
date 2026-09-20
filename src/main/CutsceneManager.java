@@ -338,9 +338,9 @@ public class CutsceneManager {
         if (scenePhase == 1) {
 
             // move camera to mum
-            gp.player.worldY -= 2;
+            gp.player.worldY -= 1;
 
-            if (gp.player.worldY < gp.tileSize * 23) {
+            if (gp.player.worldY < gp.tileSize * 26) {
 
                 for (int i = 0; i < gp.npc[1].length; i++) {
                     if (gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name == "mum") {
@@ -361,7 +361,7 @@ public class CutsceneManager {
             gp.player.drawing = true;
             scenePhase = NA;
             sceneNum = 0;
-            gp.currentQuest = gp.quest2; // should stop this cutscene..
+            gp.currentQuestID = gp.quest2.id; // should stop this cutscene..
             gp.gameState = gp.playState;
         }
     }

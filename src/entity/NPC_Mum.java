@@ -32,6 +32,7 @@ public class NPC_Mum extends Entity {
 
      public void getImage() {
 
+
         up1 = setup("/res/NPC/mum/up1.png", gp.tileSize, gp.tileSize);
         up2 = setup("/res/NPC/mum/up2.png", gp.tileSize, gp.tileSize);
         down1 = setup("/res/NPC/mum/down1.png", gp.tileSize, gp.tileSize);
@@ -40,6 +41,7 @@ public class NPC_Mum extends Entity {
         left2 = setup("/res/NPC/mum/left2.png", gp.tileSize, gp.tileSize);
         right1 = setup("/res/NPC/mum/right1.png", gp.tileSize, gp.tileSize);
         right2 = setup("/res/NPC/mum/right2.png", gp.tileSize, gp.tileSize);
+        speakingImage = setup("/res/NPC/mum/speakingImg.png", gp.tileSize*4, gp.tileSize*8);
 
     }
     public void setDialogue() {

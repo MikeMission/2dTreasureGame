@@ -43,9 +43,9 @@ public class NPC_Omari extends Entity {
     }
     public void setDialogue() {
         dialogues[0][0] = "...";
-        dialogues[0][1] = "I have been waiting for you, comp grad.";
+        dialogues[0][1] = "I have been waiting for you,\n comp grad.";
         dialogues[0][2] = "Here is a gift.";
-        dialogues[0][3] = "Use it wisely, for you will be facing something greater than I.";
+        dialogues[0][3] = "Use it wisely, for you will be facing \n something greater than I.";
 
         dialogues[1][0] = "What are you still doing here?";
 

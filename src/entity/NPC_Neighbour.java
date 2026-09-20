@@ -42,6 +42,7 @@ public class NPC_Neighbour extends Entity {
         left2 = setup("/res/NPC/neighbour/left2.png", gp.tileSize, gp.tileSize);
         right1 = setup("/res/NPC/neighbour/right1.png", gp.tileSize, gp.tileSize);
         right2 = setup("/res/NPC/neighbour/right2.png", gp.tileSize, gp.tileSize);
+        speakingImage = setup("/res/NPC/neighbour/speakingImg.png", gp.tileSize*4, gp.tileSize*8);
 
     }
     public void setDialogue() {

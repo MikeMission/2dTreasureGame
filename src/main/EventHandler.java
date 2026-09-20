@@ -173,7 +173,7 @@ public class EventHandler{
         gp.csManager.sceneNum = gp.csManager.beggining;
     }
     public void mumDialogueEvent() {
-        if (gp.currentQuest == gp.quest1) {
+        if (gp.currentQuestID == gp.quest1.id) {
             gp.csManager.sceneNum = gp.csManager.mum;
             gp.gameState = gp.cutsceneState;
         }

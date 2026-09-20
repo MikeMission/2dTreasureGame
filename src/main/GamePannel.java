@@ -65,6 +65,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public SaveLoad saveLoad = new SaveLoad(this);
     public EntityGenerator eGenerator = new EntityGenerator(this);
     public CutsceneManager csManager = new CutsceneManager(this);
+    int previousVolumeScale = music.volumeScale; // this should be setup from config
+    int fadingVolume = previousVolumeScale;
     Thread gameThread;
 
 
@@ -96,10 +98,13 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public final int controlsState = 12;
 
     // QUEST
-    public Quest currentQuest;
-    public Quest quest1 = new Quest("Get to your house safely!", "avoid or hit the slimes");
-    public Quest quest2 = new Quest("Give Muffin to Neighbour","interact with the oven");
-    
+    public int currentQuestID = 0;
+    public Quest quest1 = new Quest("Get to your house safely!", "avoid or hit the slimes",1);
+    public Quest quest2 = new Quest("Give Muffin to Neighbour","interact with the oven",2);
+    public Quest quests[] = {quest1,quest2};
+
+    // MUSIC
+    public int currentTrack;
     // BOSS
     public boolean bossBattleOn = false;
     
@@ -112,6 +117,8 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
     public final int ateInterior = 53;
     public final int playerHouse = 54;
     public final int neighbourIndoor = 55;
+    public final int tutorial = 56;
+
 
     public GamePannel() {
 
@@ -134,7 +141,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         System.out.println(screenWidth + " " + screenHeight);
 
         gameState = titleState;
-        currentArea = outside;
+        currentArea = tutorial;
 
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
@@ -146,7 +153,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
         if (music.clip != null) {
             music.clip = null;
         }
-        currentArea = outside;
+        currentArea = tutorial;
         removeTempEntity();
         bossBattleOn = false;
         player.setDefaultPositions();
@@ -268,8 +275,22 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
                     }
                 }
             }
+            // lighting
             envManager.update();
+            // music 
+            if (envManager.lighting.dayState == envManager.lighting.day && currentTrack != 32 && currentArea == outside) {
+                //grr
+                stopMusic();
+                playMusic(32);
+            }
+            else if (envManager.lighting.dayState == envManager.lighting.night && currentTrack != 31 && currentArea == outside) {
+                stopMusic();
+                playMusic(31);
+            }
+            
+        
         }
+
         // can add different states...
         // for now any state other than playState, we do nothing here.
 
@@ -371,7 +392,9 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
             envManager.draw(g2);
 
             // mini map
-            map.drawMiniMap(g2);
+            if (currentArea == outside) {
+                map.drawMiniMap(g2);
+            }
 
             // CUTSCENE
             csManager.draw(g2);
@@ -413,8 +436,11 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
 
     public void playMusic(int i) {
         music.setFile(i);
+        currentTrack = i;
         music.play();
         music.loop();
+        // System.out.println("currentTrack" + currentTrack);
+        // System.out.println("currentARea:" + currentArea);
     }
     public void stopMusic() {
         music.stop();
@@ -433,7 +459,7 @@ public class GamePannel extends javax.swing.JPanel implements Runnable {
 
             if (nextArea == outside) {
                 if (envManager.lighting.dayState == envManager.lighting.day) {
-                    playMusic(0);
+                    playMusic(32);
                 }
                 else { // thing is.. how can we change if player is already outside...
                     playMusic(31);

@@ -18,7 +18,7 @@ import java.awt.Graphics2D;
 public class Entity {
     GamePannel gp;
 
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2, speakingImage;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
     public BufferedImage guardUp, guardDown, guardLeft, guardRight;
     public BufferedImage image, image2, image3;
@@ -125,6 +125,9 @@ public class Entity {
     public final int type_light = 10; // player's lantern or whatnot
     public final int type_pickaxe = 11;
     public final int type_lightEmmiter = 12; // lamp obj and such.
+
+    // uTool
+    public UtitlityTool uTool = new UtitlityTool();
 
     public Entity(GamePannel gp) {
         this.gp = gp;
@@ -732,7 +735,7 @@ public class Entity {
     }
     public BufferedImage setup(String imagePath, int width, int height) {
         //load a single image
-        UtitlityTool uTool = new UtitlityTool();
+        uTool = new UtitlityTool();
 
         BufferedImage image = null;
         try {
